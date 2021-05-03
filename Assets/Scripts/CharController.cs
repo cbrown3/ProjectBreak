@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,7 +21,6 @@ public class CharController : MonoBehaviour
     }
 
     public static State currentState;
-    public float GroundSpeed { get => groundSpeed; set => groundSpeed = value; }
 
     [SerializeField]
     private State stateSerializationHelper;
@@ -29,31 +28,32 @@ public class CharController : MonoBehaviour
     [SerializeField]
     private Vector2 velocitySerializationHelper;
 
-    private CharacterControls charControls;
+    protected CharacterControls charControls;
 
-    private Animator animator;
-    private Rigidbody2D rigid;
-    private Collider2D collider;
-    private int dashFrames;
-    private bool isGrounded = false;
-    private bool canDash = false;
-    private bool canDJump = false;
 
-    [SerializeField]
-    private LayerMask ground;
+    [NonSerialized]
+    public Animator animator;
 
-    [SerializeField]
-    private float groundSpeed = 12;
+    [NonSerialized]
+    public Rigidbody2D rigid;
 
-    [SerializeField]
-    private float dashSpeed = 25;
+    [NonSerialized]
+    public int dashFrames;
 
-    [SerializeField]
-    private float jumpSpeed = 12;
+    [NonSerialized]
+    public bool isGrounded,
+    canDash,
+    canDJump;
 
-    [SerializeField]
-    private float moveInput;
-    private float airDashInput;
+    [NonSerialized]
+    public LayerMask ground;
+
+    [NonSerialized]
+    public float groundSpeed = 1,
+     dashSpeed = 25,
+     jumpSpeed = 12,
+     moveInput,
+     airDashInput;
 
     private const string aStopAnim = "Stop";
     private const string aAirDashAnim = "AirDash";
@@ -78,7 +78,6 @@ public class CharController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
 
         charControls.Character.Jump.performed += _ => EnterState(State.Jump);
         charControls.Character.AirDash.performed += _ => EnterState(State.AirDash);
