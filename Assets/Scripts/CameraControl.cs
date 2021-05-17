@@ -67,11 +67,11 @@ public class CameraControl : MonoBehaviour
         {
             if (cam.WorldToScreenPoint(collision.transform.position).x > Screen.width / 2)
             {
-                transform.Translate(collision.GetComponent<CharController>().GroundSpeed * Time.deltaTime, 0, 0);
+                transform.Translate(collision.GetComponent<CharController>().groundSpeed * Time.deltaTime, 0, 0);
             }
             else if (cam.WorldToScreenPoint(collision.transform.position).x < Screen.width / 2)
             {
-                transform.Translate(-collision.GetComponent<CharController>().GroundSpeed * Time.deltaTime, 0, 0);
+                transform.Translate(-collision.GetComponent<CharController>().groundSpeed * Time.deltaTime, 0, 0);
             }
         }
     }

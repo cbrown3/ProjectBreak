@@ -9,26 +9,15 @@ using UnityEngine.InputSystem;
 public class CharController : MonoBehaviour
 {
 
-    public enum State
-    {
-        Stop,
-        AirDash,
-        Walk,
-        Run,
-        Crouch,
-        Jump,
-        Fall
-    }
-
-    public static State currentState;
+    StateMachine<CharController> stateMachine;
 
     [SerializeField]
-    private State stateSerializationHelper;
+    private string stateSerializationHelper;
 
     [SerializeField]
     private Vector2 velocitySerializationHelper;
 
-    protected CharacterControls charControls;
+    public CharacterControls charControls;
 
 
     [NonSerialized]
@@ -38,9 +27,6 @@ public class CharController : MonoBehaviour
     public Rigidbody2D rigid;
 
     [NonSerialized]
-    public int dashFrames;
-
-    [NonSerialized]
     public bool isGrounded,
     canDash,
     canDJump;
@@ -48,12 +34,25 @@ public class CharController : MonoBehaviour
     [NonSerialized]
     public LayerMask ground;
 
+    public float groundSpeed,
+     dashSpeed,
+     jumpHeight,
+     aerialDrift;
+
+    public int dashFrameLength,
+    dashStartup,
+    jumpSquatFrames;
+
     [NonSerialized]
-    public float groundSpeed = 1,
-     dashSpeed = 25,
-     jumpSpeed = 12,
-     moveInput,
-     airDashInput;
+    public float airDashInput, jumpInput, moveInput;
+
+    /*
+    public StopState stopState;
+    public AirDashState airDashState;
+    public RunState runState;
+    public JumpState jumpState;
+    public FallState fallState;
+    */
 
     private const string aStopAnim = "Stop";
     private const string aAirDashAnim = "AirDash";
@@ -66,6 +65,11 @@ public class CharController : MonoBehaviour
     private void Awake()
     {
         charControls = new CharacterControls();
+        animator = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
+
+        stateMachine = new StateMachine<CharController>();
+        stateMachine.Configure(this, IdleState.Instance);
     }
 
     private void OnEnable()
@@ -76,39 +80,27 @@ public class CharController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        rigid = GetComponent<Rigidbody2D>();
-
-        charControls.Character.Jump.performed += _ => EnterState(State.Jump);
-        charControls.Character.AirDash.performed += _ => EnterState(State.AirDash);
-        charControls.Character.Move.performed += _ => EnterState(State.Run);
+        charControls.Character.Jump.performed += _ => EnterState(JumpState.Instance);
+        charControls.Character.AirDash.performed += _ => AirDash();
+        charControls.Character.Move.performed += _ => Movement();
     }
 
     // Update is called once per frame
     void Update()
     {
-        stateSerializationHelper = currentState;
+        stateSerializationHelper = stateMachine.GetCurrentState().ToString();
     }
 
     private void FixedUpdate()
     {
-        ContinueState();
+        //ContinueState(); 
 
-        /*
-        //if(!isDashing)
-        //{
-            float movementInput = charControls.Character.Move.ReadValue<float>();
+        stateMachine.Update();
 
-            Vector2 currentPos = transform.position;
-
-            currentPos.x += movementInput * groundSpeed * Time.deltaTime;
-
-            transform.position = currentPos;
-        //}
-        */
         velocitySerializationHelper = rigid.velocity;
     }
 
+    /*
     public void EnterState(State stateEntered)
     {
         switch(stateEntered)
@@ -175,93 +167,122 @@ public class CharController : MonoBehaviour
                 break;
         }
     }
+    */
 
-    private void ContinueState()
+    public void Movement()
     {
-        switch (currentState)
+        if(isGrounded)
         {
-            case State.Stop:
-                if (Mathf.Round(rigid.velocity.x) != 0)
-                {
-                    EnterState(State.Run);
-                }
-                break;
+            EnterState(RunState.Instance);
+        }
+    }
 
-            case State.AirDash:
-                if(dashFrames > 10)
-                {
-                    rigid.velocity = Vector2.zero;
-                }
-                else if(dashFrames < 1)
-                {
-                    rigid.velocity = Vector2.zero;
+    public void AirDash()
+    {
+        if(stateMachine.GetCurrentState() != AirDashState.Instance)
+        {
+            EnterState(AirDashState.Instance);
+        }
+    }
 
-                    EnterState(State.Fall);
-                }
-                else
-                {
-                    //rigid.AddForce(new Vector2(dashSpeed * airDashInput, 0), ForceMode2D.Impulse);
-                    rigid.velocity = new Vector2(dashSpeed * airDashInput, 0);
-                }
+    public void EnterState(IState<CharController> stateEntered)
+    {
+        stateMachine.EnterState(stateEntered);
+    }
 
-                dashFrames--;
-                break;
+    public void RevertToPreviousState()
+    {
+        stateMachine.RevertToPreviousState();
+    }
 
-            case State.Walk:
-            case State.Run:
-                moveInput = charControls.Character.Move.ReadValue<float>();
-
-                rigid.AddForce(new Vector2(groundSpeed * moveInput, 0), ForceMode2D.Impulse);
-
-                if (rigid.velocity.x > groundSpeed)
-                {
-                    rigid.velocity = new Vector2(groundSpeed, rigid.velocity.y);
-                }
-                else if (rigid.velocity.x < -groundSpeed)
-                {
-                    rigid.velocity = new Vector2(-groundSpeed, rigid.velocity.y);
-                }
-                else
-                {
-                    EnterState(State.Stop);
-                }
-                break;
-
-            case State.Crouch:
-                break;
-
-            case State.Jump:
-                if (Mathf.Round(rigid.velocity.y) < 0)
-                {
-                    EnterState(State.Fall);
-                    break;
-                }
-
-                CalculateMovement();
-
-                break;
-
-            case State.Fall:
-                if (Mathf.Round(rigid.velocity.y) == 0)
-                {
-                    if(Mathf.Round(rigid.velocity.x) != 0)
+    /*
+        private void ContinueState()
+        {
+            switch (currentState)
+            {
+                case State.Stop:
+                    if (Mathf.Round(rigid.velocity.x) != 0)
                     {
                         EnterState(State.Run);
+                    }
+                    break;
+
+                case State.AirDash:
+                    if(dashFrames > 10)
+                    {
+                        rigid.velocity = Vector2.zero;
+                    }
+                    else if(dashFrames < 1)
+                    {
+                        rigid.velocity = Vector2.zero;
+
+                        EnterState(State.Fall);
+                    }
+                    else
+                    {
+                        //rigid.AddForce(new Vector2(dashSpeed * airDashInput, 0), ForceMode2D.Impulse);
+                        rigid.velocity = new Vector2(dashSpeed * airDashInput, 0);
+                    }
+
+                    dashFrames--;
+                    break;
+
+                case State.Walk:
+                case State.Run:
+                    moveInput = charControls.Character.Move.ReadValue<float>();
+
+                    rigid.AddForce(new Vector2(groundSpeed * moveInput, 0), ForceMode2D.Impulse);
+
+                    if (rigid.velocity.x > groundSpeed)
+                    {
+                        rigid.velocity = new Vector2(groundSpeed, rigid.velocity.y);
+                    }
+                    else if (rigid.velocity.x < -groundSpeed)
+                    {
+                        rigid.velocity = new Vector2(-groundSpeed, rigid.velocity.y);
                     }
                     else
                     {
                         EnterState(State.Stop);
                     }
-                }
+                    break;
 
-                CalculateMovement();
+                case State.Crouch:
+                    break;
 
-                break;
+                case State.Jump:
+                    if (Mathf.Round(rigid.velocity.y) < 0)
+                    {
+                        EnterState(State.Fall);
+                        break;
+                    }
 
-            default:
-                break;
+                    CalculateMovement();
+
+                    break;
+
+                case State.Fall:
+                    if (Mathf.Round(rigid.velocity.y) == 0)
+                    {
+                        if(Mathf.Round(rigid.velocity.x) != 0)
+                        {
+                            EnterState(State.Run);
+                        }
+                        else
+                        {
+                            EnterState(State.Stop);
+                        }
+                    }
+
+                    CalculateMovement();
+
+                    break;
+
+                default:
+                    break;
+            }
         }
-    }
+        */
 
     private void OnDisable()
     {
@@ -282,26 +303,6 @@ public class CharController : MonoBehaviour
         return Physics2D.OverlapArea(topLeft, bottomRight, ground); ;
     }
     */
-
-    private void CalculateMovement()
-    {
-        moveInput = charControls.Character.Move.ReadValue<float>();
-
-        rigid.AddForce(new Vector2(groundSpeed * moveInput, 0), ForceMode2D.Impulse);
-
-        if (rigid.velocity.x > groundSpeed)
-        {
-            rigid.velocity = new Vector2(groundSpeed, rigid.velocity.y);
-        }
-        else if (rigid.velocity.x < -groundSpeed)
-        {
-            rigid.velocity = new Vector2(-groundSpeed, rigid.velocity.y);
-        }
-        else
-        {
-            rigid.velocity = new Vector2(groundSpeed * moveInput, rigid.velocity.y);
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

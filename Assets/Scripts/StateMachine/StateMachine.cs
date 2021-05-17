@@ -2,35 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IState
+abstract public class IState<T>
 {
-    public void Enter();
-    public void Continue();
-    public void Exit();
+    abstract public void Enter(T entity);
+    abstract public void Continue(T entity);
+    abstract public void Exit(T entity);
 }
 
 
-public class StateMachine
+public class StateMachine<T>
 {
-    IState currentState;
+    T Owner;
+    IState<T> CurrentState;
+    IState<T> PreviousState;
 
-    public void EnterState(IState stateEntered)
+    public void Awake()
     {
-        if(currentState != null)
+        CurrentState = null;
+        PreviousState = null;
+    }
+
+    public void Configure(T owner, IState<T> initialState)
+    {
+        Owner = owner;
+        EnterState(initialState);
+    }
+
+    public void EnterState(IState<T> stateEntered)
+    {
+        PreviousState = CurrentState;
+
+        if(CurrentState != null)
         {
-            currentState.Exit();
+            CurrentState.Exit(Owner);
         }
 
-        currentState = stateEntered;
+        CurrentState = stateEntered;
 
-        currentState.Enter();
+        if (CurrentState != null)
+        {
+            CurrentState.Enter(Owner);
+        }
+    }
+
+    public void RevertToPreviousState()
+    {
+        if(PreviousState != null)
+        {
+            EnterState(PreviousState);
+        }
     }
 
     public void Update()
     {
-        if(currentState != null)
+        if(CurrentState != null)
         {
-            currentState.Continue();
+            CurrentState.Continue(Owner);
         }
+    }
+
+    public IState<T> GetCurrentState()
+    {
+        return CurrentState;
     }
 }

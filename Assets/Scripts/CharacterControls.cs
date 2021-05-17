@@ -37,15 +37,79 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""AirDash"",
                     ""type"": ""Button"",
-                    ""id"": ""e4b53a45-30c2-401b-9c46-1cfaa62269e4"",
+                    ""id"": ""22f119f0-dbae-4d19-8a49-dede3fbb8e41"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""AirDashDir"",
+                    ""type"": ""Value"",
+                    ""id"": ""130dbc91-8acb-4e50-86df-9d9704ed6c70"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Light Normal Attack"",
                     ""type"": ""Button"",
-                    ""id"": ""2c5d9260-d6e7-4b90-ab8e-db9698527a89"",
+                    ""id"": ""f6f509eb-576d-4a06-9c4f-85e1d5685ca9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Heavy Normal Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0c7c1a6-e666-4795-bcf0-f08d18c42131"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Light Special Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f3186820-a930-446c-9de4-5737518377a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Heavy Special Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""0bb7ac76-b74c-4e61-b588-06a618144936"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Guard"",
+                    ""type"": ""Button"",
+                    ""id"": ""7334c2e0-962e-4b09-bfec-3b363e42d297"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b3d44ed-cc89-4ab1-80ba-7f27ec66cd3e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Normal Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""83963b68-afc2-46a1-98c4-2f785649bc33"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Special Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c9faff4-eff0-4b34-bfcb-1edcb3e9e5cf"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -53,7 +117,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""Horizontal"",
+                    ""name"": ""Keyboard/Horizontal"",
                     ""id"": ""0ad7297e-56d7-47b5-a80b-ef4a18ebb7ee"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -86,9 +150,75 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""Gamepad-Stick/Horizontal"",
+                    ""id"": ""cd9a4497-cae4-4cec-b949-e60ef885bec6"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""e5e563e3-4879-48b6-8dc7-1fded20a2893"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""919e5b2b-2d72-4794-af68-a4f6d7113a53"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad-D-Pad/Horizontal"",
+                    ""id"": ""921decd0-161d-46cb-aebf-97b318a97031"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""fee59d36-b898-4cef-b67f-620c57d5ae76"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ddc85a3b-8e60-4019-abae-419641a9fdcb"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""1e4a0eaa-79ed-4c0e-aea0-e4ace8e7b31e"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -97,81 +227,477 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""DashForward"",
-                    ""id"": ""44fe611e-8cc0-4c29-8a7d-c64d62f84499"",
-                    ""path"": ""ButtonWithOneModifier"",
+                    ""name"": """",
+                    ""id"": ""db1bc2db-a221-4b92-a06a-68456ad5cadb"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDash"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18c6c4d5-3fb4-438d-8afe-b75621715df2"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e737280e-d72c-46da-a089-da9d50c4d8f1"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Light Normal Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e50514f0-4e18-4df1-ae52-c6c031002264"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Light Normal Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Keyboard/2DVector"",
+                    ""id"": ""e8559e92-2884-4817-9b91-ccdc2add5081"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""9250a04a-fc94-467c-b8d6-4a77a5c0fd70"",
-                    ""path"": ""<Keyboard>/semicolon"",
+                    ""name"": ""up"",
+                    ""id"": ""57fdc9ee-8f31-470b-b313-631b749b9f59"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDash"",
+                    ""action"": ""AirDashDir"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""button"",
-                    ""id"": ""da958d02-413d-4a9c-b5a3-443fac14413f"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""name"": ""down"",
+                    ""id"": ""85d4c17d-89cf-4cc6-a885-236cbc972124"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDash"",
+                    ""action"": ""AirDashDir"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""DashBackward"",
-                    ""id"": ""cb62158f-efbd-4d9c-ab29-0f19503418de"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": ""Invert"",
-                    ""groups"": """",
-                    ""action"": ""AirDash"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""09224745-71ed-4373-ba54-8cef9704c9a8"",
-                    ""path"": ""<Keyboard>/semicolon"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""AirDash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""832fe093-cf3c-4ada-ab86-7faebe17beee"",
+                    ""name"": ""left"",
+                    ""id"": ""05392961-6a48-4d49-90c4-eb4189e3ecbc"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDash"",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""749306c0-5f04-45bc-b5c3-80e955fb5f61"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""GamePad-Stick/2DVector"",
+                    ""id"": ""93f185d3-1e70-4975-b33a-8e0857cf04ba"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9ccbc742-238a-42bc-8a8f-0c69c09fcaf2"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""0631b3cf-b7c9-47f1-9aaf-f0955940b557"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""0ae8b750-7427-4498-861c-ba64bc95ccfe"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9155a25b-9903-4cc1-93fc-58f239c8416e"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""GamePad-D-Pad/2DVector"",
+                    ""id"": ""341e34be-29e0-4d1b-a36b-26f6535bdcea"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""1f5f13bd-86d2-43df-86c9-82b9c930d99f"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""bbe61757-b3f8-4a9f-b97a-b155d07d2247"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""da624744-60c0-4628-a162-8be6fc39fca6"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""596ab4ac-0c2c-4024-9cfa-bcb24b7ab8e3"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDashDir"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
-                    ""id"": ""29a85eae-fb4b-4e12-a223-3879c41d780e"",
-                    ""path"": """",
+                    ""id"": ""5f18baa3-3fdf-4034-bbdd-58ad7bf14f13"",
+                    ""path"": ""<Keyboard>/semicolon"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Dash"",
+                    ""action"": ""AirDash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb84704d-d3af-407e-a947-f60e24b9912f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff3d69f4-b5ce-4dec-ae5a-d2f0d5c8bfc0"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0296c1fa-50eb-4a83-b0b3-33ff99b31d01"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Guard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e876495b-ef92-4d7b-be4a-009eee1558aa"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66d1e88f-d11e-469b-8f70-d693e84e5311"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f250b6bd-ca7d-45fe-8766-06666957cace"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Light Special Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84680f4e-9d27-449b-8713-03fdd0989706"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Light Special Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a33d527-41fd-4cf3-92bc-ae14f0806a55"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heavy Normal Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4eff7804-3326-4c17-a647-94a330fb5862"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heavy Normal Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cbfd9f51-82cc-4dd3-be38-4bfdc855adac"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heavy Special Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df845f77-e49b-46f9-9c8e-1fd78345a1e9"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heavy Special Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""a3748a00-6418-4594-b45d-94497943a244"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Normal Parry"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""760f7032-c0d4-411b-ab92-8298e76c3796"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Normal Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""fd408c17-3401-4ea8-b01c-7fc274575a14"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Normal Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""68f48599-8c9f-4399-b16a-20a37018d39c"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Normal Parry"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""a5da4721-40e6-41c0-ae58-89ee15cf3954"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Normal Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""909281f5-2c18-4e8b-a3a7-625bb0aff773"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Normal Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""e51334b1-b092-4e7b-abcb-f87a3794c4a0"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special Parry"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""193c30b4-5ac2-4ef8-ad4c-477eb9bebddb"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""3f6feee2-7360-46fd-a16b-f8279ce0ee0c"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""308ab2da-72b9-48fb-a285-75d3ec942311"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special Parry"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""a6e155b3-4cd4-481c-805b-85e9fb078ab0"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""32ebf71d-3d04-4777-bee5-32f03eb69fbe"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -210,7 +736,15 @@ public class @CharacterControls : IInputActionCollection, IDisposable
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
         m_Character_AirDash = m_Character.FindAction("AirDash", throwIfNotFound: true);
-        m_Character_Dash = m_Character.FindAction("Dash", throwIfNotFound: true);
+        m_Character_AirDashDir = m_Character.FindAction("AirDashDir", throwIfNotFound: true);
+        m_Character_LightNormalAttack = m_Character.FindAction("Light Normal Attack", throwIfNotFound: true);
+        m_Character_HeavyNormalAttack = m_Character.FindAction("Heavy Normal Attack", throwIfNotFound: true);
+        m_Character_LightSpecialAttack = m_Character.FindAction("Light Special Attack", throwIfNotFound: true);
+        m_Character_HeavySpecialAttack = m_Character.FindAction("Heavy Special Attack", throwIfNotFound: true);
+        m_Character_Guard = m_Character.FindAction("Guard", throwIfNotFound: true);
+        m_Character_Grab = m_Character.FindAction("Grab", throwIfNotFound: true);
+        m_Character_NormalParry = m_Character.FindAction("Normal Parry", throwIfNotFound: true);
+        m_Character_SpecialParry = m_Character.FindAction("Special Parry", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
@@ -266,7 +800,15 @@ public class @CharacterControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Character_Move;
     private readonly InputAction m_Character_Jump;
     private readonly InputAction m_Character_AirDash;
-    private readonly InputAction m_Character_Dash;
+    private readonly InputAction m_Character_AirDashDir;
+    private readonly InputAction m_Character_LightNormalAttack;
+    private readonly InputAction m_Character_HeavyNormalAttack;
+    private readonly InputAction m_Character_LightSpecialAttack;
+    private readonly InputAction m_Character_HeavySpecialAttack;
+    private readonly InputAction m_Character_Guard;
+    private readonly InputAction m_Character_Grab;
+    private readonly InputAction m_Character_NormalParry;
+    private readonly InputAction m_Character_SpecialParry;
     public struct CharacterActions
     {
         private @CharacterControls m_Wrapper;
@@ -274,7 +816,15 @@ public class @CharacterControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Character_Move;
         public InputAction @Jump => m_Wrapper.m_Character_Jump;
         public InputAction @AirDash => m_Wrapper.m_Character_AirDash;
-        public InputAction @Dash => m_Wrapper.m_Character_Dash;
+        public InputAction @AirDashDir => m_Wrapper.m_Character_AirDashDir;
+        public InputAction @LightNormalAttack => m_Wrapper.m_Character_LightNormalAttack;
+        public InputAction @HeavyNormalAttack => m_Wrapper.m_Character_HeavyNormalAttack;
+        public InputAction @LightSpecialAttack => m_Wrapper.m_Character_LightSpecialAttack;
+        public InputAction @HeavySpecialAttack => m_Wrapper.m_Character_HeavySpecialAttack;
+        public InputAction @Guard => m_Wrapper.m_Character_Guard;
+        public InputAction @Grab => m_Wrapper.m_Character_Grab;
+        public InputAction @NormalParry => m_Wrapper.m_Character_NormalParry;
+        public InputAction @SpecialParry => m_Wrapper.m_Character_SpecialParry;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -293,9 +843,33 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                 @AirDash.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDash;
                 @AirDash.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDash;
                 @AirDash.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDash;
-                @Dash.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
-                @Dash.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
-                @Dash.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDash;
+                @AirDashDir.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDashDir;
+                @AirDashDir.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDashDir;
+                @AirDashDir.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDashDir;
+                @LightNormalAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormalAttack;
+                @LightNormalAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormalAttack;
+                @LightNormalAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormalAttack;
+                @HeavyNormalAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormalAttack;
+                @HeavyNormalAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormalAttack;
+                @HeavyNormalAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormalAttack;
+                @LightSpecialAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecialAttack;
+                @LightSpecialAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecialAttack;
+                @LightSpecialAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecialAttack;
+                @HeavySpecialAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecialAttack;
+                @HeavySpecialAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecialAttack;
+                @HeavySpecialAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecialAttack;
+                @Guard.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGuard;
+                @Guard.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGuard;
+                @Guard.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGuard;
+                @Grab.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGrab;
+                @Grab.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGrab;
+                @Grab.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGrab;
+                @NormalParry.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNormalParry;
+                @NormalParry.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNormalParry;
+                @NormalParry.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnNormalParry;
+                @SpecialParry.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSpecialParry;
+                @SpecialParry.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSpecialParry;
+                @SpecialParry.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnSpecialParry;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -309,9 +883,33 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                 @AirDash.started += instance.OnAirDash;
                 @AirDash.performed += instance.OnAirDash;
                 @AirDash.canceled += instance.OnAirDash;
-                @Dash.started += instance.OnDash;
-                @Dash.performed += instance.OnDash;
-                @Dash.canceled += instance.OnDash;
+                @AirDashDir.started += instance.OnAirDashDir;
+                @AirDashDir.performed += instance.OnAirDashDir;
+                @AirDashDir.canceled += instance.OnAirDashDir;
+                @LightNormalAttack.started += instance.OnLightNormalAttack;
+                @LightNormalAttack.performed += instance.OnLightNormalAttack;
+                @LightNormalAttack.canceled += instance.OnLightNormalAttack;
+                @HeavyNormalAttack.started += instance.OnHeavyNormalAttack;
+                @HeavyNormalAttack.performed += instance.OnHeavyNormalAttack;
+                @HeavyNormalAttack.canceled += instance.OnHeavyNormalAttack;
+                @LightSpecialAttack.started += instance.OnLightSpecialAttack;
+                @LightSpecialAttack.performed += instance.OnLightSpecialAttack;
+                @LightSpecialAttack.canceled += instance.OnLightSpecialAttack;
+                @HeavySpecialAttack.started += instance.OnHeavySpecialAttack;
+                @HeavySpecialAttack.performed += instance.OnHeavySpecialAttack;
+                @HeavySpecialAttack.canceled += instance.OnHeavySpecialAttack;
+                @Guard.started += instance.OnGuard;
+                @Guard.performed += instance.OnGuard;
+                @Guard.canceled += instance.OnGuard;
+                @Grab.started += instance.OnGrab;
+                @Grab.performed += instance.OnGrab;
+                @Grab.canceled += instance.OnGrab;
+                @NormalParry.started += instance.OnNormalParry;
+                @NormalParry.performed += instance.OnNormalParry;
+                @NormalParry.canceled += instance.OnNormalParry;
+                @SpecialParry.started += instance.OnSpecialParry;
+                @SpecialParry.performed += instance.OnSpecialParry;
+                @SpecialParry.canceled += instance.OnSpecialParry;
             }
         }
     }
@@ -354,7 +952,15 @@ public class @CharacterControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAirDash(InputAction.CallbackContext context);
-        void OnDash(InputAction.CallbackContext context);
+        void OnAirDashDir(InputAction.CallbackContext context);
+        void OnLightNormalAttack(InputAction.CallbackContext context);
+        void OnHeavyNormalAttack(InputAction.CallbackContext context);
+        void OnLightSpecialAttack(InputAction.CallbackContext context);
+        void OnHeavySpecialAttack(InputAction.CallbackContext context);
+        void OnGuard(InputAction.CallbackContext context);
+        void OnGrab(InputAction.CallbackContext context);
+        void OnNormalParry(InputAction.CallbackContext context);
+        void OnSpecialParry(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
