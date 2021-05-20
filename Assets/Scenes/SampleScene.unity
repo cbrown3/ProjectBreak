@@ -1169,6 +1169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Adventurer
       objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515928, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_GravityScale
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515930, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1224,6 +1228,18 @@ PrefabInstance:
     - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: jumpSpeed
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: jumpHeight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: aerialDrift
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: groundSpeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
