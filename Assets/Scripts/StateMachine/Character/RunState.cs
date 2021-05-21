@@ -24,9 +24,13 @@ public class RunState : IState<CharController>
         if(c.isGrounded)
         {
             c.moveInput = c.charControls.Character.Move.ReadValue<float>();
-            c.canDash = c.canDJump = false;
+            c.canDash = false;
+
+            c.canAttack = true;
 
             c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
+
+            c.animator.Play(c.aRunAnim);
 
             if (c.moveInput > 0)
             {

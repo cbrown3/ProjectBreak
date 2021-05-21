@@ -23,13 +23,18 @@ public class JumpState : IState<CharController>
 
     public override void Enter(CharController c)
     {
-        if (c.isGrounded || c.canDJump)
+        if (c.isGrounded) //|| c.canDJump)
         {
-            c.canDJump = true ? c.isGrounded : !c.isGrounded;
+            c.canDash = true ? c.isGrounded : !c.isGrounded;
             c.isGrounded = false;
-            c.canDash = c.canDJump;
+
+            c.canAttack = true;
+            //c.canDash = c.canDJump;
 
             frameRate = 0;
+
+            c.animator.Play(c.aJumpAnim);
+
         }
         else
         {

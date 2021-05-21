@@ -25,7 +25,12 @@ public class IdleState : IState<CharController>
         {
             c.rigid.velocity = new Vector2(0, c.rigid.velocity.y);
 
-            c.canDash = c.canDJump = false;
+            c.canDash = false;
+
+            c.canAttack = true;
+
+            c.animator.Play(c.aIdleAnim);
+
         }
         else
         {

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -29,7 +27,8 @@ public class CharController : MonoBehaviour
     [NonSerialized]
     public bool isGrounded,
     canDash,
-    canDJump;
+    canAttack;
+    //,canDJump;
 
     [NonSerialized]
     public LayerMask ground;
@@ -41,10 +40,18 @@ public class CharController : MonoBehaviour
 
     public int dashFrameLength,
     dashStartup,
-    jumpSquatFrames;
+    jumpSquatFrames,
+    lNNeutralGFrames,
+    lNSideGFrames,
+    lNUpGFrames,
+    lNDownGFrames,
+    hNNeutralGFrames,
+    hNSideGFrames,
+    hNUpGFrames,
+    hNDownGFrames;
 
     [NonSerialized]
-    public float airDashInput, jumpInput, moveInput;
+    public float jumpInput, moveInput;
 
     /*
     public StopState stopState;
@@ -54,13 +61,20 @@ public class CharController : MonoBehaviour
     public FallState fallState;
     */
 
-    private const string aStopAnim = "Stop";
-    private const string aAirDashAnim = "AirDash";
-    private const string aWalkAnim = "Walk";
-    private const string aRunAnim = "Run";
-    private const string aCrouchAnim = "Crouch";
-    private const string aJumpAnim = "Jump";
-    private const string aFallAnim = "Fall";
+    //[NonSerialized]
+    public string aIdleAnim = "Base Layer.Advntr-Idle";
+    public string aAirDashAnim = "Base Layer.Advntr-AirDash";
+    public string aRunAnim = "Base Layer.Advntr-Run";
+    public string aJumpAnim = "Base Layer.Advntr-Jump";
+    public string aFallAnim = "Base Layer.Advntr-Fall";
+    public string aLNNeutralGroundAnim = "Base Layer.Advntr-LightNormalNeutralGround";
+    public string aLNSideGroundAnim = "Base Layer.Advntr-LightNormalSideGround";
+    public string aLNUpGroundAnim = "Base Layer.Advntr-LightNormalUpGround";
+    public string aLNDownGroundAnim = "Base Layer.Advntr-LightNormalDownGround";
+    public string aHNNeutralGroundAnim = "Base Layer.Advntr-HeavyNormalNeutralGround";
+    public string aHNSideGroundAnim = "Base Layer.Advntr-HeavyNormalSideGround";
+    public string aHNUpGroundAnim = "Base Layer.Advntr-HeavyNormalUpGround";
+    public string aHNDownGroundAnim = "Base Layer.Advntr-HeavyNormalDownGround";
 
     private void Awake()
     {
@@ -83,6 +97,8 @@ public class CharController : MonoBehaviour
         charControls.Character.Jump.performed += _ => EnterState(JumpState.Instance);
         charControls.Character.AirDash.performed += _ => AirDash();
         charControls.Character.Move.performed += _ => Movement();
+        charControls.Character.LightNormal.performed += _ => Attack(LightNormalState.Instance);
+        charControls.Character.HeavyNormal.performed += _ => Attack(HeavyNormalState.Instance);
     }
 
     // Update is called once per frame
@@ -182,6 +198,14 @@ public class CharController : MonoBehaviour
         if(stateMachine.GetCurrentState() != AirDashState.Instance)
         {
             EnterState(AirDashState.Instance);
+        }
+    }
+
+    public void Attack(IState<CharController> state)
+    {
+        if(canAttack)
+        {
+            EnterState(state);
         }
     }
 

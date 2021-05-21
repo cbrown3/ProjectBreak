@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "AirDashDir",
+                    "name": "DirectionalInput",
                     "type": "Value",
                     "id": "130dbc91-8acb-4e50-86df-9d9704ed6c70",
                     "expectedControlType": "Vector2",
@@ -38,15 +38,15 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Light Normal Attack",
+                    "name": "Light Normal",
                     "type": "Button",
                     "id": "f6f509eb-576d-4a06-9c4f-85e1d5685ca9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Tap"
                 },
                 {
-                    "name": "Heavy Normal Attack",
+                    "name": "Heavy Normal",
                     "type": "Button",
                     "id": "b0c7c1a6-e666-4795-bcf0-f08d18c42131",
                     "expectedControlType": "Button",
@@ -54,7 +54,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Light Special Attack",
+                    "name": "Light Special",
                     "type": "Button",
                     "id": "f3186820-a930-446c-9de4-5737518377a4",
                     "expectedControlType": "Button",
@@ -62,7 +62,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Heavy Special Attack",
+                    "name": "Heavy Special",
                     "type": "Button",
                     "id": "0bb7ac76-b74c-4e61-b588-06a618144936",
                     "expectedControlType": "Button",
@@ -242,7 +242,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Light Normal Attack",
+                    "action": "Light Normal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -253,7 +253,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Light Normal Attack",
+                    "action": "Light Normal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -264,7 +264,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -275,7 +275,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -286,7 +286,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -297,7 +297,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -308,7 +308,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -319,7 +319,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -330,7 +330,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -341,7 +341,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -352,7 +352,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -363,7 +363,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -374,7 +374,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -385,7 +385,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -396,7 +396,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -407,7 +407,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -418,7 +418,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AirDashDir",
+                    "action": "DirectionalInput",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -495,7 +495,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Light Special Attack",
+                    "action": "Light Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -506,7 +506,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Light Special Attack",
+                    "action": "Light Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -517,7 +517,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Heavy Normal Attack",
+                    "action": "Heavy Normal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -528,7 +528,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Heavy Normal Attack",
+                    "action": "Heavy Normal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -539,7 +539,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Heavy Special Attack",
+                    "action": "Heavy Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -550,7 +550,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Heavy Special Attack",
+                    "action": "Heavy Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

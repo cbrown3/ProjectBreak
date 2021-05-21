@@ -43,7 +43,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""AirDashDir"",
+                    ""name"": ""DirectionalInput"",
                     ""type"": ""Value"",
                     ""id"": ""130dbc91-8acb-4e50-86df-9d9704ed6c70"",
                     ""expectedControlType"": ""Vector2"",
@@ -51,15 +51,15 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Light Normal Attack"",
+                    ""name"": ""Light Normal"",
                     ""type"": ""Button"",
                     ""id"": ""f6f509eb-576d-4a06-9c4f-85e1d5685ca9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""Heavy Normal Attack"",
+                    ""name"": ""Heavy Normal"",
                     ""type"": ""Button"",
                     ""id"": ""b0c7c1a6-e666-4795-bcf0-f08d18c42131"",
                     ""expectedControlType"": ""Button"",
@@ -67,7 +67,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Light Special Attack"",
+                    ""name"": ""Light Special"",
                     ""type"": ""Button"",
                     ""id"": ""f3186820-a930-446c-9de4-5737518377a4"",
                     ""expectedControlType"": ""Button"",
@@ -75,7 +75,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Heavy Special Attack"",
+                    ""name"": ""Heavy Special"",
                     ""type"": ""Button"",
                     ""id"": ""0bb7ac76-b74c-4e61-b588-06a618144936"",
                     ""expectedControlType"": ""Button"",
@@ -255,7 +255,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Light Normal Attack"",
+                    ""action"": ""Light Normal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -266,7 +266,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Light Normal Attack"",
+                    ""action"": ""Light Normal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -277,7 +277,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -288,7 +288,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -299,7 +299,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -310,7 +310,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -321,7 +321,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -332,7 +332,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -343,7 +343,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -354,7 +354,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -365,7 +365,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -376,7 +376,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -387,7 +387,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -398,7 +398,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -409,7 +409,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -420,7 +420,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -431,7 +431,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AirDashDir"",
+                    ""action"": ""DirectionalInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -508,7 +508,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Light Special Attack"",
+                    ""action"": ""Light Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -519,7 +519,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Light Special Attack"",
+                    ""action"": ""Light Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -530,7 +530,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Heavy Normal Attack"",
+                    ""action"": ""Heavy Normal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -541,7 +541,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Heavy Normal Attack"",
+                    ""action"": ""Heavy Normal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -552,7 +552,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Heavy Special Attack"",
+                    ""action"": ""Heavy Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -563,7 +563,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Heavy Special Attack"",
+                    ""action"": ""Heavy Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -736,11 +736,11 @@ public class @CharacterControls : IInputActionCollection, IDisposable
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
         m_Character_AirDash = m_Character.FindAction("AirDash", throwIfNotFound: true);
-        m_Character_AirDashDir = m_Character.FindAction("AirDashDir", throwIfNotFound: true);
-        m_Character_LightNormalAttack = m_Character.FindAction("Light Normal Attack", throwIfNotFound: true);
-        m_Character_HeavyNormalAttack = m_Character.FindAction("Heavy Normal Attack", throwIfNotFound: true);
-        m_Character_LightSpecialAttack = m_Character.FindAction("Light Special Attack", throwIfNotFound: true);
-        m_Character_HeavySpecialAttack = m_Character.FindAction("Heavy Special Attack", throwIfNotFound: true);
+        m_Character_DirectionalInput = m_Character.FindAction("DirectionalInput", throwIfNotFound: true);
+        m_Character_LightNormal = m_Character.FindAction("Light Normal", throwIfNotFound: true);
+        m_Character_HeavyNormal = m_Character.FindAction("Heavy Normal", throwIfNotFound: true);
+        m_Character_LightSpecial = m_Character.FindAction("Light Special", throwIfNotFound: true);
+        m_Character_HeavySpecial = m_Character.FindAction("Heavy Special", throwIfNotFound: true);
         m_Character_Guard = m_Character.FindAction("Guard", throwIfNotFound: true);
         m_Character_Grab = m_Character.FindAction("Grab", throwIfNotFound: true);
         m_Character_NormalParry = m_Character.FindAction("Normal Parry", throwIfNotFound: true);
@@ -800,11 +800,11 @@ public class @CharacterControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Character_Move;
     private readonly InputAction m_Character_Jump;
     private readonly InputAction m_Character_AirDash;
-    private readonly InputAction m_Character_AirDashDir;
-    private readonly InputAction m_Character_LightNormalAttack;
-    private readonly InputAction m_Character_HeavyNormalAttack;
-    private readonly InputAction m_Character_LightSpecialAttack;
-    private readonly InputAction m_Character_HeavySpecialAttack;
+    private readonly InputAction m_Character_DirectionalInput;
+    private readonly InputAction m_Character_LightNormal;
+    private readonly InputAction m_Character_HeavyNormal;
+    private readonly InputAction m_Character_LightSpecial;
+    private readonly InputAction m_Character_HeavySpecial;
     private readonly InputAction m_Character_Guard;
     private readonly InputAction m_Character_Grab;
     private readonly InputAction m_Character_NormalParry;
@@ -816,11 +816,11 @@ public class @CharacterControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Character_Move;
         public InputAction @Jump => m_Wrapper.m_Character_Jump;
         public InputAction @AirDash => m_Wrapper.m_Character_AirDash;
-        public InputAction @AirDashDir => m_Wrapper.m_Character_AirDashDir;
-        public InputAction @LightNormalAttack => m_Wrapper.m_Character_LightNormalAttack;
-        public InputAction @HeavyNormalAttack => m_Wrapper.m_Character_HeavyNormalAttack;
-        public InputAction @LightSpecialAttack => m_Wrapper.m_Character_LightSpecialAttack;
-        public InputAction @HeavySpecialAttack => m_Wrapper.m_Character_HeavySpecialAttack;
+        public InputAction @DirectionalInput => m_Wrapper.m_Character_DirectionalInput;
+        public InputAction @LightNormal => m_Wrapper.m_Character_LightNormal;
+        public InputAction @HeavyNormal => m_Wrapper.m_Character_HeavyNormal;
+        public InputAction @LightSpecial => m_Wrapper.m_Character_LightSpecial;
+        public InputAction @HeavySpecial => m_Wrapper.m_Character_HeavySpecial;
         public InputAction @Guard => m_Wrapper.m_Character_Guard;
         public InputAction @Grab => m_Wrapper.m_Character_Grab;
         public InputAction @NormalParry => m_Wrapper.m_Character_NormalParry;
@@ -843,21 +843,21 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                 @AirDash.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDash;
                 @AirDash.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDash;
                 @AirDash.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDash;
-                @AirDashDir.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDashDir;
-                @AirDashDir.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDashDir;
-                @AirDashDir.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnAirDashDir;
-                @LightNormalAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormalAttack;
-                @LightNormalAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormalAttack;
-                @LightNormalAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormalAttack;
-                @HeavyNormalAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormalAttack;
-                @HeavyNormalAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormalAttack;
-                @HeavyNormalAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormalAttack;
-                @LightSpecialAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecialAttack;
-                @LightSpecialAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecialAttack;
-                @LightSpecialAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecialAttack;
-                @HeavySpecialAttack.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecialAttack;
-                @HeavySpecialAttack.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecialAttack;
-                @HeavySpecialAttack.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecialAttack;
+                @DirectionalInput.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDirectionalInput;
+                @DirectionalInput.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDirectionalInput;
+                @DirectionalInput.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnDirectionalInput;
+                @LightNormal.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormal;
+                @LightNormal.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormal;
+                @LightNormal.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightNormal;
+                @HeavyNormal.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormal;
+                @HeavyNormal.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormal;
+                @HeavyNormal.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavyNormal;
+                @LightSpecial.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecial;
+                @LightSpecial.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecial;
+                @LightSpecial.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnLightSpecial;
+                @HeavySpecial.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecial;
+                @HeavySpecial.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecial;
+                @HeavySpecial.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnHeavySpecial;
                 @Guard.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGuard;
                 @Guard.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGuard;
                 @Guard.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnGuard;
@@ -883,21 +883,21 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                 @AirDash.started += instance.OnAirDash;
                 @AirDash.performed += instance.OnAirDash;
                 @AirDash.canceled += instance.OnAirDash;
-                @AirDashDir.started += instance.OnAirDashDir;
-                @AirDashDir.performed += instance.OnAirDashDir;
-                @AirDashDir.canceled += instance.OnAirDashDir;
-                @LightNormalAttack.started += instance.OnLightNormalAttack;
-                @LightNormalAttack.performed += instance.OnLightNormalAttack;
-                @LightNormalAttack.canceled += instance.OnLightNormalAttack;
-                @HeavyNormalAttack.started += instance.OnHeavyNormalAttack;
-                @HeavyNormalAttack.performed += instance.OnHeavyNormalAttack;
-                @HeavyNormalAttack.canceled += instance.OnHeavyNormalAttack;
-                @LightSpecialAttack.started += instance.OnLightSpecialAttack;
-                @LightSpecialAttack.performed += instance.OnLightSpecialAttack;
-                @LightSpecialAttack.canceled += instance.OnLightSpecialAttack;
-                @HeavySpecialAttack.started += instance.OnHeavySpecialAttack;
-                @HeavySpecialAttack.performed += instance.OnHeavySpecialAttack;
-                @HeavySpecialAttack.canceled += instance.OnHeavySpecialAttack;
+                @DirectionalInput.started += instance.OnDirectionalInput;
+                @DirectionalInput.performed += instance.OnDirectionalInput;
+                @DirectionalInput.canceled += instance.OnDirectionalInput;
+                @LightNormal.started += instance.OnLightNormal;
+                @LightNormal.performed += instance.OnLightNormal;
+                @LightNormal.canceled += instance.OnLightNormal;
+                @HeavyNormal.started += instance.OnHeavyNormal;
+                @HeavyNormal.performed += instance.OnHeavyNormal;
+                @HeavyNormal.canceled += instance.OnHeavyNormal;
+                @LightSpecial.started += instance.OnLightSpecial;
+                @LightSpecial.performed += instance.OnLightSpecial;
+                @LightSpecial.canceled += instance.OnLightSpecial;
+                @HeavySpecial.started += instance.OnHeavySpecial;
+                @HeavySpecial.performed += instance.OnHeavySpecial;
+                @HeavySpecial.canceled += instance.OnHeavySpecial;
                 @Guard.started += instance.OnGuard;
                 @Guard.performed += instance.OnGuard;
                 @Guard.canceled += instance.OnGuard;
@@ -952,11 +952,11 @@ public class @CharacterControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAirDash(InputAction.CallbackContext context);
-        void OnAirDashDir(InputAction.CallbackContext context);
-        void OnLightNormalAttack(InputAction.CallbackContext context);
-        void OnHeavyNormalAttack(InputAction.CallbackContext context);
-        void OnLightSpecialAttack(InputAction.CallbackContext context);
-        void OnHeavySpecialAttack(InputAction.CallbackContext context);
+        void OnDirectionalInput(InputAction.CallbackContext context);
+        void OnLightNormal(InputAction.CallbackContext context);
+        void OnHeavyNormal(InputAction.CallbackContext context);
+        void OnLightSpecial(InputAction.CallbackContext context);
+        void OnHeavySpecial(InputAction.CallbackContext context);
         void OnGuard(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
         void OnNormalParry(InputAction.CallbackContext context);

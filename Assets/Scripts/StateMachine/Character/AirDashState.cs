@@ -29,14 +29,18 @@ public class AirDashState : IState<CharController>
         if (!c.isGrounded && c.canDash)
         {
             //c.dashFrames = 12;
-            c.dashFrameLength = 0;
+            frameRate = 0;
 
             c.rigid.velocity = Vector2.zero;
 
             c.canDash = false;
-            c.canDJump = false;
 
-            airDashDir = c.charControls.Character.AirDashDir.ReadValue<Vector2>();
+            c.canAttack = false;
+            //c.canDJump = false;
+
+            c.animator.Play(c.aRunAnim);
+
+            airDashDir = c.charControls.Character.DirectionalInput.ReadValue<Vector2>();
         }
         else
         {
@@ -50,7 +54,7 @@ public class AirDashState : IState<CharController>
         {
             c.rigid.velocity = Vector2.zero;
         }
-        else if(c.dashFrameLength > c.dashFrameLength - 1)
+        else if(frameRate > c.dashFrameLength - 1)
         {
             c.rigid.velocity = Vector2.zero;
 

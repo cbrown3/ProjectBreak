@@ -21,7 +21,9 @@ public class FallState : IState<CharController>
 
     public override void Enter(CharController c)
     {
-        
+        c.animator.Play(c.aFallAnim);
+
+        c.canAttack = true;
     }
 
     public override void Continue(CharController c)

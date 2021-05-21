@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -144,7 +144,7 @@ Animator:
   m_GameObject: {fileID: 8020646329724515924}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9655cf507187574b85a2cb0c2f57aa6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -167,10 +167,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateSerializationHelper: 0
   velocitySerializationHelper: {x: 0, y: 0}
-  groundSpeed: 6
+  groundSpeed: 3
   dashSpeed: 13
-  jumpHeight: 6
-  aerialDrift: 6
+  jumpHeight: 4
+  aerialDrift: 1.5
   dashFrameLength: 12
   dashStartup: 2
   jumpSquatFrames: 2
+  lNNeutralGFrames: 6
+  lNSideGFrames: 9
+  lNUpGFrames: 8
+  lNDownGFrames: 0
+  hNNeutralGFrames: 12
+  hNSideGFrames: 20
+  hNUpGFrames: 16
+  hNDownGFrames: 0
+  aIdleAnim: Base Layer.Advntr-Idle
+  aAirDashAnim: Base Layer.Advntr-AirDash
+  aRunAnim: Base Layer.Advntr-Run
+  aJumpAnim: Base Layer.Advntr-Jump
+  aFallAnim: Base Layer.Advntr-Fall
+  aLNNeutralGroundAnim: Base Layer.Advntr-LightNormalNeutralGround
+  aLNSideGroundAnim: Base Layer.Advntr-LightNormalSideGround
+  aLNUpGroundAnim: Base Layer.Advntr-LightNormalUpGround
+  aLNDownGroundAnim: Base Layer.Advntr-LightNormalDownGround
+  aHNNeutralGroundAnim: Base Layer.Advntr-HeavyNormalNeutralGround
+  aHNSideGroundAnim: Base Layer.Advntr-HeavyNormalSideGround
+  aHNUpGroundAnim: Base Layer.Advntr-HeavyNormalUpGround
+  aHNDownGroundAnim: Base Layer.Advntr-HeavyNormalDownGround
