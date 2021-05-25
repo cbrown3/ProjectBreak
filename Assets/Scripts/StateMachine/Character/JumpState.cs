@@ -31,6 +31,8 @@ public class JumpState : IState<CharController>
             c.canAttack = true;
             //c.canDash = c.canDJump;
 
+            c.interuptible = true;
+
             frameRate = 0;
 
             c.animator.Play(c.aJumpAnim);

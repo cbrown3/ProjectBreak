@@ -31,6 +31,7 @@ public class IdleState : IState<CharController>
 
             c.animator.Play(c.aIdleAnim);
 
+            c.interuptible = true;
         }
         else
         {

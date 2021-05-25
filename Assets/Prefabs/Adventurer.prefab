@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8020646329724515924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2706025, y: -2.7563848, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -174,24 +174,31 @@ MonoBehaviour:
   dashFrameLength: 12
   dashStartup: 2
   jumpSquatFrames: 2
-  lNNeutralGFrames: 6
-  lNSideGFrames: 9
-  lNUpGFrames: 8
-  lNDownGFrames: 0
-  hNNeutralGFrames: 12
-  hNSideGFrames: 20
-  hNUpGFrames: 16
-  hNDownGFrames: 0
-  aIdleAnim: Base Layer.Advntr-Idle
+  nNeutralGFrames: 12
+  nSideGFrames: 20
+  nUpGFrames: 16
+  nDownGFrames: 13
+  nNeutralAFrames: 9
+  nSideAFrames: 0
+  nUpAFrames: 20
+  nDownAFrames: 13
   aAirDashAnim: Base Layer.Advntr-AirDash
   aRunAnim: Base Layer.Advntr-Run
   aJumpAnim: Base Layer.Advntr-Jump
   aFallAnim: Base Layer.Advntr-Fall
-  aLNNeutralGroundAnim: Base Layer.Advntr-LightNormalNeutralGround
-  aLNSideGroundAnim: Base Layer.Advntr-LightNormalSideGround
-  aLNUpGroundAnim: Base Layer.Advntr-LightNormalUpGround
-  aLNDownGroundAnim: Base Layer.Advntr-LightNormalDownGround
-  aHNNeutralGroundAnim: Base Layer.Advntr-HeavyNormalNeutralGround
-  aHNSideGroundAnim: Base Layer.Advntr-HeavyNormalSideGround
-  aHNUpGroundAnim: Base Layer.Advntr-HeavyNormalUpGround
-  aHNDownGroundAnim: Base Layer.Advntr-HeavyNormalDownGround
+  aNNeutralGroundAnim: Base Layer.Advntr-NormalNeutralGround
+  aNSideGroundAnim: Base Layer.Advntr-NormalSideGround
+  aNUpGroundAnim: Base Layer.Advntr-NormalUpGround
+  aNDownGroundAnim: Base Layer.Advntr-NormalDownGround
+  aNNeutralAerialAnim: Base Layer.Advntr-NormalNeutralAerial
+  aNSideAerialAnim: Base Layer.Advntr-NormalSideAerial
+  aNUpAerialAnim: Base Layer.Advntr-NormalUpAerial
+  aNDownAerialAnim: Base Layer.Advntr-NormalDownAerial
+  aSNeutralGroundAnim: Base Layer.Advntr-SpecialNeutralGround
+  aSSideGroundAnim: Base Layer.Advntr-SpecialSideGround
+  aSUpGroundAnim: Base Layer.Advntr-SpecialUpGround
+  aSDownGroundAnim: Base Layer.Advntr-SpecialDownGround
+  aSNeutralAerialAnim: Base Layer.Advntr-SpecialNeutralAerial
+  aSSideAerialAnim: Base Layer.Advntr-SpecialSideAerial
+  aSUpAerialAnim: Base Layer.Advntr-SpecialUpAerial
+  aSDownAerialAnim: Base Layer.Advntr-SpecialDownAerial

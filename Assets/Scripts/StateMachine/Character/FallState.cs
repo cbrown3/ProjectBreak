@@ -24,6 +24,8 @@ public class FallState : IState<CharController>
         c.animator.Play(c.aFallAnim);
 
         c.canAttack = true;
+
+        c.interuptible = true;
     }
 
     public override void Continue(CharController c)

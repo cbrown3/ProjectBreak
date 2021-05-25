@@ -38,9 +38,12 @@ public class AirDashState : IState<CharController>
             c.canAttack = false;
             //c.canDJump = false;
 
+            c.interuptible = true;
+
             c.animator.Play(c.aRunAnim);
 
             airDashDir = c.charControls.Character.DirectionalInput.ReadValue<Vector2>();
+
         }
         else
         {

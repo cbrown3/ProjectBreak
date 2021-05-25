@@ -25,7 +25,8 @@ public class CharController : MonoBehaviour
     public Rigidbody2D rigid;
 
     [NonSerialized]
-    public bool isGrounded,
+    public bool interuptible,
+    isGrounded,
     canDash,
     canAttack;
     //,canDJump;
@@ -41,14 +42,14 @@ public class CharController : MonoBehaviour
     public int dashFrameLength,
     dashStartup,
     jumpSquatFrames,
-    lNNeutralGFrames,
-    lNSideGFrames,
-    lNUpGFrames,
-    lNDownGFrames,
-    hNNeutralGFrames,
-    hNSideGFrames,
-    hNUpGFrames,
-    hNDownGFrames;
+    nNeutralGFrames,
+    nSideGFrames,
+    nUpGFrames,
+    nDownGFrames,
+    nNeutralAFrames,
+    nSideAFrames,
+    nUpAFrames,
+    nDownAFrames;
 
     [NonSerialized]
     public float jumpInput, moveInput;
@@ -61,20 +62,36 @@ public class CharController : MonoBehaviour
     public FallState fallState;
     */
 
-    //[NonSerialized]
+    #region Animation Names
+
+    [NonSerialized]
     public string aIdleAnim = "Base Layer.Advntr-Idle";
     public string aAirDashAnim = "Base Layer.Advntr-AirDash";
     public string aRunAnim = "Base Layer.Advntr-Run";
     public string aJumpAnim = "Base Layer.Advntr-Jump";
     public string aFallAnim = "Base Layer.Advntr-Fall";
-    public string aLNNeutralGroundAnim = "Base Layer.Advntr-LightNormalNeutralGround";
-    public string aLNSideGroundAnim = "Base Layer.Advntr-LightNormalSideGround";
-    public string aLNUpGroundAnim = "Base Layer.Advntr-LightNormalUpGround";
-    public string aLNDownGroundAnim = "Base Layer.Advntr-LightNormalDownGround";
-    public string aHNNeutralGroundAnim = "Base Layer.Advntr-HeavyNormalNeutralGround";
-    public string aHNSideGroundAnim = "Base Layer.Advntr-HeavyNormalSideGround";
-    public string aHNUpGroundAnim = "Base Layer.Advntr-HeavyNormalUpGround";
-    public string aHNDownGroundAnim = "Base Layer.Advntr-HeavyNormalDownGround";
+
+    public string aNNeutralGroundAnim = "Base Layer.Advntr-NormalNeutralGround";
+    public string aNSideGroundAnim = "Base Layer.Advntr-NormalSideGround";
+    public string aNUpGroundAnim = "Base Layer.Advntr-NormalUpGround";
+    public string aNDownGroundAnim = "Base Layer.Advntr-NormalDownGround";
+
+    public string aNNeutralAerialAnim = "Base Layer.Advntr-NormalNeutralAerial";
+    public string aNSideAerialAnim = "Base Layer.Advntr-NormalSideAerial";
+    public string aNUpAerialAnim = "Base Layer.Advntr-NormalUpAerial";
+    public string aNDownAerialAnim = "Base Layer.Advntr-NormalDownAerial";
+
+    public string aSNeutralGroundAnim = "Base Layer.Advntr-SpecialNeutralGround";
+    public string aSSideGroundAnim = "Base Layer.Advntr-SpecialSideGround";
+    public string aSUpGroundAnim = "Base Layer.Advntr-SpecialUpGround";
+    public string aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround";
+
+    public string aSNeutralAerialAnim = "Base Layer.Advntr-SpecialNeutralAerial";
+    public string aSSideAerialAnim = "Base Layer.Advntr-SpecialSideAerial";
+    public string aSUpAerialAnim = "Base Layer.Advntr-SpecialUpAerial";
+    public string aSDownAerialAnim = "Base Layer.Advntr-SpecialDownAerial";
+
+    #endregion
 
     private void Awake()
     {
@@ -94,11 +111,15 @@ public class CharController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        interuptible = true;
+
         charControls.Character.Jump.performed += _ => EnterState(JumpState.Instance);
         charControls.Character.AirDash.performed += _ => AirDash();
         charControls.Character.Move.performed += _ => Movement();
-        charControls.Character.LightNormal.performed += _ => Attack(LightNormalState.Instance);
-        charControls.Character.HeavyNormal.performed += _ => Attack(HeavyNormalState.Instance);
+        charControls.Character.LightNormal.performed += _ => Attack(NormalAttackState.Instance);
+        charControls.Character.HeavyNormal.performed += _ => Attack(NormalAttackState.Instance);
+        //charControls.Character.LightSpecial.performed += _ => Attack(SpecialAttackState.Instance);
+        //charControls.Character.HeavySpecial.performed += _ => Attack(SpecialAttackState.Instance);
     }
 
     // Update is called once per frame
@@ -185,9 +206,16 @@ public class CharController : MonoBehaviour
     }
     */
 
+    #region Enter State 
+
+    public void EnterState(IState<CharController> stateEntered)
+    {
+        stateMachine.EnterState(stateEntered);
+    }
+
     public void Movement()
     {
-        if(isGrounded)
+        if(isGrounded && interuptible)
         {
             EnterState(RunState.Instance);
         }
@@ -195,7 +223,7 @@ public class CharController : MonoBehaviour
 
     public void AirDash()
     {
-        if(stateMachine.GetCurrentState() != AirDashState.Instance)
+        if(stateMachine.GetCurrentState() != AirDashState.Instance && interuptible)
         {
             EnterState(AirDashState.Instance);
         }
@@ -203,16 +231,13 @@ public class CharController : MonoBehaviour
 
     public void Attack(IState<CharController> state)
     {
-        if(canAttack)
+        if(canAttack && interuptible)
         {
             EnterState(state);
         }
     }
 
-    public void EnterState(IState<CharController> stateEntered)
-    {
-        stateMachine.EnterState(stateEntered);
-    }
+    #endregion
 
     public void RevertToPreviousState()
     {

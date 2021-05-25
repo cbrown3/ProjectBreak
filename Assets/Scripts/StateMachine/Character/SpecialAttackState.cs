@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightSpecialState : IState<CharController>
+public class SpecialAttackState : IState<CharController>
 {
-    static readonly LightSpecialState instance =
-       new LightSpecialState();
+    static readonly SpecialAttackState instance =
+       new SpecialAttackState();
 
-    public static LightSpecialState Instance
+    public static SpecialAttackState Instance
     {
         get
         {
@@ -15,9 +15,9 @@ public class LightSpecialState : IState<CharController>
         }
     }
 
-    static LightSpecialState() { }
+    static SpecialAttackState() { }
 
-    private LightSpecialState() { }
+    private SpecialAttackState() { }
 
     public override void Enter(CharController c)
     {
