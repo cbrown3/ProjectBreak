@@ -6,7 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class CharController : MonoBehaviour
 {
-
     StateMachine<CharController> stateMachine;
 
     [SerializeField]
@@ -17,14 +16,12 @@ public class CharController : MonoBehaviour
 
     public CharacterControls charControls;
 
-
     [NonSerialized]
     public Animator animator;
 
     [NonSerialized]
     public Rigidbody2D rigid;
 
-    [NonSerialized]
     public bool interuptible,
     isGrounded,
     canDash,
@@ -51,7 +48,6 @@ public class CharController : MonoBehaviour
     nUpAFrames,
     nDownAFrames;
 
-    [NonSerialized]
     public float jumpInput, moveInput;
 
     /*
@@ -65,31 +61,27 @@ public class CharController : MonoBehaviour
     #region Animation Names
 
     [NonSerialized]
-    public string aIdleAnim = "Base Layer.Advntr-Idle";
-    public string aAirDashAnim = "Base Layer.Advntr-AirDash";
-    public string aRunAnim = "Base Layer.Advntr-Run";
-    public string aJumpAnim = "Base Layer.Advntr-Jump";
-    public string aFallAnim = "Base Layer.Advntr-Fall";
-
-    public string aNNeutralGroundAnim = "Base Layer.Advntr-NormalNeutralGround";
-    public string aNSideGroundAnim = "Base Layer.Advntr-NormalSideGround";
-    public string aNUpGroundAnim = "Base Layer.Advntr-NormalUpGround";
-    public string aNDownGroundAnim = "Base Layer.Advntr-NormalDownGround";
-
-    public string aNNeutralAerialAnim = "Base Layer.Advntr-NormalNeutralAerial";
-    public string aNSideAerialAnim = "Base Layer.Advntr-NormalSideAerial";
-    public string aNUpAerialAnim = "Base Layer.Advntr-NormalUpAerial";
-    public string aNDownAerialAnim = "Base Layer.Advntr-NormalDownAerial";
-
-    public string aSNeutralGroundAnim = "Base Layer.Advntr-SpecialNeutralGround";
-    public string aSSideGroundAnim = "Base Layer.Advntr-SpecialSideGround";
-    public string aSUpGroundAnim = "Base Layer.Advntr-SpecialUpGround";
-    public string aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround";
-
-    public string aSNeutralAerialAnim = "Base Layer.Advntr-SpecialNeutralAerial";
-    public string aSSideAerialAnim = "Base Layer.Advntr-SpecialSideAerial";
-    public string aSUpAerialAnim = "Base Layer.Advntr-SpecialUpAerial";
-    public string aSDownAerialAnim = "Base Layer.Advntr-SpecialDownAerial";
+    public string aIdleAnim = "Base Layer.Advntr-Idle",
+    aAirDashAnim = "Base Layer.Advntr-AirDash",
+    aRunAnim = "Base Layer.Advntr-Run",
+    aJumpAnim = "Base Layer.Advntr-Jump",
+    aFallAnim = "Base Layer.Advntr-Fall",
+    aNNeutralGroundAnim = "Base Layer.Advntr-NormalNeutralGround",
+    aNSideGroundAnim = "Base Layer.Advntr-NormalSideGround",
+    aNUpGroundAnim = "Base Layer.Advntr-NormalUpGround",
+    aNDownGroundAnim = "Base Layer.Advntr-NormalDownGround",
+    aNNeutralAerialAnim = "Base Layer.Advntr-NormalNeutralAerial",
+    aNSideAerialAnim = "Base Layer.Advntr-NormalSideAerial",
+    aNUpAerialAnim = "Base Layer.Advntr-NormalUpAerial",
+    aNDownAerialAnim = "Base Layer.Advntr-NormalDownAerial",
+    aSNeutralGroundAnim = "Base Layer.Advntr-SpecialNeutralGround",
+    aSSideGroundAnim = "Base Layer.Advntr-SpecialSideGround",
+    aSUpGroundAnim = "Base Layer.Advntr-SpecialUpGround",
+    aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround",
+    aSNeutralAerialAnim = "Base Layer.Advntr-SpecialNeutralAerial",
+    aSSideAerialAnim = "Base Layer.Advntr-SpecialSideAerial",
+    aSUpAerialAnim = "Base Layer.Advntr-SpecialUpAerial",
+    aSDownAerialAnim = "Base Layer.Advntr-SpecialDownAerial";
 
     #endregion
 
