@@ -27,7 +27,11 @@ public class CharControllerInspector : Editor
     SerializedProperty jumpInput,
     moveInput;
 
-    static bool showCharInfo, showMovementInfo, showNormals, showSpecials = false;
+    SerializedProperty glowLight;
+
+    SerializedProperty colliders;
+
+    static bool showCharInfo, showMovementInfo, showNormals, showSpecials, showLighting, showColliders = false;
 
     private void OnEnable()
     {
@@ -54,6 +58,8 @@ public class CharControllerInspector : Editor
         nSideAFrames = serializedObject.FindProperty("nSideAFrames");
         nUpAFrames = serializedObject.FindProperty("nUpAFrames");
         nDownAFrames = serializedObject.FindProperty("nDownAFrames");
+        glowLight = serializedObject.FindProperty("glowLight");
+        colliders = serializedObject.FindProperty("colliders");
     }
 
     public override void OnInspectorGUI()
@@ -108,6 +114,22 @@ public class CharControllerInspector : Editor
         if (showSpecials)
         {
             EditorGUILayout.LabelField("TODO: Add Specials");
+        }
+
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        showLighting = EditorGUILayout.BeginFoldoutHeaderGroup(showLighting, "Lighting Effects");
+        if (showLighting)
+        {
+            EditorGUILayout.PropertyField(glowLight);
+        }
+
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        showColliders = EditorGUILayout.BeginFoldoutHeaderGroup(showColliders, "Colliders");
+        if (showColliders)
+        {
+            EditorGUILayout.PropertyField(colliders);
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();

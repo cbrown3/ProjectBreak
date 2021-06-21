@@ -48,11 +48,13 @@ public class NormalAttackState : IState<CharController>
             {
                 c.animator.Play(c.aNNeutralGroundAnim);
                 attackFrames = c.nNeutralGFrames;
+                c.NormalAttackGlow();
             }
             else
             {
                 c.animator.Play(c.aNNeutralAerialAnim);
                 attackFrames = c.nNeutralAFrames;
+                c.NormalAttackGlow();
             }
         }
         else if (dirInput.x > 0)
@@ -63,6 +65,7 @@ public class NormalAttackState : IState<CharController>
             {
                 c.animator.Play(c.aNSideGroundAnim);
                 attackFrames = c.nSideGFrames;
+                c.NormalAttackGlow();
             }
             else
             {
@@ -77,6 +80,7 @@ public class NormalAttackState : IState<CharController>
             {
                 c.animator.Play(c.aNSideGroundAnim);
                 attackFrames = c.nSideGFrames;
+                c.NormalAttackGlow();
             }
             else
             {
@@ -89,11 +93,13 @@ public class NormalAttackState : IState<CharController>
             {
                 c.animator.Play(c.aNUpGroundAnim);
                 attackFrames = c.nUpGFrames;
+                c.NormalAttackGlow();
             }
             else
             {
                 c.animator.Play(c.aNUpAerialAnim);
                 attackFrames = c.nUpAFrames;
+                c.NormalAttackGlow();
             }
         }
         else if (dirInput.y < 0)
@@ -102,11 +108,13 @@ public class NormalAttackState : IState<CharController>
             {
                 c.animator.Play(c.aNDownGroundAnim);
                 attackFrames = c.nDownGFrames;
+                c.NormalAttackGlow();
             }
             else
             {
                 c.animator.Play(c.aNDownAerialAnim);
                 attackFrames = c.nDownAFrames;
+                c.NormalAttackGlow();
             }
         }
 
@@ -119,12 +127,23 @@ public class NormalAttackState : IState<CharController>
         {
             
         }
+
+        //flip hitboxes appropriately
+        if(c.GetComponent<SpriteRenderer>().flipX)
+        {
+            c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            c.colliders.transform.rotation = Quaternion.identity;
+        }
     }
 
     public override void Continue(CharController c)
     {
         if (currentFrame > attackFrames)
         {
+            c.ResetGlow();
             c.interuptible = true;
             c.EnterState(IdleState.Instance);
         }

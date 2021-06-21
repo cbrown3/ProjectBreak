@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -50,6 +51,14 @@ public class CharController : MonoBehaviour
 
     public float jumpInput, moveInput;
 
+    public Light2D glowLight;
+
+    public GameObject colliders;
+
+    private Renderer renderer;
+
+    private Shader normalShader, outlineShader;
+
     /*
     public StopState stopState;
     public AirDashState airDashState;
@@ -90,6 +99,7 @@ public class CharController : MonoBehaviour
         charControls = new CharacterControls();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<Renderer>();
 
         stateMachine = new StateMachine<CharController>();
         stateMachine.Configure(this, IdleState.Instance);
@@ -103,6 +113,9 @@ public class CharController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        normalShader = Shader.Find("Universal Render Pipeline/2D/Sprite-Lit-Default");
+        outlineShader = Shader.Find("Shader Graphs/PlayerOutline");
+
         interuptible = true;
 
         charControls.Character.Jump.performed += _ => EnterState(JumpState.Instance);
@@ -324,6 +337,31 @@ public class CharController : MonoBehaviour
             }
         }
         */
+
+    public void SpecialAttackGlow()
+    {
+        glowLight.color = Color.cyan;
+        glowLight.gameObject.SetActive(true);
+
+        renderer.sharedMaterial.SetColor("_Color", Color.cyan);
+        renderer.sharedMaterial.shader = outlineShader;
+    }
+
+    public void NormalAttackGlow()
+    {
+        glowLight.color = Color.red;
+        glowLight.gameObject.SetActive(true);
+
+        renderer.sharedMaterial.SetColor("_Color", Color.red);
+        renderer.sharedMaterial.shader = outlineShader;
+    }
+
+    public void ResetGlow()
+    {
+        glowLight.gameObject.SetActive(false);
+
+        renderer.sharedMaterial.shader = normalShader;
+    }
 
     private void OnDisable()
     {
