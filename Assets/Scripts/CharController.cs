@@ -75,6 +75,8 @@ public class CharController : MonoBehaviour
     aRunAnim = "Base Layer.Advntr-Run",
     aJumpAnim = "Base Layer.Advntr-Jump",
     aFallAnim = "Base Layer.Advntr-Fall",
+    aGroundGuardAnim = "Base Layer.Advntr-GroundGuard",
+    aAirGuardAnim = "Base Layer.Advntr-AirGuard",
     aNNeutralGroundAnim = "Base Layer.Advntr-NormalNeutralGround",
     aNSideGroundAnim = "Base Layer.Advntr-NormalSideGround",
     aNUpGroundAnim = "Base Layer.Advntr-NormalUpGround",
@@ -118,13 +120,11 @@ public class CharController : MonoBehaviour
 
         interuptible = true;
 
-        charControls.Character.Jump.performed += _ => EnterState(JumpState.Instance);
+        charControls.Character.Jump.performed += _ => Jump();
         charControls.Character.AirDash.performed += _ => AirDash();
         charControls.Character.Move.performed += _ => Movement();
-        charControls.Character.LightNormal.performed += _ => Attack(NormalAttackState.Instance);
-        charControls.Character.HeavyNormal.performed += _ => Attack(NormalAttackState.Instance);
-        //charControls.Character.LightSpecial.performed += _ => Attack(SpecialAttackState.Instance);
-        //charControls.Character.HeavySpecial.performed += _ => Attack(SpecialAttackState.Instance);
+        charControls.Character.HeavyNormal.started += _ => Attack(NormalAttackState.Instance);
+        charControls.Character.Guard.performed += _ => Guard();
     }
 
     // Update is called once per frame
@@ -234,11 +234,27 @@ public class CharController : MonoBehaviour
         }
     }
 
+    public void Jump()
+    {
+        if (interuptible)
+        {
+            EnterState(JumpState.Instance);
+        }
+    }
+
     public void Attack(IState<CharController> state)
     {
         if(canAttack && interuptible)
         {
             EnterState(state);
+        }
+    }
+
+    public void Guard()
+    {
+        if (interuptible)
+        {
+            EnterState(GuardState.Instance);
         }
     }
 

@@ -23,6 +23,8 @@ public class NormalAttackState : IState<CharController>
 
     float isHeavy;
 
+    bool inputComplete;
+
     static NormalAttackState() { }
 
     private NormalAttackState() { }
@@ -40,6 +42,17 @@ public class NormalAttackState : IState<CharController>
         isHeavy = c.charControls.Character.HeavyNormal.ReadValue<float>();
 
         c.interuptible = false;
+
+        if(isHeavy > 0)
+        {
+            inputComplete = false;
+            c.animator.speed = 0;
+        }
+        else
+        {
+            inputComplete = true;
+            c.animator.speed = 1;
+        }
 
         //determine which attack animation to play, and length of attack
         if (dirInput == Vector2.zero)
@@ -141,6 +154,22 @@ public class NormalAttackState : IState<CharController>
 
     public override void Continue(CharController c)
     {
+        //check if the move has been held long enough, if so complete the heavy attack
+        if(!inputComplete &&
+            c.charControls.Character.HeavyNormal.phase == UnityEngine.InputSystem.InputActionPhase.Performed)
+        {
+            c.animator.speed = 1;
+            inputComplete = true;
+        }
+        //if not begin a light attack
+        else if(!inputComplete && !c.charControls.Character.HeavyNormal.triggered &&
+            c.charControls.Character.HeavyNormal.phase == UnityEngine.InputSystem.InputActionPhase.Waiting)
+        {
+            c.canAttack = true;
+            c.interuptible = true;
+            c.Attack(Instance);
+        }
+
         if (currentFrame > attackFrames)
         {
             c.ResetGlow();
@@ -148,7 +177,10 @@ public class NormalAttackState : IState<CharController>
             c.EnterState(IdleState.Instance);
         }
 
-        currentFrame++;
+        if(inputComplete)
+        {
+            currentFrame++;
+        }
     }
 
     public override void Exit(CharController c)

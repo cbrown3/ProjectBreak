@@ -1384,6 +1384,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 703473030266695736, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 703473030266695736, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 703473030266695736, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 703473030266695736, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 703473030266695736, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.37
+      objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515924, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_Name
       value: Adventurer
@@ -1437,6 +1457,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8683947281753102858, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097759958812655090, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
