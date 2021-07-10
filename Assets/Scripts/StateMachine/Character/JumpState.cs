@@ -4,22 +4,11 @@ using UnityEngine;
 
 public class JumpState : IState<CharController>
 {
-    static readonly JumpState instance =
-        new JumpState();
-
-    public static JumpState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    static JumpState() { }
-
-    private JumpState() { }
+    public JumpState() { }
 
     int frameRate;
+
+    float storedVelX;
 
     public override void Enter(CharController c)
     {
@@ -37,6 +26,7 @@ public class JumpState : IState<CharController>
 
             c.animator.Play(c.aJumpAnim);
 
+            storedVelX = c.rigid.velocity.x;
         }
         else
         {
@@ -52,17 +42,17 @@ public class JumpState : IState<CharController>
         }
         else if(frameRate == c.jumpSquatFrames)
         {
-            c.rigid.velocity = new Vector2(c.rigid.velocity.x, c.jumpHeight);
+            c.rigid.velocity = new Vector2(storedVelX, c.jumpHeight);
         }
         else
         {
             if (Mathf.Round(c.rigid.velocity.y) < 0)
             {
-                c.EnterState(FallState.Instance);
+                c.EnterState(c.fallState);
                 return;
             }
 
-            c.moveInput = c.charControls.Character.Move.ReadValue<float>();
+            c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
 
             c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
 

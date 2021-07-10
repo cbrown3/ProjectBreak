@@ -20,7 +20,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""d986d784-8635-43f7-9536-a62dc7b3a6d3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -60,7 +60,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Heavy Normal"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""b0c7c1a6-e666-4795-bcf0-f08d18c42131"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -729,7 +729,40 @@ public class @CharacterControls : IInputActionCollection, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Default Player 1"",
+            ""bindingGroup"": ""Default Player 1"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Default Player 2"",
+            ""bindingGroup"": ""Default Player 2"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Character
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
@@ -947,6 +980,24 @@ public class @CharacterControls : IInputActionCollection, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+    private int m_DefaultPlayer1SchemeIndex = -1;
+    public InputControlScheme DefaultPlayer1Scheme
+    {
+        get
+        {
+            if (m_DefaultPlayer1SchemeIndex == -1) m_DefaultPlayer1SchemeIndex = asset.FindControlSchemeIndex("Default Player 1");
+            return asset.controlSchemes[m_DefaultPlayer1SchemeIndex];
+        }
+    }
+    private int m_DefaultPlayer2SchemeIndex = -1;
+    public InputControlScheme DefaultPlayer2Scheme
+    {
+        get
+        {
+            if (m_DefaultPlayer2SchemeIndex == -1) m_DefaultPlayer2SchemeIndex = asset.FindControlSchemeIndex("Default Player 2");
+            return asset.controlSchemes[m_DefaultPlayer2SchemeIndex];
+        }
+    }
     public interface ICharacterActions
     {
         void OnMove(InputAction.CallbackContext context);

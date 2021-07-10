@@ -4,20 +4,7 @@ using UnityEngine;
 
 public class SpecialAttackState : IState<CharController>
 {
-    static readonly SpecialAttackState instance =
-       new SpecialAttackState();
-
-    public static SpecialAttackState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    static SpecialAttackState() { }
-
-    private SpecialAttackState() { }
+    public SpecialAttackState() { }
 
     public override void Enter(CharController c)
     {

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 abstract public class IState<T>
 {
     abstract public void Enter(T entity);
     abstract public void Continue(T entity);
+    //abstract public void Continue(T entity, InputAction.CallbackContext context);
     abstract public void Exit(T entity);
 }
 

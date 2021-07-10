@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,12 +11,14 @@ public class CharController : MonoBehaviour
     StateMachine<CharController> stateMachine;
 
     [SerializeField]
-    private string stateSerializationHelper;
+    private string stateSerializationHelper = "";
 
     [SerializeField]
-    private Vector2 velocitySerializationHelper;
+    private Vector2 velocitySerializationHelper = Vector2.zero;
 
-    public CharacterControls charControls;
+    //private CharacterControls charControls;
+
+    public PlayerInput playerInput;
 
     [NonSerialized]
     public Animator animator;
@@ -27,7 +30,6 @@ public class CharController : MonoBehaviour
     isGrounded,
     canDash,
     canAttack;
-    //,canDJump;
 
     [NonSerialized]
     public LayerMask ground;
@@ -49,7 +51,7 @@ public class CharController : MonoBehaviour
     nUpAFrames,
     nDownAFrames;
 
-    public float jumpInput, moveInput;
+    public float jumpInput, moveInput = 0;
 
     public Light2D glowLight;
 
@@ -59,13 +61,15 @@ public class CharController : MonoBehaviour
 
     private Shader normalShader, outlineShader;
 
-    /*
-    public StopState stopState;
+    
+    public IdleState idleState;
     public AirDashState airDashState;
     public RunState runState;
     public JumpState jumpState;
     public FallState fallState;
-    */
+    public NormalAttackState normalAttackState;
+    public SpecialAttackState specialAttackState;
+    public GuardState guardState;
 
     #region Animation Names
 
@@ -98,18 +102,29 @@ public class CharController : MonoBehaviour
 
     private void Awake()
     {
-        charControls = new CharacterControls();
+        idleState = new IdleState();
+        fallState = new FallState();
+        runState = new RunState();
+        jumpState = new JumpState();
+        airDashState = new AirDashState();
+        normalAttackState = new NormalAttackState();
+        specialAttackState = new SpecialAttackState();
+        guardState = new GuardState();
+
+        playerInput = GetComponent<PlayerInput>();
+        //charControls = new CharacterControls();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         renderer = GetComponent<Renderer>();
 
         stateMachine = new StateMachine<CharController>();
-        stateMachine.Configure(this, IdleState.Instance);
+        stateMachine.Configure(this, idleState);
     }
 
     private void OnEnable()
     {
-        charControls.Enable();
+        playerInput.ActivateInput();
+        //charControls.Enable();
     }
 
     // Start is called before the first frame update
@@ -120,17 +135,27 @@ public class CharController : MonoBehaviour
 
         interuptible = true;
 
-        charControls.Character.Jump.performed += _ => Jump();
-        charControls.Character.AirDash.performed += _ => AirDash();
-        charControls.Character.Move.performed += _ => Movement();
-        charControls.Character.HeavyNormal.started += _ => Attack(NormalAttackState.Instance);
-        charControls.Character.Guard.performed += _ => Guard();
+        //playerInput.SendMessage("Jump");
+        //playerInput.SendMessage("AirDash");
+        //playerInput.SendMessage("Movement");
+        //playerInput.SendMessage("Attack", NormalAttackState.Instance);
+        //playerInput.SendMessage("Guard");
+        //charControls.Character.Jump.performed += _ => Jump();
+        //charControls.Character.AirDash.performed += _ => AirDash();
+        //charControls.Character.Move.performed += _ => Movement();
+        //charControls.Character.HeavyNormal.started += _ => Attack(NormalAttackState.Instance);
+        //charControls.Character.Guard.performed += _ => Guard();
     }
 
     // Update is called once per frame
     void Update()
     {
         stateSerializationHelper = stateMachine.GetCurrentState().ToString();
+
+        moveInput =
+            playerInput.
+            actions.
+            FindAction("Move").ReadValue<float>();
     }
 
     private void FixedUpdate()
@@ -218,43 +243,43 @@ public class CharController : MonoBehaviour
         stateMachine.EnterState(stateEntered);
     }
 
-    public void Movement()
+    public void Movement(InputAction.CallbackContext context)
     {
-        if(isGrounded && interuptible)
+        if(isGrounded && interuptible && moveInput != 0)
         {
-            EnterState(RunState.Instance);
+            EnterState(runState);
         }
     }
 
-    public void AirDash()
+    public void AirDash(InputAction.CallbackContext context)
     {
-        if(stateMachine.GetCurrentState() != AirDashState.Instance && interuptible)
+        if(stateMachine.GetCurrentState() != airDashState && interuptible)
         {
-            EnterState(AirDashState.Instance);
+            EnterState(airDashState);
         }
     }
 
-    public void Jump()
+    public void Jump(InputAction.CallbackContext context)
     {
         if (interuptible)
         {
-            EnterState(JumpState.Instance);
+            EnterState(jumpState);
         }
     }
 
-    public void Attack(IState<CharController> state)
+    public void Attack(InputAction.CallbackContext context)
     {
-        if(canAttack && interuptible)
+        if(canAttack && interuptible && context.started)
         {
-            EnterState(state);
+            EnterState(normalAttackState);
         }
     }
 
-    public void Guard()
+    public void Guard(InputAction.CallbackContext context)
     {
         if (interuptible)
         {
-            EnterState(GuardState.Instance);
+            EnterState(guardState);
         }
     }
 
@@ -359,8 +384,8 @@ public class CharController : MonoBehaviour
         glowLight.color = Color.cyan;
         glowLight.gameObject.SetActive(true);
 
-        renderer.sharedMaterial.SetColor("_Color", Color.cyan);
-        renderer.sharedMaterial.shader = outlineShader;
+        renderer.material.SetColor("_Color", Color.cyan);
+        renderer.material.shader = outlineShader;
     }
 
     public void NormalAttackGlow()
@@ -368,8 +393,8 @@ public class CharController : MonoBehaviour
         glowLight.color = Color.red;
         glowLight.gameObject.SetActive(true);
 
-        renderer.sharedMaterial.SetColor("_Color", Color.red);
-        renderer.sharedMaterial.shader = outlineShader;
+        renderer.material.SetColor("_Color", Color.red);
+        renderer.material.shader = outlineShader;
     }
 
     public void ResetGlow()
@@ -381,7 +406,7 @@ public class CharController : MonoBehaviour
 
     private void OnDisable()
     {
-        charControls.Disable();
+        //charControls.Disable();
     }
 
     /*

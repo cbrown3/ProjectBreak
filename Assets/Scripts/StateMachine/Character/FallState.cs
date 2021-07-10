@@ -4,20 +4,7 @@ using UnityEngine;
 
 public class FallState : IState<CharController>
 {
-    static readonly FallState instance =
-        new FallState();
-
-    public static FallState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    static FallState() { }
-
-    private FallState() { }
+    public FallState() { }
 
     public override void Enter(CharController c)
     {
@@ -34,15 +21,15 @@ public class FallState : IState<CharController>
         {
             if (Mathf.Round(c.rigid.velocity.x) != 0)
             {
-                c.EnterState(RunState.Instance);
+                c.EnterState(c.runState);
             }
             else
             {
-                c.EnterState(IdleState.Instance);
+                c.EnterState(c.idleState);
             }
         }
 
-        c.moveInput = c.charControls.Character.Move.ReadValue<float>();
+        c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
 
         c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
 

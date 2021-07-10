@@ -4,26 +4,13 @@ using UnityEngine;
 
 public class RunState : IState<CharController>
 {
-    static readonly RunState instance =
-        new RunState();
-
-    public static RunState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    static RunState() { }
-
-    private RunState() { }
+    public RunState() { }
 
     public override void Enter(CharController c)
     {
         if(c.isGrounded)
         {
-            c.moveInput = c.charControls.Character.Move.ReadValue<float>();
+            c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
             c.canDash = false;
 
             c.canAttack = true;
@@ -51,7 +38,7 @@ public class RunState : IState<CharController>
 
     public override void Continue(CharController c)
     {
-        c.moveInput = c.charControls.Character.Move.ReadValue<float>();
+        c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
 
         c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
 
@@ -65,7 +52,7 @@ public class RunState : IState<CharController>
         }
         else
         {
-            c.EnterState(IdleState.Instance);
+            c.EnterState(c.idleState);
         }
     }
 

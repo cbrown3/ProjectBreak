@@ -4,20 +4,7 @@ using UnityEngine;
 
 public class IdleState : IState<CharController>
 {
-    static readonly IdleState instance =
-        new IdleState();
-
-    public static IdleState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    static IdleState() { }
-
-    private IdleState() { }
+    public IdleState() { }
     
     public override void Enter(CharController c)
     {
@@ -41,14 +28,15 @@ public class IdleState : IState<CharController>
 
     public override void Continue(CharController c)
     {
-        //if (Mathf.Round(c.rigid.velocity.x) != 0)
-        if(c.moveInput != 0)
+        c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+
+        if (c.moveInput != 0)
         {
-            c.EnterState(RunState.Instance);
+            c.EnterState(c.runState);
         }
         else if(c.jumpInput != 0)
         {
-            c.EnterState(JumpState.Instance);
+            c.EnterState(c.jumpState);
         }
     }
 

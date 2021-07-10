@@ -4,16 +4,7 @@ using UnityEngine;
 
 public class NormalAttackState : IState<CharController>
 {
-    static readonly NormalAttackState instance =
-       new NormalAttackState();
-
-    public static NormalAttackState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+    public NormalAttackState() { }
 
     Vector2 dirInput;
 
@@ -21,13 +12,11 @@ public class NormalAttackState : IState<CharController>
 
     int attackFrames;
 
-    float isHeavy;
+    public float isHeavy;
 
     bool inputComplete;
 
-    static NormalAttackState() { }
-
-    private NormalAttackState() { }
+    bool isAerial;
 
     public override void Enter(CharController c)
     {
@@ -36,10 +25,19 @@ public class NormalAttackState : IState<CharController>
         c.canAttack = false;
 
         //determine directional input
-        dirInput = c.charControls.Character.DirectionalInput.ReadValue<Vector2>();
+        dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+
+        if(c.isGrounded)
+        {
+            isAerial = false;
+        }
+        else
+        {
+            isAerial = true;
+        }
 
         //determine attack type
-        isHeavy = c.charControls.Character.HeavyNormal.ReadValue<float>();
+        isHeavy = c.playerInput.actions.FindAction("Heavy Normal").ReadValue<float>();
 
         c.interuptible = false;
 
@@ -82,7 +80,9 @@ public class NormalAttackState : IState<CharController>
             }
             else
             {
-
+                c.animator.Play(c.aNSideAerialAnim);
+                attackFrames = c.nSideAFrames;
+                c.NormalAttackGlow();
             }
         }
         else if (dirInput.x < 0)
@@ -97,7 +97,9 @@ public class NormalAttackState : IState<CharController>
             }
             else
             {
-
+                c.animator.Play(c.aNSideAerialAnim);
+                attackFrames = c.nSideAFrames;
+                c.NormalAttackGlow();
             }
         }
         else if (dirInput.y > 0)
@@ -154,27 +156,56 @@ public class NormalAttackState : IState<CharController>
 
     public override void Continue(CharController c)
     {
+        if(!c.isGrounded)
+        {
+            c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+
+            c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
+
+            if (c.rigid.velocity.x > c.aerialDrift)
+            {
+                c.rigid.velocity = new Vector2(c.aerialDrift, c.rigid.velocity.y);
+            }
+            else if (c.rigid.velocity.x < -c.aerialDrift)
+            {
+                c.rigid.velocity = new Vector2(-c.aerialDrift, c.rigid.velocity.y);
+            }
+            else
+            {
+                c.rigid.velocity = new Vector2(c.aerialDrift * c.moveInput, c.rigid.velocity.y);
+            }
+        }
+        else if(isAerial)
+        {
+            c.ResetGlow();
+            c.interuptible = true;
+            c.EnterState(c.idleState);
+        }
+        else
+        {
+            c.rigid.velocity = Vector2.zero;
+        }
+
         //check if the move has been held long enough, if so complete the heavy attack
-        if(!inputComplete &&
-            c.charControls.Character.HeavyNormal.phase == UnityEngine.InputSystem.InputActionPhase.Performed)
+        if(!inputComplete && c.playerInput.actions.FindAction("Heavy Normal").phase == UnityEngine.InputSystem.InputActionPhase.Performed)
         {
             c.animator.speed = 1;
             inputComplete = true;
         }
         //if not begin a light attack
-        else if(!inputComplete && !c.charControls.Character.HeavyNormal.triggered &&
-            c.charControls.Character.HeavyNormal.phase == UnityEngine.InputSystem.InputActionPhase.Waiting)
+        else if(!inputComplete && !c.playerInput.actions.FindAction("Heavy Normal").triggered &&
+            c.playerInput.actions.FindAction("Heavy Normal").phase == UnityEngine.InputSystem.InputActionPhase.Waiting)
         {
             c.canAttack = true;
             c.interuptible = true;
-            c.Attack(Instance);
+            c.EnterState(c.normalAttackState);
         }
 
         if (currentFrame > attackFrames)
         {
             c.ResetGlow();
             c.interuptible = true;
-            c.EnterState(IdleState.Instance);
+            c.EnterState(c.idleState);
         }
 
         if(inputComplete)

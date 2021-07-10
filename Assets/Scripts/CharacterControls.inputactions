@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "d986d784-8635-43f7-9536-a62dc7b3a6d3",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -47,7 +47,7 @@
                 },
                 {
                     "name": "Heavy Normal",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "b0c7c1a6-e666-4795-bcf0-f08d18c42131",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -716,5 +716,38 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Default Player 1",
+            "bindingGroup": "Default Player 1",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Default Player 2",
+            "bindingGroup": "Default Player 2",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

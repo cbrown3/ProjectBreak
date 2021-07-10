@@ -685,8 +685,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5932746048572182931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.03, z: 0}
-  m_LocalScale: {x: 4, y: 2.36, z: 1}
+  m_LocalPosition: {x: 0.2, y: -0.03, z: 0}
+  m_LocalScale: {x: 2.64, y: 1.7, z: 1}
   m_Children: []
   m_Father: {fileID: 8225095788542018941}
   m_RootOrder: 5
@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 703473030266695736}
   - component: {fileID: 8020646329724515929}
   - component: {fileID: 8020646329724515935}
+  - component: {fileID: 4778562293765497852}
   m_Layer: 0
   m_Name: Adventurer
   m_TagString: Character
@@ -1087,6 +1088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateSerializationHelper: 0
   velocitySerializationHelper: {x: 0, y: 0}
+  playerInput: {fileID: 0}
   interuptible: 0
   isGrounded: 0
   canDash: 0
@@ -1103,13 +1105,169 @@ MonoBehaviour:
   nUpGFrames: 16
   nDownGFrames: 13
   nNeutralAFrames: 9
-  nSideAFrames: 0
+  nSideAFrames: 16
   nUpAFrames: 20
   nDownAFrames: 13
-  jumpInput: 0
-  moveInput: 0
   glowLight: {fileID: 8526658979949007138}
   colliders: {fileID: 6160294510448794632}
+  jumpInput:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+  moveInput:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+--- !u!114 &4778562293765497852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8020646329724515924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: c3bb857c1b8878244aedb4fa66ddfc14, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8020646329724515935}
+        m_TargetAssemblyTypeName: CharController, Assembly-CSharp
+        m_MethodName: Movement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d986d784-8635-43f7-9536-a62dc7b3a6d3
+    m_ActionName: Character/Move[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8020646329724515935}
+        m_TargetAssemblyTypeName: CharController, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f475ce92-a30f-4ce9-adbd-ccd043857ad6
+    m_ActionName: Character/Jump[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8020646329724515935}
+        m_TargetAssemblyTypeName: CharController, Assembly-CSharp
+        m_MethodName: AirDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 22f119f0-dbae-4d19-8a49-dede3fbb8e41
+    m_ActionName: Character/AirDash[/Keyboard/semicolon]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 130dbc91-8acb-4e50-86df-9d9704ed6c70
+    m_ActionName: Character/DirectionalInput[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f6f509eb-576d-4a06-9c4f-85e1d5685ca9
+    m_ActionName: Character/Light Normal[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8020646329724515935}
+        m_TargetAssemblyTypeName: CharController, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b0c7c1a6-e666-4795-bcf0-f08d18c42131
+    m_ActionName: Character/Heavy Normal[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f3186820-a930-446c-9de4-5737518377a4
+    m_ActionName: Character/Light Special[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0bb7ac76-b74c-4e61-b588-06a618144936
+    m_ActionName: Character/Heavy Special[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8020646329724515935}
+        m_TargetAssemblyTypeName: CharController, Assembly-CSharp
+        m_MethodName: Guard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7334c2e0-962e-4b09-bfec-3b363e42d297
+    m_ActionName: Character/Guard[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b3d44ed-cc89-4ab1-80ba-7f27ec66cd3e
+    m_ActionName: Character/Grab[/Keyboard/h]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 83963b68-afc2-46a1-98c4-2f785649bc33
+    m_ActionName: Character/Normal Parry[/Keyboard/j,/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c9faff4-eff0-4b34-bfcb-1edcb3e9e5cf
+    m_ActionName: Character/Special Parry[/Keyboard/k,/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d13523a-3544-4876-b108-99f96b6a0161
+    m_ActionName: UI/Move
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Default Player 1
+  m_DefaultActionMap: Character
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &8683947281753102858
 GameObject:
   m_ObjectHideFlags: 0

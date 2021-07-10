@@ -4,32 +4,19 @@ using UnityEngine;
 
 public class GuardState : IState<CharController>
 {
-    static readonly GuardState instance =
-        new GuardState();
-
-    public static GuardState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+    public GuardState() { }
 
     float guardInput;
 
-    static GuardState() { }
-
-    private GuardState() { }
-    
     public override void Enter(CharController c)
     {
         c.canDash = false;
 
         c.canAttack = false;
 
-        guardInput = c.charControls.Character.Guard.ReadValue<float>();
+        guardInput = c.playerInput.actions.FindAction("Guard").ReadValue<float>();
 
-        if(c.isGrounded)
+        if (c.isGrounded)
         {
             c.animator.Play(c.aGroundGuardAnim);
         }
@@ -43,12 +30,17 @@ public class GuardState : IState<CharController>
 
     public override void Continue(CharController c)
     {
-        guardInput = c.charControls.Character.Guard.ReadValue<float>();
-        c.moveInput = c.charControls.Character.Move.ReadValue<float>();
+        guardInput = c.playerInput.actions.FindAction("Guard").ReadValue<float>();
+        c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
 
-        if(c.isGrounded && c.animator.GetCurrentAnimatorStateInfo(0).IsName(c.aAirGuardAnim))
+        if (c.isGrounded)
         {
-            c.animator.Play(c.aGroundGuardAnim);
+            c.rigid.velocity = Vector2.zero;
+
+            if (c.animator.GetCurrentAnimatorStateInfo(0).IsName(c.aAirGuardAnim))
+            {
+                c.animator.Play(c.aGroundGuardAnim);
+            }
         }
 
         if (c.moveInput > 0)
@@ -71,7 +63,7 @@ public class GuardState : IState<CharController>
 
         if (guardInput <= 0)
         {
-            c.EnterState(IdleState.Instance);
+            c.EnterState(c.idleState);
         }
     }
 

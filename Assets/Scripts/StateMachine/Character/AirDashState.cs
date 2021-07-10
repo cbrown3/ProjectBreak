@@ -1,23 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AirDashState : IState<CharController>
 {
-    static readonly AirDashState instance =
-        new AirDashState();
-
-    public static AirDashState Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    static AirDashState() { }
-
-    private AirDashState() { }
+    public AirDashState() { }
 
     Vector2 airDashDir;
 
@@ -26,7 +14,7 @@ public class AirDashState : IState<CharController>
 
     public override void Enter(CharController c)
     {
-        if (!c.isGrounded && c.canDash)
+;        if (!c.isGrounded && c.canDash)
         {
             //c.dashFrames = 12;
             frameRate = 0;
@@ -40,10 +28,9 @@ public class AirDashState : IState<CharController>
 
             c.interuptible = true;
 
-            c.animator.Play(c.aRunAnim);
+            c.animator.Play(c.aAirDashAnim);
 
-            airDashDir = c.charControls.Character.DirectionalInput.ReadValue<Vector2>();
-
+            airDashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
         }
         else
         {
@@ -61,7 +48,7 @@ public class AirDashState : IState<CharController>
         {
             c.rigid.velocity = Vector2.zero;
 
-            c.EnterState(FallState.Instance);
+            c.EnterState(c.fallState);
         }
         else
         {
