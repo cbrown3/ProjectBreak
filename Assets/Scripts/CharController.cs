@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Collider2D))]
 public class CharController : MonoBehaviour
 {
     StateMachine<CharController> stateMachine;
@@ -37,7 +36,8 @@ public class CharController : MonoBehaviour
     public float groundSpeed,
      dashSpeed,
      jumpHeight,
-     aerialDrift;
+     aerialDrift,
+     maxAerialSpeed;
 
     public int dashFrameLength,
     dashStartup,
@@ -56,6 +56,8 @@ public class CharController : MonoBehaviour
     public Light2D glowLight;
 
     public GameObject colliders;
+
+    public BoxCollider2D playerCollider;
 
     private Renderer renderer;
 
@@ -119,6 +121,8 @@ public class CharController : MonoBehaviour
 
         stateMachine = new StateMachine<CharController>();
         stateMachine.Configure(this, idleState);
+
+        maxAerialSpeed = aerialDrift + groundSpeed;
     }
 
     private void OnEnable()
@@ -438,6 +442,30 @@ public class CharController : MonoBehaviour
         if(collision.gameObject.layer == 3)
         {
             isGrounded = true;
+        }
+
+        if(collision.gameObject.tag == "Character")
+        {
+            //collision.rigidbody.velocity = Vector2.zero;
+            //rigid.velocity = Vector2.zero;
+            //Physics2D.IgnoreCollision(playerCollider, collision.collider, true);
+            //rigid.velocity = Vector3.ProjectOnPlane(rigid.velocity, collision.contacts[0].normal);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Character")
+        {
+            //collision.rigidbody.;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Character")
+        {
+           //rigid.isKinematic = false;
         }
     }
 }

@@ -17,7 +17,7 @@ public class JumpState : IState<CharController>
             c.canDash = true ? c.isGrounded : !c.isGrounded;
             c.isGrounded = false;
 
-            c.canAttack = true;
+            c.canAttack = false;
             //c.canDash = c.canDJump;
 
             c.interuptible = true;
@@ -27,6 +27,8 @@ public class JumpState : IState<CharController>
             c.animator.Play(c.aJumpAnim);
 
             storedVelX = c.rigid.velocity.x;
+
+            c.maxAerialSpeed = Mathf.Abs(storedVelX) + c.aerialDrift;
         }
         else
         {
@@ -43,6 +45,7 @@ public class JumpState : IState<CharController>
         else if(frameRate == c.jumpSquatFrames)
         {
             c.rigid.velocity = new Vector2(storedVelX, c.jumpHeight);
+            c.canAttack = true;
         }
         else
         {
@@ -56,18 +59,20 @@ public class JumpState : IState<CharController>
 
             c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
 
-            if (c.rigid.velocity.x > c.aerialDrift)
+            if (c.rigid.velocity.x > c.maxAerialSpeed)
             {
-                c.rigid.velocity = new Vector2(c.aerialDrift, c.rigid.velocity.y);
+                c.rigid.velocity = new Vector2(c.maxAerialSpeed, c.rigid.velocity.y);
             }
-            else if (c.rigid.velocity.x < -c.aerialDrift)
+            else if (c.rigid.velocity.x < -c.maxAerialSpeed)
             {
-                c.rigid.velocity = new Vector2(-c.aerialDrift, c.rigid.velocity.y);
+                c.rigid.velocity = new Vector2(-c.maxAerialSpeed, c.rigid.velocity.y);
             }
-            else
+            /*else
             {
                 c.rigid.velocity = new Vector2(c.aerialDrift * c.moveInput, c.rigid.velocity.y);
-            }
+            }*/
+
+            //Mathf.Clamp(c.rigid.velocity.x, -c.aerialDrift, c.aerialDrift);
         }
 
         frameRate++;

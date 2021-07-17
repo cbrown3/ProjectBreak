@@ -33,18 +33,20 @@ public class FallState : IState<CharController>
 
         c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
 
-        if (c.rigid.velocity.x > c.aerialDrift)
+        if (c.rigid.velocity.x > c.maxAerialSpeed)
         {
-            c.rigid.velocity = new Vector2(c.aerialDrift, c.rigid.velocity.y);
+            c.rigid.velocity = new Vector2(c.maxAerialSpeed, c.rigid.velocity.y);
         }
-        else if (c.rigid.velocity.x < -c.aerialDrift)
+        else if (c.rigid.velocity.x < -c.maxAerialSpeed)
         {
-            c.rigid.velocity = new Vector2(-c.aerialDrift, c.rigid.velocity.y);
+            c.rigid.velocity = new Vector2(-c.maxAerialSpeed, c.rigid.velocity.y);
         }
-        else
+        /*else
         {
             c.rigid.velocity = new Vector2(c.aerialDrift * c.moveInput, c.rigid.velocity.y);
-        }
+        }*/
+
+        //Mathf.Clamp(c.rigid.velocity.x, -c.aerialDrift, c.aerialDrift);
     }
 
     public override void Exit(CharController c)

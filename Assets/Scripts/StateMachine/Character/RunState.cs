@@ -29,6 +29,15 @@ public class RunState : IState<CharController>
             {
                 c.GetComponent<SpriteRenderer>().flipX = true;
             }
+
+            if (!c.GetComponent<SpriteRenderer>().flipX)
+            {
+                c.colliders.transform.rotation = Quaternion.identity;
+            }
+            else
+            {
+                c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
         }
         else
         {
@@ -50,7 +59,7 @@ public class RunState : IState<CharController>
         {
             c.rigid.velocity = new Vector2(-c.groundSpeed, c.rigid.velocity.y);
         }
-        else
+        else if(c.moveInput == 0)
         {
             c.EnterState(c.idleState);
         }

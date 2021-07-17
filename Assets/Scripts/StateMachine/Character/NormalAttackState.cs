@@ -27,7 +27,9 @@ public class NormalAttackState : IState<CharController>
         //determine directional input
         dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
 
-        if(c.isGrounded)
+        c.maxAerialSpeed = Mathf.Abs(c.rigid.velocity.x) + c.aerialDrift;
+
+        if (c.isGrounded)
         {
             isAerial = false;
         }
@@ -162,18 +164,18 @@ public class NormalAttackState : IState<CharController>
 
             c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
 
-            if (c.rigid.velocity.x > c.aerialDrift)
+            if (c.rigid.velocity.x > c.maxAerialSpeed)
             {
-                c.rigid.velocity = new Vector2(c.aerialDrift, c.rigid.velocity.y);
+                c.rigid.velocity = new Vector2(c.maxAerialSpeed, c.rigid.velocity.y);
             }
-            else if (c.rigid.velocity.x < -c.aerialDrift)
+            else if (c.rigid.velocity.x < -c.maxAerialSpeed)
             {
-                c.rigid.velocity = new Vector2(-c.aerialDrift, c.rigid.velocity.y);
+                c.rigid.velocity = new Vector2(-c.maxAerialSpeed, c.rigid.velocity.y);
             }
-            else
+            /*else
             {
                 c.rigid.velocity = new Vector2(c.aerialDrift * c.moveInput, c.rigid.velocity.y);
-            }
+            }*/
         }
         else if(isAerial)
         {
@@ -205,7 +207,15 @@ public class NormalAttackState : IState<CharController>
         {
             c.ResetGlow();
             c.interuptible = true;
-            c.EnterState(c.idleState);
+
+            if(c.isGrounded)
+            {
+                c.EnterState(c.idleState);
+            }
+            else
+            {
+                c.EnterState(c.fallState);
+            }
         }
 
         if(inputComplete)
