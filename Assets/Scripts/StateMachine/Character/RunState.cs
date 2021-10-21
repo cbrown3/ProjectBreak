@@ -20,24 +20,6 @@ public class RunState : IState<CharController>
             c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
 
             c.animator.Play(c.aRunAnim);
-
-            if (c.moveInput > 0)
-            {
-                c.GetComponent<SpriteRenderer>().flipX = false;
-            }
-            else if(c.moveInput < 0)
-            {
-                c.GetComponent<SpriteRenderer>().flipX = true;
-            }
-
-            if (!c.GetComponent<SpriteRenderer>().flipX)
-            {
-                c.colliders.transform.rotation = Quaternion.identity;
-            }
-            else
-            {
-                c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
         }
         else
         {
@@ -48,6 +30,24 @@ public class RunState : IState<CharController>
     public override void Continue(CharController c)
     {
         c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+
+        if (c.moveInput > 0)
+        {
+            c.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (c.moveInput < 0)
+        {
+            c.GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        if (!c.GetComponent<SpriteRenderer>().flipX)
+        {
+            c.colliders.transform.rotation = Quaternion.identity;
+        }
+        else
+        {
+            c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
 
         c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
 

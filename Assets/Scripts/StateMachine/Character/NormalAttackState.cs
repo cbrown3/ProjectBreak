@@ -135,16 +135,6 @@ public class NormalAttackState : IState<CharController>
             }
         }
 
-        //determine damage based on light/heavy
-        if(isHeavy > 0)
-        {
-            
-        }
-        else
-        {
-            
-        }
-
         //flip hitboxes appropriately
         if(c.GetComponent<SpriteRenderer>().flipX)
         {
@@ -188,19 +178,22 @@ public class NormalAttackState : IState<CharController>
             c.rigid.velocity = Vector2.zero;
         }
 
-        //check if the move has been held long enough, if so complete the heavy attack
+        //check if the move has been held long enough, if so complete the heavy attack, set heavy damage
         if(!inputComplete && c.playerInput.actions.FindAction("Heavy Normal").phase == UnityEngine.InputSystem.InputActionPhase.Performed)
         {
             c.animator.speed = 1;
             inputComplete = true;
+
+            Debug.Log("Heavy Attack!");
         }
         //if not begin a light attack
         else if(!inputComplete && !c.playerInput.actions.FindAction("Heavy Normal").triggered &&
             c.playerInput.actions.FindAction("Heavy Normal").phase == UnityEngine.InputSystem.InputActionPhase.Waiting)
         {
-            c.canAttack = true;
-            c.interuptible = true;
-            c.EnterState(c.normalAttackState);
+            c.animator.speed = 1;
+            inputComplete = true;
+
+            Debug.Log("Light Attack!");
         }
 
         if (currentFrame > attackFrames)

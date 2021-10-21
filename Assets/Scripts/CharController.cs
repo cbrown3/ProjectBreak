@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -15,9 +17,11 @@ public class CharController : MonoBehaviour
     [SerializeField]
     private Vector2 velocitySerializationHelper = Vector2.zero;
 
-    //private CharacterControls charControls;
+    private CharacterControls charControls;
 
     public PlayerInput playerInput;
+
+    //public InputActionTrace inputActionTrace;
 
     [NonSerialized]
     public Animator animator;
@@ -63,7 +67,9 @@ public class CharController : MonoBehaviour
 
     private Shader normalShader, outlineShader;
 
-    
+    public Queue buffer;
+    private double elapsedTime;
+
     public IdleState idleState;
     public AirDashState airDashState;
     public RunState runState;
@@ -104,6 +110,7 @@ public class CharController : MonoBehaviour
 
     private void Awake()
     {
+        buffer = new Queue(60);
         idleState = new IdleState();
         fallState = new FallState();
         runState = new RunState();
@@ -114,6 +121,8 @@ public class CharController : MonoBehaviour
         guardState = new GuardState();
 
         playerInput = GetComponent<PlayerInput>();
+        //inputActionTrace = new InputActionTrace();
+
         //charControls = new CharacterControls();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
@@ -123,6 +132,8 @@ public class CharController : MonoBehaviour
         stateMachine.Configure(this, idleState);
 
         maxAerialSpeed = aerialDrift + groundSpeed;
+
+        //inputActionTrace.SubscribeTo(playerInput.currentActionMap);
     }
 
     private void OnEnable()
@@ -138,6 +149,8 @@ public class CharController : MonoBehaviour
         outlineShader = Shader.Find("Shader Graphs/PlayerOutline");
 
         interuptible = true;
+
+        playerInput.currentActionMap.actionTriggered += PlayerInput_onActionTriggered;
 
         //playerInput.SendMessage("Jump");
         //playerInput.SendMessage("AirDash");
@@ -160,6 +173,23 @@ public class CharController : MonoBehaviour
             playerInput.
             actions.
             FindAction("Move").ReadValue<float>();
+
+        Debug.Log(buffer.Count);
+
+        if(buffer.Count > 0)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if(elapsedTime > 0.05)
+            {
+                elapsedTime--;
+                buffer.Dequeue();
+            }
+        }
+        else
+        {
+            elapsedTime = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -287,6 +317,19 @@ public class CharController : MonoBehaviour
         }
     }
 
+    private void PlayerInput_onActionTriggered(InputAction.CallbackContext obj)
+    {
+        if(buffer.Count >= 60)
+        {
+            buffer.Dequeue();
+        }
+
+        if(obj.action.name != "DirectionalInput")
+        {
+            buffer.Enqueue(obj);
+        }
+    }
+
     #endregion
 
     public void RevertToPreviousState()
@@ -410,7 +453,9 @@ public class CharController : MonoBehaviour
 
     private void OnDisable()
     {
-        //charControls.Disable();
+        /*inputActionTrace.Clear();
+        inputActionTrace.UnsubscribeFromAll();
+        inputActionTrace.Dispose();*/
     }
 
     /*
