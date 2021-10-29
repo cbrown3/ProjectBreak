@@ -174,10 +174,14 @@ public class CharController : MonoBehaviour
             actions.
             FindAction("Move").ReadValue<float>();
 
-        Debug.Log(buffer.Count);
+        //Debug.Log(buffer.Count);
 
         if(buffer.Count > 0)
         {
+            InputAction currentInputAction = (InputAction)buffer.Peek();
+            Debug.Log(currentInputAction.name);
+            EnterState(currentInputAction.name);
+
             elapsedTime += Time.deltaTime;
 
             if(elapsedTime > 0.05)
@@ -272,6 +276,33 @@ public class CharController : MonoBehaviour
 
     #region Enter State 
 
+    public void EnterState(string inputActionName)
+    {
+        switch(inputActionName)
+        {
+            case "Move":
+                EnterState(runState);
+                buffer.Dequeue();
+                break;
+            case "AirDash":
+                EnterState(airDashState);
+                buffer.Dequeue();
+                break;
+            case "Jump":
+                EnterState(jumpState);
+                buffer.Dequeue();
+                break;
+            case "Heavy Normal":
+                EnterState(normalAttackState);
+                buffer.Dequeue();
+                break;
+            case "Guard":
+                EnterState(guardState);
+                buffer.Dequeue();
+                break;
+        }
+    }
+
     public void EnterState(IState<CharController> stateEntered)
     {
         stateMachine.EnterState(stateEntered);
@@ -324,9 +355,10 @@ public class CharController : MonoBehaviour
             buffer.Dequeue();
         }
 
-        if(obj.action.name != "DirectionalInput")
+        if(obj.action.name != "DirectionalInput"/* &&
+            obj.action.name != "Light Normal"*/)
         {
-            buffer.Enqueue(obj);
+            buffer.Enqueue(obj.action);
         }
     }
 
