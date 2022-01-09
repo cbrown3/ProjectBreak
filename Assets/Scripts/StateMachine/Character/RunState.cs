@@ -8,23 +8,18 @@ public class RunState : IState<CharController>
 
     public override void Enter(CharController c)
     {
-        if(c.isGrounded)
-        {
-            c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
-            c.canDash = false;
+        c.ResetGlow();
 
-            c.canAttack = true;
+        c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+        c.canDash = false;
 
-            c.interuptible = true;
+        c.canAttack = true;
 
-            c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
+        c.interuptible = true;
 
-            c.animator.Play(c.aRunAnim);
-        }
-        else
-        {
-            c.RevertToPreviousState();
-        }
+        c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
+
+        c.animator.Play(c.aRunAnim);
     }
 
     public override void Continue(CharController c)

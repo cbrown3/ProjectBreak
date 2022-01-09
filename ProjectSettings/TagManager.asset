@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Character
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - PostProcessing
   - Character
   - Character Collider Blocker
-  - 
+  - Attack Collider
   - 
   - 
   - 

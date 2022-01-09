@@ -43,6 +43,7 @@ public class GuardState : IState<CharController>
             }
         }
 
+
         if (c.moveInput > 0)
         {
             c.GetComponent<SpriteRenderer>().flipX = false;
@@ -60,7 +61,7 @@ public class GuardState : IState<CharController>
         {
             c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-
+        
         if (guardInput <= 0)
         {
             c.EnterState(c.idleState);

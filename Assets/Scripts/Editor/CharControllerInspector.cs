@@ -29,7 +29,7 @@ public class CharControllerInspector : Editor
 
     SerializedProperty glowLight;
 
-    SerializedProperty colliders, playerCollider;
+    SerializedProperty colliders, playerCollider, charBlockerCollider;
 
     static bool showCharInfo, showMovementInfo, showNormals, showSpecials, showLighting, showColliders = false;
 
@@ -61,6 +61,7 @@ public class CharControllerInspector : Editor
         glowLight = serializedObject.FindProperty("glowLight");
         colliders = serializedObject.FindProperty("colliders");
         playerCollider = serializedObject.FindProperty("playerCollider");
+        charBlockerCollider = serializedObject.FindProperty("charBlockerCollider");
     }
 
     public override void OnInspectorGUI()
@@ -132,6 +133,7 @@ public class CharControllerInspector : Editor
         {
             EditorGUILayout.PropertyField(colliders);
             EditorGUILayout.PropertyField(playerCollider);
+            EditorGUILayout.PropertyField(charBlockerCollider);
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();

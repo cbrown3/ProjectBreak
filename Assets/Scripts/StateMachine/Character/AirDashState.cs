@@ -14,28 +14,21 @@ public class AirDashState : IState<CharController>
 
     public override void Enter(CharController c)
     {
-;        if (!c.isGrounded && c.canDash)
-        {
-            //c.dashFrames = 12;
-            frameRate = 0;
+        //c.dashFrames = 12;
+        frameRate = 0;
 
-            c.rigid.velocity = Vector2.zero;
+        c.rigid.velocity = Vector2.zero;
 
-            c.canDash = false;
+        c.canDash = false;
 
-            c.canAttack = false;
-            //c.canDJump = false;
+        c.canAttack = false;
+        //c.canDJump = false;
 
-            c.interuptible = true;
+        c.interuptible = true;
 
-            c.animator.Play(c.aAirDashAnim);
+        c.animator.Play(c.aAirDashAnim);
 
-            airDashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
-        }
-        else
-        {
-            c.RevertToPreviousState();
-        }
+        airDashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
     }
 
     public override void Continue(CharController c)

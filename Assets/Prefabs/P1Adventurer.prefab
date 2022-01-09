@@ -7,8 +7,44 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 804364561584953137, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294991224458722451, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456180683661754685, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Size.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750284467546754381, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2981766883872310695, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416283010752581391, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293254160396655029, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473683824689629783, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889731935167348962, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: isPlayer1
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515924, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
@@ -59,5 +95,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: charBlockerCollider
+      value: 
+      objectReference: {fileID: 2354005607669586220}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+--- !u!61 &2354005607669586220 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4615254893281062644, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+  m_PrefabInstance: {fileID: 6964736008039102424}
+  m_PrefabAsset: {fileID: 0}

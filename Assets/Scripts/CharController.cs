@@ -32,7 +32,8 @@ public class CharController : MonoBehaviour
     public bool interuptible,
     isGrounded,
     canDash,
-    canAttack;
+    canAttack,
+    isPlayer1;
 
     [NonSerialized]
     public LayerMask ground;
@@ -63,6 +64,8 @@ public class CharController : MonoBehaviour
 
     public BoxCollider2D playerCollider;
 
+    public BoxCollider2D charBlockerCollider;
+
     private Renderer renderer;
 
     private Shader normalShader, outlineShader;
@@ -75,18 +78,21 @@ public class CharController : MonoBehaviour
     public RunState runState;
     public JumpState jumpState;
     public FallState fallState;
+    public HitStunState hitStunState;
     public NormalAttackState normalAttackState;
     public SpecialAttackState specialAttackState;
     public GuardState guardState;
 
     #region Animation Names
 
+    //get by hash, more optimized
     [NonSerialized]
     public string aIdleAnim = "Base Layer.Advntr-Idle",
     aAirDashAnim = "Base Layer.Advntr-AirDash",
     aRunAnim = "Base Layer.Advntr-Run",
     aJumpAnim = "Base Layer.Advntr-Jump",
     aFallAnim = "Base Layer.Advntr-Fall",
+    aHitStunAnim = "Base Layer.Advntr-HitStun",
     aGroundGuardAnim = "Base Layer.Advntr-GroundGuard",
     aAirGuardAnim = "Base Layer.Advntr-AirGuard",
     aNNeutralGroundAnim = "Base Layer.Advntr-NormalNeutralGround",
@@ -110,9 +116,22 @@ public class CharController : MonoBehaviour
 
     private void Awake()
     {
+        isPlayer1 = gameObject.name.Contains("P1");
+
+        if(isPlayer1)
+        {
+            CharManager.player1 = this;
+        }
+        else
+        {
+            CharManager.player2 = this;
+        }
+
         buffer = new Queue(60);
+
         idleState = new IdleState();
         fallState = new FallState();
+        hitStunState = new HitStunState();
         runState = new RunState();
         jumpState = new JumpState();
         airDashState = new AirDashState();
@@ -152,6 +171,8 @@ public class CharController : MonoBehaviour
 
         playerInput.currentActionMap.actionTriggered += PlayerInput_onActionTriggered;
 
+        stateSerializationHelper = stateMachine.GetCurrentState().ToString();
+
         //playerInput.SendMessage("Jump");
         //playerInput.SendMessage("AirDash");
         //playerInput.SendMessage("Movement");
@@ -167,8 +188,6 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        stateSerializationHelper = stateMachine.GetCurrentState().ToString();
-
         moveInput =
             playerInput.
             actions.
@@ -179,14 +198,13 @@ public class CharController : MonoBehaviour
         if(buffer.Count > 0)
         {
             InputAction currentInputAction = (InputAction)buffer.Peek();
-            Debug.Log(currentInputAction.name);
             EnterState(currentInputAction.name);
 
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime > 0.05)
+            if(elapsedTime > 0.05 && buffer.Count > 0)
             {
-                elapsedTime--;
+                elapsedTime = 0;
                 buffer.Dequeue();
             }
         }
@@ -198,8 +216,6 @@ public class CharController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //ContinueState(); 
-
         stateMachine.Update();
 
         velocitySerializationHelper = rigid.velocity;
@@ -281,24 +297,46 @@ public class CharController : MonoBehaviour
         switch(inputActionName)
         {
             case "Move":
-                EnterState(runState);
-                buffer.Dequeue();
+                if (stateMachine.GetCurrentState() != runState)
+                {
+                    EnterState(runState);
+                    buffer.Dequeue();
+                }
                 break;
             case "AirDash":
-                EnterState(airDashState);
-                buffer.Dequeue();
+                if (stateMachine.GetCurrentState() != airDashState &&
+                    !isGrounded && canDash)
+                {
+                    EnterState(airDashState);
+                    buffer.Dequeue();
+                }
                 break;
             case "Jump":
-                EnterState(jumpState);
-                buffer.Dequeue();
+                if (stateMachine.GetCurrentState() != jumpState)
+                {
+                    EnterState(jumpState);
+                    buffer.Dequeue();
+                }
                 break;
             case "Heavy Normal":
-                EnterState(normalAttackState);
-                buffer.Dequeue();
+                if (stateMachine.GetCurrentState() != normalAttackState)
+                {
+                    EnterState(normalAttackState);
+                    buffer.Dequeue();
+                }
                 break;
             case "Guard":
-                EnterState(guardState);
-                buffer.Dequeue();
+                if (stateMachine.GetCurrentState() != guardState)
+                {
+                    EnterState(guardState);
+                    buffer.Dequeue();
+                }
+                break;
+            case "HitStun":
+                if (stateMachine.GetCurrentState() != hitStunState)
+                {
+                    EnterState(hitStunState);
+                }
                 break;
         }
     }
@@ -306,8 +344,10 @@ public class CharController : MonoBehaviour
     public void EnterState(IState<CharController> stateEntered)
     {
         stateMachine.EnterState(stateEntered);
+        stateSerializationHelper = stateMachine.GetCurrentState().ToString();
     }
 
+    /*
     public void Movement(InputAction.CallbackContext context)
     {
         if(isGrounded && interuptible && moveInput != 0)
@@ -347,6 +387,7 @@ public class CharController : MonoBehaviour
             EnterState(guardState);
         }
     }
+    */
 
     private void PlayerInput_onActionTriggered(InputAction.CallbackContext obj)
     {

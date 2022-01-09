@@ -7,12 +7,44 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3766359224451573726, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083787889710432305, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500840388158641836, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619627576672627691, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Default Player 2
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157985998153496860, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932746048572182931, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7049676924439937024, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7547025392138504310, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515924, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
@@ -67,6 +99,10 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: charBlockerCollider
+      value: 
+      objectReference: {fileID: 5055517285269305455}
     - target: {fileID: 8225095788542018941, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
@@ -75,5 +111,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8683947281753102858, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+--- !u!61 &5055517285269305455 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4615254893281062644, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+  m_PrefabInstance: {fileID: 442588549686253211}
+  m_PrefabAsset: {fileID: 0}

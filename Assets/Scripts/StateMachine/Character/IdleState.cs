@@ -8,22 +8,15 @@ public class IdleState : IState<CharController>
     
     public override void Enter(CharController c)
     {
-        if(c.isGrounded)
-        {
-            c.rigid.velocity = new Vector2(0, c.rigid.velocity.y);
+        c.rigid.velocity = new Vector2(0, c.rigid.velocity.y);
 
-            c.canDash = false;
+        c.canDash = false;
 
-            c.canAttack = true;
+        c.canAttack = true;
 
-            c.animator.Play(c.aIdleAnim);
+        c.animator.Play(c.aIdleAnim);
 
-            c.interuptible = true;
-        }
-        else
-        {
-            c.RevertToPreviousState();
-        }
+        c.interuptible = true;
     }
 
     public override void Continue(CharController c)
