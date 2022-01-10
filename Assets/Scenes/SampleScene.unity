@@ -338,7 +338,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 0.75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -362,7 +362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: -10}
+  m_LocalPosition: {x: 0, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1008,18 +1008,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 104371899312125912, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 584304548413063086, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Mass
-      value: 0.0435
-      objectReference: {fileID: 0}
-    - target: {fileID: 1146369690269892992, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 60828afe4f0a6314782cdddf6a070921, type: 2}
     - target: {fileID: 1146369690269892994, guid: b457dd375591a9042b49b454ec75770b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1067,74 +1055,6 @@ PrefabInstance:
     - target: {fileID: 1146369690269893004, guid: b457dd375591a9042b49b454ec75770b, type: 3}
       propertyPath: m_Name
       value: P1Adventurer
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739553240646036946, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2226478080850266666, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2358620330771176499, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2519600616217318436, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_DefaultControlScheme
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2519600616217318436, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2519600616217318436, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2519600616217318436, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2519600616217318436, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2519600616217318436, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2824722957285871300, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3671259870817265227, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5697990201563169688, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5744431139053844350, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6116870973166276614, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6344218433222178793, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6832387258912842100, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7594347161791743968, guid: b457dd375591a9042b49b454ec75770b, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.37
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b457dd375591a9042b49b454ec75770b, type: 3}

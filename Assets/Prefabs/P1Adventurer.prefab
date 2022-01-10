@@ -31,13 +31,57 @@ PrefabInstance:
       propertyPath: isPlayer1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3766359224451573726, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083787889710432305, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4293254160396655029, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: isPlayer1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4500840388158641836, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619627576672627691, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5157985998153496860, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5473683824689629783, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: isPlayer1
@@ -47,10 +91,22 @@ PrefabInstance:
       propertyPath: isPlayer1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5932746048572182931, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7049676924439937024, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515924, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_Name
       value: P1Adventurer
       objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515928, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 60828afe4f0a6314782cdddf6a070921, type: 2}
     - target: {fileID: 8020646329724515930, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -96,9 +152,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: dashSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: jumpHeight
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: charBlockerCollider
       value: 
       objectReference: {fileID: 2354005607669586220}
+    - target: {fileID: 8683947281753102858, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097759958812655090, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
 --- !u!61 &2354005607669586220 stripped
