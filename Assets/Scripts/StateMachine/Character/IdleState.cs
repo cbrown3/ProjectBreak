@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class IdleState : IState<CharController>
 {
-    public IdleState() { }
-    
+    public IdleState()
+    {
+        stateType = StateType.Idle;
+    }
+
     public override void Enter(CharController c)
     {
         c.rigid.velocity = new Vector2(0, c.rigid.velocity.y);

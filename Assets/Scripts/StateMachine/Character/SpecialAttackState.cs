@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SpecialAttackState : IState<CharController>
 {
-    public SpecialAttackState() { }
-
+    public SpecialAttackState()
+    {
+        stateType = StateType.SpecialAttack;
+    }
     public override void Enter(CharController c)
     {
         c.canAttack = false;

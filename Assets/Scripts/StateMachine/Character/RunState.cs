@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class RunState : IState<CharController>
 {
-    public RunState() { }
+    public RunState()
+    {
+        stateType = StateType.Run;
+    }
 
     public override void Enter(CharController c)
     {

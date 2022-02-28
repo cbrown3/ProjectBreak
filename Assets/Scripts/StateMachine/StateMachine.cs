@@ -3,8 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum StateType
+{
+    None,
+    NormalAttack,
+    SpecialAttack,
+    Idle,
+    Run,
+    Guard,
+    Jump,
+    Fall,
+    AirDash,
+    HitStun
+}
+
 abstract public class IState<T>
 {
+    public StateType stateType;
     abstract public void Enter(T entity);
     abstract public void Continue(T entity);
     //abstract public void Continue(T entity, InputAction.CallbackContext context);

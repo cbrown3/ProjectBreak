@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class JumpState : IState<CharController>
 {
-    public JumpState() { }
+    public JumpState()
+    {
+        stateType = StateType.Jump;
+    }
 
     int frameRate;
 

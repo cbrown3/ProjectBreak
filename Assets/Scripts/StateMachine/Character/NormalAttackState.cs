@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class NormalAttackState : IState<CharController>
 {
-    public NormalAttackState() { }
+    public NormalAttackState()
+    {
+        stateType = StateType.NormalAttack;
+
+        stopAttack = false;
+    }
 
     Vector2 dirInput;
 
@@ -19,6 +24,8 @@ public class NormalAttackState : IState<CharController>
     bool inputComplete;
 
     bool isAerial;
+
+    bool stopAttack;
 
     public override void Enter(CharController c)
     {
@@ -49,8 +56,9 @@ public class NormalAttackState : IState<CharController>
         {
             inputComplete = false;
             c.animator.speed = 0;
+            stopAttack = true;
         }
-        else
+        else if(!stopAttack)
         {
             inputComplete = true;
             c.animator.speed = 1;

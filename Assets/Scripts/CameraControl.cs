@@ -14,22 +14,11 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        edgeCollider = GetComponent<EdgeCollider2D>();
-
-        Vector2 leftBottom = cam.ScreenToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
-        Vector2 leftTop = cam.ScreenToWorldPoint(new Vector3(0, cam.pixelHeight, cam.nearClipPlane));
-        Vector2 rightTop = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, cam.pixelHeight, cam.nearClipPlane));
-        Vector2 rightBottom = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane));
-
-        Vector2[] edgePoints = { leftBottom, leftTop, rightTop, rightBottom, leftBottom };
-
-        edgeCollider.points = edgePoints;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
         Debug.Log("Cam: " + -(cam.rect.width / 2));
         //Debug.Log("Char: " + cameraTargets[0].transform.position.x);
 
@@ -38,12 +27,18 @@ public class CameraControl : MonoBehaviour
             if (-(cam.rect.width/2) < cameraTargets[i].transform.position.x)
             {
                 Debug.Log("past");
-                //float distToMove = cam.rect.xMin - (cameraTargets[i].transform.position.x);
+                float distToMove = cam.rect.xMin - (cameraTargets[i].transform.position.x);
 
-              //  transform.Translate(-distToMove, 0, 0);
+                transform.Translate(-distToMove, 0, 0);
+            }
+            else if((cam.rect.width / 2) > cameraTargets[i].transform.position.x)
+            {
+                Debug.Log("past");
+                float distToMove = cam.rect.xMax + (cameraTargets[i].transform.position.x);
+
+                transform.Translate(distToMove, 0, 0);
             }
         }
-        */
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

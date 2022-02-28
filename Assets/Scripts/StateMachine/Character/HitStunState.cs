@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class HitStunState : IState<CharController>
 {
-    public HitStunState() { }
+    public HitStunState()
+    {
+        stateType = StateType.HitStun;
+    }
 
     int currentHitStunFrame;
 
@@ -42,6 +45,20 @@ public class HitStunState : IState<CharController>
             {
                 c.EnterState(c.fallState);
             }
+        }
+        else if(c.isPlayer1 && (CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.SpecialAttack || 
+            CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.NormalAttack))
+        {
+            currentHitStunFrame = 0;
+            CharManager.P2HitStunLength = 0;
+            c.EnterState(c.idleState);
+        }
+        else if (!c.isPlayer1 && (CharManager.player1.stateMachine.GetCurrentState().stateType != StateType.SpecialAttack ||
+            CharManager.player1.stateMachine.GetCurrentState().stateType != StateType.NormalAttack))
+        {
+            currentHitStunFrame = 0;
+            CharManager.P1HitStunLength = 0;
+            c.EnterState(c.idleState);
         }
     }
 

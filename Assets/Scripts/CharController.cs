@@ -9,7 +9,8 @@ using UnityEngine.InputSystem.Utilities;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharController : MonoBehaviour
 {
-    StateMachine<CharController> stateMachine;
+    [NonSerialized]
+    public StateMachine<CharController> stateMachine;
 
     [SerializeField]
     private string stateSerializationHelper = "";

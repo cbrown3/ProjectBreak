@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class FallState : IState<CharController>
 {
-    public FallState() { }
+    public FallState()
+    {
+        stateType = StateType.Fall;
+    }
 
     public override void Enter(CharController c)
     {

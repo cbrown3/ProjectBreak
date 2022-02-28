@@ -5,12 +5,14 @@ using UnityEngine.InputSystem;
 
 public class AirDashState : IState<CharController>
 {
-    public AirDashState() { }
+    public AirDashState()
+    {
+        stateType = StateType.AirDash;
+    }
 
     Vector2 airDashDir;
 
     int frameRate;
-
 
     public override void Enter(CharController c)
     {

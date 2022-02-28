@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class GuardState : IState<CharController>
 {
-    public GuardState() { }
+    public GuardState()
+    {
+        stateType = StateType.Guard;
+    }
 
     float guardInput;
 
