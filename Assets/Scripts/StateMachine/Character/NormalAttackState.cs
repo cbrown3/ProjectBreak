@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NormalAttackState : IState<CharController>
 {
@@ -10,6 +11,8 @@ public class NormalAttackState : IState<CharController>
 
         stopAttack = false;
     }
+
+    InputAction heavyNormal;
 
     Vector2 dirInput;
 
@@ -29,6 +32,16 @@ public class NormalAttackState : IState<CharController>
 
     public override void Enter(CharController c)
     {
+        heavyNormal = c.playerInput.actions.FindAction("Heavy Normal");
+
+        //determine attack type
+        isHeavy = heavyNormal.ReadValue<float>();
+
+        if (heavyNormal.phase == InputActionPhase.Waiting && isHeavy == default)
+        {
+            return;
+        }
+
         currentFrame = 0;
 
         c.canAttack = false;
@@ -47,8 +60,6 @@ public class NormalAttackState : IState<CharController>
             isAerial = true;
         }
 
-        //determine attack type
-        isHeavy = c.playerInput.actions.FindAction("Heavy Normal").ReadValue<float>();
 
         c.interuptible = false;
 
@@ -208,7 +219,7 @@ public class NormalAttackState : IState<CharController>
         }
 
         //check if the move has been held long enough, if so complete the heavy attack, set heavy damage
-        if(!inputComplete && c.playerInput.actions.FindAction("Heavy Normal").phase == UnityEngine.InputSystem.InputActionPhase.Performed)
+        if(!inputComplete && heavyNormal.phase == InputActionPhase.Performed)
         {
             c.animator.speed = 1;
             inputComplete = true;
@@ -216,8 +227,7 @@ public class NormalAttackState : IState<CharController>
             Debug.Log("Heavy Attack!");
         }
         //if not begin a light attack
-        else if(!inputComplete && !c.playerInput.actions.FindAction("Heavy Normal").triggered &&
-            c.playerInput.actions.FindAction("Heavy Normal").phase == UnityEngine.InputSystem.InputActionPhase.Waiting)
+        else if(!inputComplete && !heavyNormal.triggered && heavyNormal.phase == InputActionPhase.Waiting)
         {
             c.animator.speed = 1;
             inputComplete = true;

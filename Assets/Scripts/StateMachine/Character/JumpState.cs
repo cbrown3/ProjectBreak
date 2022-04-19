@@ -15,6 +15,11 @@ public class JumpState : IState<CharController>
 
     public override void Enter(CharController c)
     {
+        if(c.playerInput.actions.FindAction("Jump").phase == UnityEngine.InputSystem.InputActionPhase.Waiting)
+        {
+            return;
+        }
+
         if (c.isGrounded) //|| c.canDJump)
         {
             c.canDash = true ? c.isGrounded : !c.isGrounded;

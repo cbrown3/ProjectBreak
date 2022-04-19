@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GuardState : IState<CharController>
 {
@@ -9,15 +10,24 @@ public class GuardState : IState<CharController>
         stateType = StateType.Guard;
     }
 
+    InputAction guardAction;
+
     float guardInput;
 
     public override void Enter(CharController c)
     {
+        guardAction = c.playerInput.actions.FindAction("Guard");
+
+        if (guardAction.phase == InputActionPhase.Waiting)
+        {
+            return;
+        }
+
         c.canDash = false;
 
         c.canAttack = false;
 
-        guardInput = c.playerInput.actions.FindAction("Guard").ReadValue<float>();
+        guardInput = guardAction.ReadValue<float>();
 
         if (c.isGrounded)
         {
@@ -33,7 +43,7 @@ public class GuardState : IState<CharController>
 
     public override void Continue(CharController c)
     {
-        guardInput = c.playerInput.actions.FindAction("Guard").ReadValue<float>();
+        guardInput = guardAction.ReadValue<float>();
         c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
 
         if (c.isGrounded)

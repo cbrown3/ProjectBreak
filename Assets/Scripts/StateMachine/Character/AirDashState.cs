@@ -10,12 +10,19 @@ public class AirDashState : IState<CharController>
         stateType = StateType.AirDash;
     }
 
+    InputAction airDashAction;
+
     Vector2 airDashDir;
 
     int frameRate;
 
     public override void Enter(CharController c)
     {
+        if(c.playerInput.actions.FindAction("AirDash").phase == InputActionPhase.Waiting)
+        {
+            return;
+        }
+
         //c.dashFrames = 12;
         frameRate = 0;
 

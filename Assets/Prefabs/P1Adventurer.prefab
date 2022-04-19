@@ -27,6 +27,10 @@ PrefabInstance:
       propertyPath: isPlayer1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3395687525245108390, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: m_Name
+      value: PlayerCollider
+      objectReference: {fileID: 0}
     - target: {fileID: 3416283010752581391, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: isPlayer1
       value: 1
