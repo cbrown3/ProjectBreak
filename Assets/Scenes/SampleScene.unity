@@ -554,11 +554,37 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!1 &531757672 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5697990201563169688, guid: b457dd375591a9042b49b454ec75770b, type: 3}
+  m_PrefabInstance: {fileID: 752857373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!61 &531757674 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 2354005607669586220, guid: b457dd375591a9042b49b454ec75770b, type: 3}
   m_PrefabInstance: {fileID: 752857373}
   m_PrefabAsset: {fileID: 0}
+--- !u!50 &531757675
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531757672}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &564623381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,8 +1273,12 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 2519600616217318436, guid: b457dd375591a9042b49b454ec75770b, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Default Player 2
+      value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5096792926111533338, guid: b457dd375591a9042b49b454ec75770b, type: 3}
+      propertyPath: oppBlockerCollider
+      value: 
+      objectReference: {fileID: 1973128231}
     - target: {fileID: 5096792926111533338, guid: b457dd375591a9042b49b454ec75770b, type: 3}
       propertyPath: opponentBlockerCollider
       value: 
@@ -1555,6 +1585,10 @@ PrefabInstance:
       value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 2321789942715689049, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
+      propertyPath: oppBlockerCollider
+      value: 
+      objectReference: {fileID: 531757674}
+    - target: {fileID: 2321789942715689049, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
       propertyPath: opponentBlockerCollider
       value: 
       objectReference: {fileID: 531757674}
@@ -1616,7 +1650,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 4932777389030880615, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: 
+      value: Default Player 2
       objectReference: {fileID: 0}
     - target: {fileID: 5059887910348651888, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
       propertyPath: m_Layer
@@ -2307,11 +2341,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!1 &1973128230 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2995041539575177947, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
+  m_PrefabInstance: {fileID: 1180315741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!61 &1973128231 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 5055517285269305455, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
   m_PrefabInstance: {fileID: 1180315741}
   m_PrefabAsset: {fileID: 0}
+--- !u!50 &1973128233
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973128230}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 1
+  m_Mass: 0.53287494
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &2076929330
 GameObject:
   m_ObjectHideFlags: 3
