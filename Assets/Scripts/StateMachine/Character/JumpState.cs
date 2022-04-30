@@ -9,7 +9,7 @@ public class JumpState : IState<CharController>
         stateType = StateType.Jump;
     }
 
-    int frameRate;
+    int frameCount;
 
     float storedVelX;
 
@@ -30,7 +30,7 @@ public class JumpState : IState<CharController>
 
             c.interuptible = true;
 
-            frameRate = 0;
+            frameCount = 0;
 
             c.animator.Play(c.aJumpAnim);
 
@@ -46,11 +46,7 @@ public class JumpState : IState<CharController>
 
     public override void Continue(CharController c)
     {
-        if (frameRate < 2)
-        {
-            c.rigid.velocity = Vector2.zero;
-        }
-        else if(frameRate == c.jumpSquatFrames)
+        if(frameCount == c.jumpSquatFrames)
         {
             c.rigid.velocity = new Vector2(storedVelX, c.jumpHeight);
             c.canAttack = true;
@@ -83,7 +79,7 @@ public class JumpState : IState<CharController>
             //Mathf.Clamp(c.rigid.velocity.x, -c.aerialDrift, c.aerialDrift);
         }
 
-        frameRate++;
+        frameCount++;
     }
 
     public override void Exit(CharController c)

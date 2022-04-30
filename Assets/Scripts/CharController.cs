@@ -298,7 +298,8 @@ public class CharController : MonoBehaviour
         switch(inputActionName)
         {
             case "Move":
-                if (stateMachine.GetCurrentState() != runState)
+                if (stateMachine.GetCurrentState() != runState &&
+                    isGrounded)
                 {
                     EnterState(runState);
                     buffer.Dequeue();

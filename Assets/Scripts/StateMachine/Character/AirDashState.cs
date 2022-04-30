@@ -14,7 +14,7 @@ public class AirDashState : IState<CharController>
 
     Vector2 airDashDir;
 
-    int frameRate;
+    int frameCount;
 
     public override void Enter(CharController c)
     {
@@ -24,7 +24,7 @@ public class AirDashState : IState<CharController>
         }
 
         //c.dashFrames = 12;
-        frameRate = 0;
+        frameCount = 0;
 
         c.rigid.velocity = Vector2.zero;
 
@@ -42,11 +42,11 @@ public class AirDashState : IState<CharController>
 
     public override void Continue(CharController c)
     {
-        if(frameRate < c.dashStartup)
+        if(frameCount < c.dashStartup)
         {
             c.rigid.velocity = Vector2.zero;
         }
-        else if(frameRate > c.dashFrameLength - 1)
+        else if(frameCount > c.dashFrameLength - 1)
         {
             c.rigid.velocity = Vector2.zero;
 
@@ -57,7 +57,7 @@ public class AirDashState : IState<CharController>
             c.rigid.velocity = new Vector2(c.dashSpeed * airDashDir.x, c.dashSpeed * airDashDir.y);
         }
 
-        frameRate++;
+        frameCount++;
     }
 
     public override void Exit(CharController c)

@@ -157,7 +157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: dashSpeed
-      value: 7
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: jumpHeight
