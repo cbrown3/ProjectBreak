@@ -203,7 +203,7 @@ public class CharController : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime > 0.05 && buffer.Count > 0)
+            if(elapsedTime > 0.15 && buffer.Count > 0)
             {
                 elapsedTime = 0;
                 buffer.Dequeue();

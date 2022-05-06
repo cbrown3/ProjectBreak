@@ -46,7 +46,7 @@ public class AirDashState : IState<CharController>
         {
             c.rigid.velocity = Vector2.zero;
         }
-        else if(frameCount > c.dashFrameLength - 1)
+        else if(frameCount > (c.dashFrameLength + c.dashStartup - 1))
         {
             c.rigid.velocity = Vector2.zero;
 
@@ -54,7 +54,21 @@ public class AirDashState : IState<CharController>
         }
         else
         {
-            c.rigid.velocity = new Vector2(c.dashSpeed * airDashDir.x, c.dashSpeed * airDashDir.y);
+            if(airDashDir.x == 0)
+            {
+                if (c.GetComponent<SpriteRenderer>().flipX)
+                {
+                    c.rigid.velocity = new Vector2(-c.dashSpeed, c.dashSpeed * airDashDir.y);
+                }
+                else
+                {
+                    c.rigid.velocity = new Vector2(c.dashSpeed, c.dashSpeed * airDashDir.y);
+                }
+            }
+            else
+            {
+                c.rigid.velocity = new Vector2(c.dashSpeed * airDashDir.x, c.dashSpeed * airDashDir.y);
+            }
         }
 
         frameCount++;

@@ -218,7 +218,7 @@ public class @CharacterControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3245833c-a776-44bf-9faa-4d5803c76756"",
-                    ""path"": ""<Keyboard>/m"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
