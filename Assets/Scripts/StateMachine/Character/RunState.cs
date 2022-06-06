@@ -13,8 +13,9 @@ public class RunState : IState<CharController>
     {
         c.ResetGlow();
 
-        c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
-        c.canDash = false;
+        c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
+
+        c.canDash = true;
 
         c.canAttack = true;
 
@@ -27,7 +28,7 @@ public class RunState : IState<CharController>
 
     public override void Continue(CharController c)
     {
-        c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+        c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
 
         if (c.moveInput > 0)
         {

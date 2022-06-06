@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AirDashState : IState<CharController>
+public class DashState : IState<CharController>
 {
-    public AirDashState()
+    public DashState()
     {
-        stateType = StateType.AirDash;
+        stateType = StateType.Dash;
     }
 
-    InputAction airDashAction;
+    InputAction dashAction;
 
-    Vector2 airDashDir;
+    Vector2 dashDir;
 
     int frameCount;
 
     public override void Enter(CharController c)
     {
-        if(c.playerInput.actions.FindAction("AirDash").phase == InputActionPhase.Waiting)
+        if(c.playerInput.actions.FindAction("Dash").phase == InputActionPhase.Waiting)
         {
             return;
         }
@@ -35,9 +35,9 @@ public class AirDashState : IState<CharController>
 
         c.interuptible = true;
 
-        c.animator.Play(c.aAirDashAnim);
+        c.animator.Play(c.aDashAnim);
 
-        airDashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+        dashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
     }
 
     public override void Continue(CharController c)
@@ -54,20 +54,20 @@ public class AirDashState : IState<CharController>
         }
         else
         {
-            if(airDashDir.x == 0)
+            if(dashDir.x == 0)
             {
                 if (c.GetComponent<SpriteRenderer>().flipX)
                 {
-                    c.rigid.velocity = new Vector2(-c.dashSpeed, c.dashSpeed * airDashDir.y);
+                    c.rigid.velocity = new Vector2(-c.dashSpeed, c.dashSpeed * dashDir.y);
                 }
                 else
                 {
-                    c.rigid.velocity = new Vector2(c.dashSpeed, c.dashSpeed * airDashDir.y);
+                    c.rigid.velocity = new Vector2(c.dashSpeed, c.dashSpeed * dashDir.y);
                 }
             }
             else
             {
-                c.rigid.velocity = new Vector2(c.dashSpeed * airDashDir.x, c.dashSpeed * airDashDir.y);
+                c.rigid.velocity = new Vector2(c.dashSpeed * dashDir.x, c.dashSpeed * dashDir.y);
             }
         }
 

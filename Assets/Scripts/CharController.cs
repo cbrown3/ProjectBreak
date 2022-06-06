@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
@@ -59,7 +59,7 @@ public class CharController : MonoBehaviour
 
     public float jumpInput, moveInput = 0;
 
-    public Light2D glowLight;
+    public UnityEngine.Rendering.Universal.Light2D glowLight;
 
     public GameObject colliders;
 
@@ -75,7 +75,7 @@ public class CharController : MonoBehaviour
     private double elapsedTime;
 
     public IdleState idleState;
-    public AirDashState airDashState;
+    public DashState dashState;
     public RunState runState;
     public JumpState jumpState;
     public FallState fallState;
@@ -89,7 +89,7 @@ public class CharController : MonoBehaviour
     //get by hash, more optimized
     [NonSerialized]
     public string aIdleAnim = "Base Layer.Advntr-Idle",
-    aAirDashAnim = "Base Layer.Advntr-AirDash",
+    aDashAnim = "Base Layer.Advntr-Dash",
     aRunAnim = "Base Layer.Advntr-Run",
     aJumpAnim = "Base Layer.Advntr-Jump",
     aFallAnim = "Base Layer.Advntr-Fall",
@@ -135,7 +135,7 @@ public class CharController : MonoBehaviour
         hitStunState = new HitStunState();
         runState = new RunState();
         jumpState = new JumpState();
-        airDashState = new AirDashState();
+        dashState = new DashState();
         normalAttackState = new NormalAttackState();
         specialAttackState = new SpecialAttackState();
         guardState = new GuardState();
@@ -175,12 +175,12 @@ public class CharController : MonoBehaviour
         stateSerializationHelper = stateMachine.GetCurrentState().ToString();
 
         //playerInput.SendMessage("Jump");
-        //playerInput.SendMessage("AirDash");
+        //playerInput.SendMessage("Dash");
         //playerInput.SendMessage("Movement");
         //playerInput.SendMessage("Attack", NormalAttackState.Instance);
         //playerInput.SendMessage("Guard");
         //charControls.Character.Jump.performed += _ => Jump();
-        //charControls.Character.AirDash.performed += _ => AirDash();
+        //charControls.Character.Dash.performed += _ => Dash();
         //charControls.Character.Move.performed += _ => Movement();
         //charControls.Character.HeavyNormal.started += _ => Attack(NormalAttackState.Instance);
         //charControls.Character.Guard.performed += _ => Guard();
@@ -189,21 +189,29 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(buffer.Count);
+
         moveInput =
             playerInput.
             actions.
             FindAction("Move").ReadValue<float>();
 
-        //Debug.Log(buffer.Count);
-
-        if(buffer.Count > 0)
+        if (buffer.Count > 0)
         {
             InputAction currentInputAction = (InputAction)buffer.Peek();
-            EnterState(currentInputAction.name);
+
+            if(currentInputAction.name == "Move")
+            {
+                EnterState(currentInputAction.name);
+            }
+            else
+            {
+                EnterState(currentInputAction.name);
+            }
 
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime > 0.15 && buffer.Count > 0)
+            if(elapsedTime > 0.05 && buffer.Count > 0)
             {
                 elapsedTime = 0;
                 buffer.Dequeue();
@@ -235,10 +243,10 @@ public class CharController : MonoBehaviour
                 currentState = stateEntered;
                 break;
 
-            case State.AirDash:
+            case State.Dash:
                 if (!isGrounded && canDash)
                 {
-                    airDashInput = charControls.Character.AirDash.ReadValue<float>();
+                    airDashInput = charControls.Character.Dash.ReadValue<float>();
                     dashFrames = 12;
 
                     rigid.velocity = Vector2.zero;
@@ -305,11 +313,11 @@ public class CharController : MonoBehaviour
                     buffer.Dequeue();
                 }
                 break;
-            case "AirDash":
-                if (stateMachine.GetCurrentState() != airDashState &&
-                    !isGrounded && canDash)
+            case "Dash":
+                if (stateMachine.GetCurrentState() != dashState &&
+                    canDash)
                 {
-                    EnterState(airDashState);
+                    EnterState(dashState);
                     buffer.Dequeue();
                 }
                 break;
@@ -358,11 +366,11 @@ public class CharController : MonoBehaviour
         }
     }
 
-    public void AirDash(InputAction.CallbackContext context)
+    public void Dash(InputAction.CallbackContext context)
     {
-        if(stateMachine.GetCurrentState() != airDashState && interuptible)
+        if(stateMachine.GetCurrentState() != dashState && interuptible)
         {
-            EnterState(airDashState);
+            EnterState(dashState);
         }
     }
 
@@ -398,8 +406,7 @@ public class CharController : MonoBehaviour
             buffer.Dequeue();
         }
 
-        if(obj.action.name != "DirectionalInput"/* &&
-            obj.action.name != "Light Normal"*/)
+        if(obj.action.name != "DirectionalInput")
         {
             buffer.Enqueue(obj.action);
         }
@@ -424,7 +431,7 @@ public class CharController : MonoBehaviour
                     }
                     break;
 
-                case State.AirDash:
+                case State.Dash:
                     if(dashFrames > 10)
                     {
                         rigid.velocity = Vector2.zero;

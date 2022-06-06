@@ -20,9 +20,10 @@ public class JumpState : IState<CharController>
             return;
         }
 
+        c.canDash = true;
+
         if (c.isGrounded) //|| c.canDJump)
         {
-            c.canDash = true ? c.isGrounded : !c.isGrounded;
             c.isGrounded = false;
 
             c.canAttack = false;

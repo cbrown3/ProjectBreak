@@ -13,7 +13,7 @@ public enum StateType
     Guard,
     Jump,
     Fall,
-    AirDash,
+    Dash,
     HitStun
 }
 
