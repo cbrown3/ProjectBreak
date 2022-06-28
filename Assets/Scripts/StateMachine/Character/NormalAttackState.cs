@@ -20,8 +20,6 @@ public class NormalAttackState : IState<CharController>
 
     int attackFrames;
 
-    int hitStunFrameDuration;
-
     public float isHeavy;
 
     bool inputComplete;
@@ -83,14 +81,12 @@ public class NormalAttackState : IState<CharController>
                 c.animator.Play(c.aNNeutralGroundAnim);
                 attackFrames = c.nNeutralGFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
             else
             {
                 c.animator.Play(c.aNNeutralAerialAnim);
                 attackFrames = c.nNeutralAFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
         }
         else if (dirInput.x > 0)
@@ -102,14 +98,12 @@ public class NormalAttackState : IState<CharController>
                 c.animator.Play(c.aNSideGroundAnim);
                 attackFrames = c.nSideGFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
             else
             {
                 c.animator.Play(c.aNSideAerialAnim);
                 attackFrames = c.nSideAFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
         }
         else if (dirInput.x < 0)
@@ -121,14 +115,12 @@ public class NormalAttackState : IState<CharController>
                 c.animator.Play(c.aNSideGroundAnim);
                 attackFrames = c.nSideGFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
             else
             {
                 c.animator.Play(c.aNSideAerialAnim);
                 attackFrames = c.nSideAFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
         }
         else if (dirInput.y > 0)
@@ -138,14 +130,12 @@ public class NormalAttackState : IState<CharController>
                 c.animator.Play(c.aNUpGroundAnim);
                 attackFrames = c.nUpGFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
             else
             {
                 c.animator.Play(c.aNUpAerialAnim);
                 attackFrames = c.nUpAFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
         }
         else if (dirInput.y < 0)
@@ -155,24 +145,22 @@ public class NormalAttackState : IState<CharController>
                 c.animator.Play(c.aNDownGroundAnim);
                 attackFrames = c.nDownGFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
             else
             {
                 c.animator.Play(c.aNDownAerialAnim);
                 attackFrames = c.nDownAFrames;
                 c.NormalAttackGlow();
-                hitStunFrameDuration = 15;
             }
         }
 
         if (c.isPlayer1)
         {
-            CharManager.P1HitStunLength = hitStunFrameDuration;
+            CharManager.P1HitStunLength = CharController.HIT_STUN_FRAME_LENGTH;
         }
         else
         {
-            CharManager.P2HitStunLength = hitStunFrameDuration;
+            CharManager.P2HitStunLength = CharController.HIT_STUN_FRAME_LENGTH;
         }
 
         //flip hitboxes appropriately

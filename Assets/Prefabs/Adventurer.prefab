@@ -1518,11 +1518,12 @@ MonoBehaviour:
   isPlayer1: 0
   groundSpeed: 3
   dashSpeed: 15
-  jumpHeight: 4
+  jumpVelocity: 5
+  fallGravityMultiplier: 2.5
   aerialDrift: 1
   maxAerialSpeed: 0
   dashFrameLength: 6
-  dashStartup: 2
+  dashStartup: 10
   jumpSquatFrames: 0
   nNeutralGFrames: 12
   nSideGFrames: 20

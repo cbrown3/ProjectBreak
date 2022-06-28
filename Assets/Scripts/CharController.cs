@@ -41,7 +41,8 @@ public class CharController : MonoBehaviour
 
     public float groundSpeed,
      dashSpeed,
-     jumpHeight,
+     jumpVelocity,
+     fallGravityMultiplier,
      aerialDrift,
      maxAerialSpeed;
 
@@ -56,6 +57,8 @@ public class CharController : MonoBehaviour
     nSideAFrames,
     nUpAFrames,
     nDownAFrames;
+
+    public static int HIT_STUN_FRAME_LENGTH = 15;
 
     public float jumpInput, moveInput = 0;
 
@@ -303,10 +306,17 @@ public class CharController : MonoBehaviour
 
     public void EnterState(string inputActionName)
     {
+        IState<CharController> currState = stateMachine.GetCurrentState();
+
+        if(currState == fallState)
+        {
+            rigid.gravityScale = 1;
+        }
+
         switch(inputActionName)
         {
             case "Move":
-                if (stateMachine.GetCurrentState() != runState &&
+                if (currState != runState &&
                     isGrounded)
                 {
                     EnterState(runState);
@@ -314,7 +324,7 @@ public class CharController : MonoBehaviour
                 }
                 break;
             case "Dash":
-                if (stateMachine.GetCurrentState() != dashState &&
+                if (currState != dashState &&
                     canDash)
                 {
                     EnterState(dashState);
@@ -322,28 +332,28 @@ public class CharController : MonoBehaviour
                 }
                 break;
             case "Jump":
-                if (stateMachine.GetCurrentState() != jumpState)
+                if (currState != jumpState)
                 {
                     EnterState(jumpState);
                     buffer.Dequeue();
                 }
                 break;
             case "Heavy Normal":
-                if (stateMachine.GetCurrentState() != normalAttackState)
+                if (currState != normalAttackState)
                 {
                     EnterState(normalAttackState);
                     buffer.Dequeue();
                 }
                 break;
             case "Guard":
-                if (stateMachine.GetCurrentState() != guardState)
+                if (currState != guardState)
                 {
                     EnterState(guardState);
                     buffer.Dequeue();
                 }
                 break;
             case "HitStun":
-                if (stateMachine.GetCurrentState() != hitStunState)
+                if (currState != hitStunState)
                 {
                     EnterState(hitStunState);
                 }

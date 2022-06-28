@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Default Controls
+      value: Gamepad
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.size

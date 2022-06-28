@@ -9,14 +9,14 @@ public class AttackCollider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.name);
-
-        if (collision.name == "Character Collider Blocker")
+        //Character Layer
+        if (collision.gameObject.layer == 7)
         {
-            if(isPlayer1 && collision != CharManager.player1.charBlockerCollider)
+            if(isPlayer1 && collision != CharManager.player1.playerCollider)
             {
                 CharManager.player2.EnterState("HitStun");
             }
-            else if(!isPlayer1 && collision != CharManager.player2.charBlockerCollider)
+            else if(!isPlayer1 && collision != CharManager.player2.playerCollider)
             {
                 CharManager.player1.EnterState("HitStun");
             }

@@ -49,13 +49,14 @@ public class JumpState : IState<CharController>
     {
         if(frameCount == c.jumpSquatFrames)
         {
-            c.rigid.velocity = new Vector2(storedVelX, c.jumpHeight);
+            c.rigid.velocity = new Vector2(storedVelX, c.jumpVelocity);
             c.canAttack = true;
         }
         else
         {
             if (Mathf.Round(c.rigid.velocity.y) < 0)
             {
+                c.rigid.gravityScale = c.fallGravityMultiplier;
                 c.EnterState(c.fallState);
                 return;
             }
@@ -64,6 +65,7 @@ public class JumpState : IState<CharController>
 
             c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
 
+            /*
             if (c.rigid.velocity.x > c.maxAerialSpeed)
             {
                 c.rigid.velocity = new Vector2(c.maxAerialSpeed, c.rigid.velocity.y);
@@ -72,6 +74,9 @@ public class JumpState : IState<CharController>
             {
                 c.rigid.velocity = new Vector2(-c.maxAerialSpeed, c.rigid.velocity.y);
             }
+            */
+
+            c.rigid.velocity = new Vector2(Mathf.Clamp(c.rigid.velocity.x, -c.maxAerialSpeed, c.maxAerialSpeed), c.rigid.velocity.y);
             /*else
             {
                 c.rigid.velocity = new Vector2(c.aerialDrift * c.moveInput, c.rigid.velocity.y);

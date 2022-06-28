@@ -11,7 +11,8 @@ public class CharControllerInspector : Editor
     canAttack;
     SerializedProperty groundSpeed,
     dashSpeed,
-    jumpHeight,
+    jumpVelocity,
+    fallGravityMultiplier,
     aerialDrift;
     SerializedProperty dashFrameLength,
     dashStartup,
@@ -45,7 +46,8 @@ public class CharControllerInspector : Editor
         moveInput = serializedObject.FindProperty("moveInput");
         groundSpeed = serializedObject.FindProperty("groundSpeed");
         dashSpeed = serializedObject.FindProperty("dashSpeed");
-        jumpHeight = serializedObject.FindProperty("jumpHeight");
+        jumpVelocity = serializedObject.FindProperty("jumpVelocity");
+        fallGravityMultiplier = serializedObject.FindProperty("fallGravityMultiplier");
         aerialDrift = serializedObject.FindProperty("aerialDrift");
         dashFrameLength = serializedObject.FindProperty("dashFrameLength");
         dashStartup = serializedObject.FindProperty("dashStartup");
@@ -89,7 +91,8 @@ public class CharControllerInspector : Editor
             EditorGUILayout.PropertyField(dashSpeed);
             EditorGUILayout.PropertyField(dashFrameLength);
             EditorGUILayout.PropertyField(dashStartup);
-            EditorGUILayout.PropertyField(jumpHeight);
+            EditorGUILayout.PropertyField(jumpVelocity);
+            EditorGUILayout.PropertyField(fallGravityMultiplier);
             EditorGUILayout.PropertyField(jumpSquatFrames);
             EditorGUILayout.PropertyField(groundSpeed);
             EditorGUILayout.PropertyField(aerialDrift);

@@ -50,7 +50,14 @@ public class DashState : IState<CharController>
         {
             c.rigid.velocity = Vector2.zero;
 
-            c.EnterState(c.fallState);
+            if (c.isGrounded)
+            {
+                c.EnterState(c.idleState);
+            }
+            else
+            {
+                c.EnterState(c.fallState);
+            }
         }
         else
         {
