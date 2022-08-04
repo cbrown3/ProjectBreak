@@ -16,6 +16,8 @@ public class FallState : IState<CharController>
         c.canAttack = true;
 
         c.interuptible = true;
+
+        c.rigid.gravityScale = 1;
     }
 
     public override void Continue(CharController c)

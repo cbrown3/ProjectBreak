@@ -46,15 +46,17 @@ public class HitStunState : IState<CharController>
                 c.EnterState(c.fallState);
             }
         }
-        else if(c.isPlayer1 && (CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.SpecialAttack || 
-            CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.NormalAttack))
+        else if(c.isPlayer1 && (CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.SpecialAttack && 
+            CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.NormalAttack &&
+            CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.Idle))
         {
             currentHitStunFrame = 0;
             CharManager.P2HitStunLength = 0;
             c.EnterState(c.idleState);
         }
-        else if (!c.isPlayer1 && (CharManager.player1.stateMachine.GetCurrentState().stateType != StateType.SpecialAttack ||
-            CharManager.player1.stateMachine.GetCurrentState().stateType != StateType.NormalAttack))
+        else if (!c.isPlayer1 && (CharManager.player1.stateMachine.GetCurrentState().stateType != StateType.SpecialAttack &&
+            CharManager.player1.stateMachine.GetCurrentState().stateType != StateType.NormalAttack &&
+            CharManager.player2.stateMachine.GetCurrentState().stateType != StateType.Idle))
         {
             currentHitStunFrame = 0;
             CharManager.P1HitStunLength = 0;

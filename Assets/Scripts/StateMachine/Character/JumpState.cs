@@ -22,6 +22,8 @@ public class JumpState : IState<CharController>
 
         c.canDash = true;
 
+        c.rigid.gravityScale = 1;
+
         if (c.isGrounded) //|| c.canDJump)
         {
             c.isGrounded = false;
@@ -56,9 +58,14 @@ public class JumpState : IState<CharController>
         {
             if (Mathf.Round(c.rigid.velocity.y) < 0)
             {
-                c.rigid.gravityScale = c.fallGravityMultiplier;
+                c.rigid.velocity += Vector2.up * Physics2D.gravity.y * (c.fallGravityMultiplier - 1) * Time.deltaTime;
                 c.EnterState(c.fallState);
                 return;
+            }
+            else if(Mathf.Round(c.rigid.velocity.y) > 0 &&
+                !c.playerInput.actions.FindAction("Jump").IsPressed())
+            {
+                c.rigid.velocity += Vector2.up * Physics2D.gravity.y * (c.lowJumpMultiplier - 1) * Time.deltaTime;
             }
 
             c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();

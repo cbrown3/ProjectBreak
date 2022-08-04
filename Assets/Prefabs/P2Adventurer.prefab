@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: charBlockerCollider
       value: 
-      objectReference: {fileID: 5055517285269305455}
+      objectReference: {fileID: 0}
     - target: {fileID: 8225095788542018941, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
@@ -229,8 +229,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
---- !u!61 &5055517285269305455 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4615254893281062644, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
-  m_PrefabInstance: {fileID: 442588549686253211}
-  m_PrefabAsset: {fileID: 0}

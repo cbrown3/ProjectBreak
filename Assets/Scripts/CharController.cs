@@ -41,6 +41,7 @@ public class CharController : MonoBehaviour
 
     public float groundSpeed,
      dashSpeed,
+     lowJumpMultiplier,
      jumpVelocity,
      fallGravityMultiplier,
      aerialDrift,
