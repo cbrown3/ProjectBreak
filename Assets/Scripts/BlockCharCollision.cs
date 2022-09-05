@@ -6,12 +6,11 @@ public class BlockCharCollision : MonoBehaviour
 {
     public BoxCollider2D characterCollider;
     public BoxCollider2D guardCollider;
-    public BoxCollider2D characterBlockerCollider;
     // Start is called before the first frame update
     void Start()
     {
-        Physics2D.IgnoreCollision(characterCollider, characterBlockerCollider, true);
-        Physics2D.IgnoreCollision(guardCollider, characterBlockerCollider, true);
+        //Physics2D.IgnoreCollision(characterCollider, characterBlockerCollider, true);
+        //Physics2D.IgnoreCollision(guardCollider, characterBlockerCollider, true);
     }
 
 }

@@ -43,6 +43,7 @@ public class CharController : MonoBehaviour
      dashSpeed,
      lowJumpMultiplier,
      jumpVelocity,
+     jumpHeight,
      fallGravityMultiplier,
      aerialDrift,
      maxAerialSpeed;
@@ -308,6 +309,11 @@ public class CharController : MonoBehaviour
     public void EnterState(string inputActionName)
     {
         IState<CharController> currState = stateMachine.GetCurrentState();
+
+        if(!interuptible)
+        {
+            return;
+        }
 
         if(currState == fallState)
         {

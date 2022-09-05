@@ -20,7 +20,7 @@ public class DashState : IState<CharController>
     {
         if(c.playerInput.actions.FindAction("Dash").phase == InputActionPhase.Waiting)
         {
-            return;
+            //return;
         }
 
         //c.dashFrames = 12;
@@ -33,11 +33,17 @@ public class DashState : IState<CharController>
         c.canAttack = false;
         //c.canDJump = false;
 
-        c.interuptible = true;
+        c.interuptible = false;
 
         c.animator.Play(c.aDashAnim);
 
         dashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+
+        if(c.isGrounded && dashDir.x == 0 && dashDir.y < 0)
+        {
+            dashDir.x = c.GetComponent<SpriteRenderer>().flipX ? -1 : 1;
+            dashDir.y = 0;
+        }
     }
 
     public override void Continue(CharController c)
@@ -48,8 +54,8 @@ public class DashState : IState<CharController>
         }
         else if(frameCount > (c.dashFrameLength + c.dashStartup - 1))
         {
-            c.rigid.velocity = Vector2.zero;
-
+            c.rigid.velocity = new Vector2(Mathf.Clamp(c.rigid.velocity.x, -c.maxAerialSpeed, c.maxAerialSpeed), 0);
+            
             if (c.isGrounded)
             {
                 c.EnterState(c.idleState);
@@ -61,7 +67,7 @@ public class DashState : IState<CharController>
         }
         else
         {
-            if(dashDir.x == 0)
+            if(dashDir.x == 0 && c.isGrounded && dashDir.y < 0)
             {
                 if (c.GetComponent<SpriteRenderer>().flipX)
                 {
@@ -75,6 +81,19 @@ public class DashState : IState<CharController>
             else
             {
                 c.rigid.velocity = new Vector2(c.dashSpeed * dashDir.x, c.dashSpeed * dashDir.y);
+            }
+
+            if (c.isGrounded && c.rigid.velocity.y < 0)
+            {
+                if(c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().x != 0)
+                {
+                    c.EnterState(c.runState);
+                }
+                else
+                {
+                    c.rigid.velocity = Vector2.zero;
+                    c.EnterState(c.idleState);
+                }
             }
         }
 

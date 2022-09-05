@@ -16,6 +16,10 @@ public class NormalAttackState : IState<CharController>
 
     Vector2 dirInput;
 
+    static Vector2 pastDirInput;
+
+    static bool isAttackCancel; 
+
     int currentFrame;
 
     int attackFrames;
@@ -46,6 +50,13 @@ public class NormalAttackState : IState<CharController>
 
         //determine directional input
         dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+
+        if (isAttackCancel && pastDirInput == dirInput)
+        {
+            isAttackCancel = false;
+            c.canAttack = true;
+            c.EnterState(c.idleState);
+        }
 
         c.maxAerialSpeed = Mathf.Abs(c.rigid.velocity.x) + c.aerialDrift;
 
@@ -223,6 +234,23 @@ public class NormalAttackState : IState<CharController>
             Debug.Log("Light Attack!");
         }
 
+        if (inputComplete && c.colliders.GetComponentsInChildren<Transform>().GetLength(0) == 2)
+        {
+            c.canAttack = true;
+            
+            pastDirInput = dirInput;
+
+            isAttackCancel = true;
+        }
+        else
+        {
+            c.canAttack = false;
+
+            pastDirInput = Vector2.zero;
+
+            isAttackCancel = false;
+        }
+        
         if (currentFrame > attackFrames)
         {
             c.ResetGlow();
@@ -238,7 +266,7 @@ public class NormalAttackState : IState<CharController>
             }
         }
 
-        if(inputComplete)
+        if (inputComplete)
         {
             currentFrame++;
         }

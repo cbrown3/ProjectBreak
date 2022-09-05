@@ -39,7 +39,7 @@ public class JumpState : IState<CharController>
 
             storedVelX = c.rigid.velocity.x;
 
-            c.maxAerialSpeed = Mathf.Abs(storedVelX) + c.aerialDrift;
+            c.maxAerialSpeed = c.groundSpeed + c.aerialDrift;
         }
         else
         {
@@ -56,6 +56,8 @@ public class JumpState : IState<CharController>
         }
         else
         {
+            c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+
             if (Mathf.Round(c.rigid.velocity.y) < 0)
             {
                 c.rigid.velocity += Vector2.up * Physics2D.gravity.y * (c.fallGravityMultiplier - 1) * Time.deltaTime;
@@ -68,9 +70,7 @@ public class JumpState : IState<CharController>
                 c.rigid.velocity += Vector2.up * Physics2D.gravity.y * (c.lowJumpMultiplier - 1) * Time.deltaTime;
             }
 
-            c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
-
-            c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
+            c.rigid.AddForce(new Vector2(c.maxAerialSpeed * c.moveInput, 0), ForceMode2D.Impulse);
 
             /*
             if (c.rigid.velocity.x > c.maxAerialSpeed)
@@ -90,6 +90,17 @@ public class JumpState : IState<CharController>
             }*/
 
             //Mathf.Clamp(c.rigid.velocity.x, -c.aerialDrift, c.aerialDrift);
+
+            c.transform.position = new Vector3(c.transform.position.x, Mathf.Clamp(c.transform.position.y, 0, c.jumpHeight), c.transform.position.z);
+
+            if (c.transform.position.y >= c.jumpHeight)
+            {
+                c.rigid.velocity = new Vector2(c.rigid.velocity.x, -0.1f);
+                c.rigid.velocity += Vector2.up * Physics2D.gravity.y * (c.fallGravityMultiplier - 1) * Time.deltaTime;
+                c.EnterState(c.fallState);
+                return;
+            }
+
         }
 
         frameCount++;
