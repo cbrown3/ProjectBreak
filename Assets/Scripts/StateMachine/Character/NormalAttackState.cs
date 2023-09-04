@@ -7,8 +7,6 @@ public class NormalAttackState : IState<CharController>
 {
     public NormalAttackState()
     {
-        stateType = StateType.NormalAttack;
-
         stopAttack = false;
     }
 
@@ -28,8 +26,6 @@ public class NormalAttackState : IState<CharController>
 
     bool inputComplete;
 
-    bool isAerial;
-
     bool stopAttack;
 
     public override void Enter(CharController c)
@@ -48,6 +44,8 @@ public class NormalAttackState : IState<CharController>
 
         c.canAttack = false;
 
+        c.canDash = true;
+
         //determine directional input
         dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
 
@@ -57,18 +55,6 @@ public class NormalAttackState : IState<CharController>
             c.canAttack = true;
             c.EnterState(c.idleState);
         }
-
-        c.maxAerialSpeed = Mathf.Abs(c.rigid.velocity.x) + c.aerialDrift;
-
-        if (c.isGrounded)
-        {
-            isAerial = false;
-        }
-        else
-        {
-            isAerial = true;
-        }
-
 
         c.interuptible = false;
 
@@ -84,154 +70,79 @@ public class NormalAttackState : IState<CharController>
             c.animator.speed = 1;
         }
 
-        //determine which attack animation to play, and length of attack
+        //determine which attack animation to play, length of attack, and attack height
         if (dirInput == Vector2.zero)
         {
-            if (c.isGrounded)
-            {
-                c.animator.Play(c.aNNeutralGroundAnim);
-                attackFrames = c.nNeutralGFrames;
-                c.NormalAttackGlow();
-            }
-            else
-            {
-                c.animator.Play(c.aNNeutralAerialAnim);
-                attackFrames = c.nNeutralAFrames;
-                c.NormalAttackGlow();
-            }
+            c.AttackHeight = 1;
+            c.animator.Play(c.aNNeutralGroundAnim);
+            attackFrames = c.nNeutralGFrames;
+            c.NormalAttackGlow();
         }
         else if (dirInput.x > 0)
         {
-            c.GetComponent<SpriteRenderer>().flipX = false;
-
-            if (c.isGrounded)
-            {
-                c.animator.Play(c.aNSideGroundAnim);
-                attackFrames = c.nSideGFrames;
-                c.NormalAttackGlow();
-            }
-            else
-            {
-                c.animator.Play(c.aNSideAerialAnim);
-                attackFrames = c.nSideAFrames;
-                c.NormalAttackGlow();
-            }
+            c.AttackHeight = 1;
+            c.animator.Play(c.aNSideGroundAnim);
+            attackFrames = c.nSideGFrames;
+            c.NormalAttackGlow();
         }
         else if (dirInput.x < 0)
         {
-            c.GetComponent<SpriteRenderer>().flipX = true;
-
-            if (c.isGrounded)
-            {
-                c.animator.Play(c.aNSideGroundAnim);
-                attackFrames = c.nSideGFrames;
-                c.NormalAttackGlow();
-            }
-            else
-            {
-                c.animator.Play(c.aNSideAerialAnim);
-                attackFrames = c.nSideAFrames;
-                c.NormalAttackGlow();
-            }
+            c.AttackHeight = 1;
+            c.animator.Play(c.aNSideGroundAnim);
+            attackFrames = c.nSideGFrames;
+            c.NormalAttackGlow();
         }
         else if (dirInput.y > 0)
         {
-            if (c.isGrounded)
-            {
-                c.animator.Play(c.aNUpGroundAnim);
-                attackFrames = c.nUpGFrames;
-                c.NormalAttackGlow();
-            }
-            else
-            {
-                c.animator.Play(c.aNUpAerialAnim);
-                attackFrames = c.nUpAFrames;
-                c.NormalAttackGlow();
-            }
+            c.AttackHeight = 2;
+            c.animator.Play(c.aNUpGroundAnim);
+            attackFrames = c.nUpGFrames;
+            c.NormalAttackGlow();
         }
         else if (dirInput.y < 0)
         {
-            if (c.isGrounded)
-            {
-                c.animator.Play(c.aNDownGroundAnim);
-                attackFrames = c.nDownGFrames;
-                c.NormalAttackGlow();
-            }
-            else
-            {
-                c.animator.Play(c.aNDownAerialAnim);
-                attackFrames = c.nDownAFrames;
-                c.NormalAttackGlow();
-            }
-        }
-
-        if (c.isPlayer1)
-        {
-            CharManager.P1HitStunLength = CharController.HIT_STUN_FRAME_LENGTH;
-        }
-        else
-        {
-            CharManager.P2HitStunLength = CharController.HIT_STUN_FRAME_LENGTH;
-        }
-
-        //flip hitboxes appropriately
-        if(c.GetComponent<SpriteRenderer>().flipX)
-        {
-            c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        else
-        {
-            c.colliders.transform.rotation = Quaternion.identity;
+            c.AttackHeight = 0;
+            c.animator.Play(c.aNDownGroundAnim);
+            attackFrames = c.nDownGFrames;
+            c.NormalAttackGlow();
         }
     }
 
     public override void Continue(CharController c)
     {
-        if(!c.isGrounded)
+        c.rigid.velocity = Vector2.zero;
+
+        if (!inputComplete)
         {
-            c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+            dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
 
-            c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
-
-            if (c.rigid.velocity.x > c.maxAerialSpeed)
+            if (dirInput.y == 0)
             {
-                c.rigid.velocity = new Vector2(c.maxAerialSpeed, c.rigid.velocity.y);
+                c.AttackHeight = 1;
             }
-            else if (c.rigid.velocity.x < -c.maxAerialSpeed)
+            else
             {
-                c.rigid.velocity = new Vector2(-c.maxAerialSpeed, c.rigid.velocity.y);
+                c.AttackHeight = dirInput.y > 0 ? 2 : 0;
             }
-            /*else
+
+            //check if the move has been held long enough, if so complete the heavy attack, set heavy damage
+            if (!inputComplete && heavyNormal.phase == InputActionPhase.Performed)
             {
-                c.rigid.velocity = new Vector2(c.aerialDrift * c.moveInput, c.rigid.velocity.y);
-            }*/
-        }
-        else if(isAerial)
-        {
-            c.ResetGlow();
-            c.interuptible = true;
-            c.EnterState(c.idleState);
-        }
-        else
-        {
-            c.rigid.velocity = Vector2.zero;
-        }
+                c.animator.speed = 1;
+                inputComplete = true;
 
-        //check if the move has been held long enough, if so complete the heavy attack, set heavy damage
-        if(!inputComplete && heavyNormal.phase == InputActionPhase.Performed)
-        {
-            c.animator.speed = 1;
-            inputComplete = true;
+                Debug.Log("Heavy Attack!");
+                c.CurrAttackValue = 2;
+            }
+            //if not begin a light attack
+            else if (!inputComplete && !heavyNormal.triggered && heavyNormal.phase == InputActionPhase.Waiting)
+            {
+                c.animator.speed = 1;
+                inputComplete = true;
 
-            Debug.Log("Heavy Attack!");
-        }
-        //if not begin a light attack
-        else if(!inputComplete && !heavyNormal.triggered && heavyNormal.phase == InputActionPhase.Waiting)
-        {
-            c.animator.speed = 1;
-            inputComplete = true;
-
-            Debug.Log("Light Attack!");
+                Debug.Log("Light Attack!");
+                c.CurrAttackValue = 1;
+            }
         }
 
         if (inputComplete && c.colliders.GetComponentsInChildren<Transform>().GetLength(0) == 2)
@@ -256,14 +167,7 @@ public class NormalAttackState : IState<CharController>
             c.ResetGlow();
             c.interuptible = true;
 
-            if(c.isGrounded)
-            {
-                c.EnterState(c.idleState);
-            }
-            else
-            {
-                c.EnterState(c.fallState);
-            }
+            c.EnterState(c.idleState);
         }
 
         if (inputComplete)
@@ -274,6 +178,7 @@ public class NormalAttackState : IState<CharController>
 
     public override void Exit(CharController c)
     {
-
+        c.CurrAttackValue = 0;
+        c.AttackHeight = -1;
     }
 }

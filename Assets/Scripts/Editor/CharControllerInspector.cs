@@ -6,29 +6,18 @@ public class CharControllerInspector : Editor
     SerializedProperty currentState;
     SerializedProperty currentVelocity;
     SerializedProperty interuptible,
-    isGrounded,
     canDash,
-    canAttack;
+    canAttack,
+    isDashing;
     SerializedProperty groundSpeed,
-    dashSpeed,
-    jumpVelocity,
-    lowJumpMultiplier,
-    jumpGravityMultiplier,
-    fallGravityMultiplier,
-    aerialDrift;
+    dashSpeed;
     SerializedProperty dashFrameLength,
     dashStartup,
-    jumpSquatFrames,
     nNeutralGFrames,
     nSideGFrames,
     nUpGFrames,
-    nDownGFrames,
-    nNeutralAFrames,
-    nSideAFrames,
-    nUpAFrames,
-    nDownAFrames;
-    SerializedProperty jumpInput,
-    moveInput;
+    nDownGFrames;
+    SerializedProperty moveInput;
 
     SerializedProperty glowLight;
 
@@ -41,29 +30,18 @@ public class CharControllerInspector : Editor
         currentState = serializedObject.FindProperty("stateSerializationHelper");
         currentVelocity = serializedObject.FindProperty("velocitySerializationHelper");
         interuptible = serializedObject.FindProperty("interuptible");
-        isGrounded = serializedObject.FindProperty("isGrounded");
         canDash = serializedObject.FindProperty("canDash");
         canAttack = serializedObject.FindProperty("canAttack");
-        jumpInput = serializedObject.FindProperty("jumpInput");
+        isDashing = serializedObject.FindProperty("isDashing");
         moveInput = serializedObject.FindProperty("moveInput");
         groundSpeed = serializedObject.FindProperty("groundSpeed");
         dashSpeed = serializedObject.FindProperty("dashSpeed");
-        jumpVelocity = serializedObject.FindProperty("jumpVelocity");
-        lowJumpMultiplier = serializedObject.FindProperty("lowJumpMultiplier");
-        jumpGravityMultiplier = serializedObject.FindProperty("jumpHeight");
-        fallGravityMultiplier = serializedObject.FindProperty("fallGravityMultiplier");
-        aerialDrift = serializedObject.FindProperty("aerialDrift");
         dashFrameLength = serializedObject.FindProperty("dashFrameLength");
         dashStartup = serializedObject.FindProperty("dashStartup");
-        jumpSquatFrames = serializedObject.FindProperty("jumpSquatFrames");
         nNeutralGFrames = serializedObject.FindProperty("nNeutralGFrames");
         nSideGFrames = serializedObject.FindProperty("nSideGFrames");
         nUpGFrames = serializedObject.FindProperty("nUpGFrames");
         nDownGFrames = serializedObject.FindProperty("nDownGFrames");
-        nNeutralAFrames = serializedObject.FindProperty("nNeutralAFrames");
-        nSideAFrames = serializedObject.FindProperty("nSideAFrames");
-        nUpAFrames = serializedObject.FindProperty("nUpAFrames");
-        nDownAFrames = serializedObject.FindProperty("nDownAFrames");
         glowLight = serializedObject.FindProperty("glowLight");
         colliders = serializedObject.FindProperty("colliders");
         playerCollider = serializedObject.FindProperty("playerCollider");
@@ -80,10 +58,9 @@ public class CharControllerInspector : Editor
             EditorGUILayout.PropertyField(currentState);
             EditorGUILayout.PropertyField(currentVelocity);
             EditorGUILayout.PropertyField(moveInput);
-            EditorGUILayout.PropertyField(jumpInput);
             EditorGUILayout.PropertyField(canAttack);
+            EditorGUILayout.PropertyField(isDashing);
             EditorGUILayout.PropertyField(canDash);
-            EditorGUILayout.PropertyField(isGrounded);
             EditorGUILayout.PropertyField(interuptible);
         }
 
@@ -95,13 +72,7 @@ public class CharControllerInspector : Editor
             EditorGUILayout.PropertyField(dashSpeed);
             EditorGUILayout.PropertyField(dashFrameLength);
             EditorGUILayout.PropertyField(dashStartup);
-            EditorGUILayout.PropertyField(jumpVelocity);
-            EditorGUILayout.PropertyField(lowJumpMultiplier);
-            EditorGUILayout.PropertyField(jumpGravityMultiplier);
-            EditorGUILayout.PropertyField(fallGravityMultiplier);
-            EditorGUILayout.PropertyField(jumpSquatFrames);
             EditorGUILayout.PropertyField(groundSpeed);
-            EditorGUILayout.PropertyField(aerialDrift);
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();
@@ -113,10 +84,6 @@ public class CharControllerInspector : Editor
             EditorGUILayout.PropertyField(nSideGFrames);
             EditorGUILayout.PropertyField(nUpGFrames);
             EditorGUILayout.PropertyField(nDownGFrames);
-            EditorGUILayout.PropertyField(nNeutralAFrames);
-            EditorGUILayout.PropertyField(nSideAFrames);
-            EditorGUILayout.PropertyField(nUpAFrames);
-            EditorGUILayout.PropertyField(nDownAFrames);
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();

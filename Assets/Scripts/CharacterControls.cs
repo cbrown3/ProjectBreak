@@ -118,6 +118,15 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Regular Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""085e72da-77e8-4e14-a931-315af809d410"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Normal Parry"",
                     ""type"": ""Button"",
                     ""id"": ""83963b68-afc2-46a1-98c4-2f785649bc33"",
@@ -235,28 +244,6 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3245833c-a776-44bf-9faa-4d5803c76756"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6f376616-3cfe-4927-b482-8cdd487b22e1"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -459,7 +446,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""eb84704d-d3af-407e-a947-f60e24b9912f"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -481,7 +468,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0296c1fa-50eb-4a83-b0b3-33ff99b31d01"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -503,7 +490,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""66d1e88f-d11e-469b-8f70-d693e84e5311"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -602,7 +589,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""button"",
                     ""id"": ""fd408c17-3401-4ea8-b01c-7fc274575a14"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/n"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -635,7 +622,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""button"",
                     ""id"": ""909281f5-2c18-4e8b-a3a7-625bb0aff773"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -668,7 +655,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""button"",
                     ""id"": ""3f6feee2-7360-46fd-a16b-f8279ce0ee0c"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/n"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -701,13 +688,35 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""button"",
                     ""id"": ""32ebf71d-3d04-4777-bee5-32f03eb69fbe"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Special Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e865e90c-5e1f-4be0-8e9f-6e424727d268"",
+                    ""path"": ""<Keyboard>/n"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Regular Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86cb8baf-8850-40e5-8132-5b91d8204a7c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Regular Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -822,6 +831,15 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grab Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""34c9e734-8485-48f0-9075-fe9b71318f56"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -923,28 +941,6 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3f500839-83ab-42f7-856e-5d913e1ebf6c"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""365263f7-c01f-4af5-828b-7150462056b6"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -1396,6 +1392,72 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                     ""action"": ""Special Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""daed926d-bada-47f5-a9af-c0e4557c0060"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab Parry"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""7bdd4ad5-d5b7-48db-ba49-8a3ff96eb36f"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""974dbf4f-2236-426b-8173-b8c060973be0"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""87661cbd-f173-4705-8c3f-ff50c7e618ae"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab Parry"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""8ab633e1-9318-421c-97d4-d1b297906d66"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""05264e56-8662-48a3-b318-96816c5fedb0"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -1437,6 +1499,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
         m_Player1_HeavySpecial = m_Player1.FindAction("Heavy Special", throwIfNotFound: true);
         m_Player1_Guard = m_Player1.FindAction("Guard", throwIfNotFound: true);
         m_Player1_Grab = m_Player1.FindAction("Grab", throwIfNotFound: true);
+        m_Player1_RegularParry = m_Player1.FindAction("Regular Parry", throwIfNotFound: true);
         m_Player1_NormalParry = m_Player1.FindAction("Normal Parry", throwIfNotFound: true);
         m_Player1_SpecialParry = m_Player1.FindAction("Special Parry", throwIfNotFound: true);
         // Player 2
@@ -1453,6 +1516,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
         m_Player2_Grab = m_Player2.FindAction("Grab", throwIfNotFound: true);
         m_Player2_NormalParry = m_Player2.FindAction("Normal Parry", throwIfNotFound: true);
         m_Player2_SpecialParry = m_Player2.FindAction("Special Parry", throwIfNotFound: true);
+        m_Player2_GrabParry = m_Player2.FindAction("Grab Parry", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1522,6 +1586,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player1_HeavySpecial;
     private readonly InputAction m_Player1_Guard;
     private readonly InputAction m_Player1_Grab;
+    private readonly InputAction m_Player1_RegularParry;
     private readonly InputAction m_Player1_NormalParry;
     private readonly InputAction m_Player1_SpecialParry;
     public struct Player1Actions
@@ -1538,6 +1603,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
         public InputAction @HeavySpecial => m_Wrapper.m_Player1_HeavySpecial;
         public InputAction @Guard => m_Wrapper.m_Player1_Guard;
         public InputAction @Grab => m_Wrapper.m_Player1_Grab;
+        public InputAction @RegularParry => m_Wrapper.m_Player1_RegularParry;
         public InputAction @NormalParry => m_Wrapper.m_Player1_NormalParry;
         public InputAction @SpecialParry => m_Wrapper.m_Player1_SpecialParry;
         public InputActionMap Get() { return m_Wrapper.m_Player1; }
@@ -1579,6 +1645,9 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 @Grab.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnGrab;
                 @Grab.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnGrab;
                 @Grab.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnGrab;
+                @RegularParry.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRegularParry;
+                @RegularParry.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRegularParry;
+                @RegularParry.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnRegularParry;
                 @NormalParry.started -= m_Wrapper.m_Player1ActionsCallbackInterface.OnNormalParry;
                 @NormalParry.performed -= m_Wrapper.m_Player1ActionsCallbackInterface.OnNormalParry;
                 @NormalParry.canceled -= m_Wrapper.m_Player1ActionsCallbackInterface.OnNormalParry;
@@ -1619,6 +1688,9 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @RegularParry.started += instance.OnRegularParry;
+                @RegularParry.performed += instance.OnRegularParry;
+                @RegularParry.canceled += instance.OnRegularParry;
                 @NormalParry.started += instance.OnNormalParry;
                 @NormalParry.performed += instance.OnNormalParry;
                 @NormalParry.canceled += instance.OnNormalParry;
@@ -1645,6 +1717,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player2_Grab;
     private readonly InputAction m_Player2_NormalParry;
     private readonly InputAction m_Player2_SpecialParry;
+    private readonly InputAction m_Player2_GrabParry;
     public struct Player2Actions
     {
         private @CharacterControls m_Wrapper;
@@ -1661,6 +1734,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
         public InputAction @Grab => m_Wrapper.m_Player2_Grab;
         public InputAction @NormalParry => m_Wrapper.m_Player2_NormalParry;
         public InputAction @SpecialParry => m_Wrapper.m_Player2_SpecialParry;
+        public InputAction @GrabParry => m_Wrapper.m_Player2_GrabParry;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1706,6 +1780,9 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 @SpecialParry.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnSpecialParry;
                 @SpecialParry.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnSpecialParry;
                 @SpecialParry.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnSpecialParry;
+                @GrabParry.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnGrabParry;
+                @GrabParry.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnGrabParry;
+                @GrabParry.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnGrabParry;
             }
             m_Wrapper.m_Player2ActionsCallbackInterface = instance;
             if (instance != null)
@@ -1746,6 +1823,9 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
                 @SpecialParry.started += instance.OnSpecialParry;
                 @SpecialParry.performed += instance.OnSpecialParry;
                 @SpecialParry.canceled += instance.OnSpecialParry;
+                @GrabParry.started += instance.OnGrabParry;
+                @GrabParry.performed += instance.OnGrabParry;
+                @GrabParry.canceled += instance.OnGrabParry;
             }
         }
     }
@@ -1780,6 +1860,7 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
         void OnHeavySpecial(InputAction.CallbackContext context);
         void OnGuard(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);
+        void OnRegularParry(InputAction.CallbackContext context);
         void OnNormalParry(InputAction.CallbackContext context);
         void OnSpecialParry(InputAction.CallbackContext context);
     }
@@ -1797,5 +1878,6 @@ public partial class @CharacterControls : IInputActionCollection2, IDisposable
         void OnGrab(InputAction.CallbackContext context);
         void OnNormalParry(InputAction.CallbackContext context);
         void OnSpecialParry(InputAction.CallbackContext context);
+        void OnGrabParry(InputAction.CallbackContext context);
     }
 }

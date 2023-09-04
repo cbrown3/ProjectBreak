@@ -6,7 +6,7 @@ public class IdleState : IState<CharController>
 {
     public IdleState()
     {
-        stateType = StateType.Idle;
+        
     }
 
     public override void Enter(CharController c)
@@ -30,10 +30,11 @@ public class IdleState : IState<CharController>
         {
             c.EnterState(c.runState);
         }
-        else */if(c.jumpInput != 0)
+        else if(c.jumpInput != 0)
         {
             c.EnterState(c.jumpState);
         }
+        */
     }
 
     public override void Exit(CharController c)

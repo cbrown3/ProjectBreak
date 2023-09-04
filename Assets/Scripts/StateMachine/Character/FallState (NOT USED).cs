@@ -6,12 +6,12 @@ public class FallState : IState<CharController>
 {
     public FallState()
     {
-        stateType = StateType.Fall;
+        
     }
 
     public override void Enter(CharController c)
     {
-        c.animator.Play(c.aFallAnim);
+        //c.animator.Play(c.aFallAnim);
 
         c.canAttack = true;
 
@@ -35,7 +35,7 @@ public class FallState : IState<CharController>
         }
 
         c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
-
+        /*
         c.rigid.AddForce(new Vector2(c.aerialDrift * c.moveInput, 0), ForceMode2D.Impulse);
 
         if (c.rigid.velocity.x > c.maxAerialSpeed)
@@ -45,7 +45,7 @@ public class FallState : IState<CharController>
         else if (c.rigid.velocity.x < -c.maxAerialSpeed)
         {
             c.rigid.velocity = new Vector2(-c.maxAerialSpeed, c.rigid.velocity.y);
-        }
+        }*/
         /*else
         {
             c.rigid.velocity = new Vector2(c.aerialDrift * c.moveInput, c.rigid.velocity.y);

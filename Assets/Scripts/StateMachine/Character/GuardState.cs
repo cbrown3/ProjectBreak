@@ -7,12 +7,15 @@ public class GuardState : IState<CharController>
 {
     public GuardState()
     {
-        stateType = StateType.Guard;
+        
     }
 
     InputAction guardAction;
 
     float guardInput;
+
+    float guardDir = 0;
+
 
     public override void Enter(CharController c)
     {
@@ -23,39 +26,49 @@ public class GuardState : IState<CharController>
             return;
         }
 
-        c.canDash = false;
+        c.canDash = true;
 
         c.canAttack = false;
 
         guardInput = guardAction.ReadValue<float>();
 
-        if (c.isGrounded)
+        c.animator.Play(c.aGroundGuardAnim);
+
+        c.interuptible = false;
+
+        guardDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().y;
+
+        if(guardDir == 0) 
         {
-            c.animator.Play(c.aGroundGuardAnim);
+            c.GuardHeight = 1;
         }
         else
         {
-            c.animator.Play(c.aAirGuardAnim);
+            c.GuardHeight = guardDir > 0 ? 2 : 0;
         }
-
-        c.interuptible = false;
     }
 
     public override void Continue(CharController c)
     {
         guardInput = guardAction.ReadValue<float>();
         c.moveInput = c.playerInput.actions.FindAction("Move").ReadValue<float>();
+        guardDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().y;
 
-        if (c.isGrounded)
+        if (guardDir == 0)
         {
-            c.rigid.velocity = Vector2.zero;
-
-            if (c.animator.GetCurrentAnimatorStateInfo(0).IsName(c.aAirGuardAnim))
-            {
-                c.animator.Play(c.aGroundGuardAnim);
-            }
+            c.GuardHeight = 1;
+        }
+        else
+        {
+            c.GuardHeight = guardDir > 0 ? 2 : 0;
         }
 
+        c.rigid.velocity = Vector2.zero;
+
+        if (c.animator.GetCurrentAnimatorStateInfo(0).IsName(c.aAirGuardAnim))
+        {
+            c.animator.Play(c.aGroundGuardAnim);
+        }
 
         if (c.moveInput > 0)
         {
@@ -74,7 +87,28 @@ public class GuardState : IState<CharController>
         {
             c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        
+
+        if (c.playerInput.actions.FindAction("Regular Parry").ReadValue<float>() > 0)
+        {
+            c.parryState.currParryType = ParryState.ParryType.RegularParry;
+            c.EnterState(c.parryState);
+        }
+        else if (c.playerInput.actions.FindAction("Light Normal").ReadValue<float>() > 0)
+        {
+            c.parryState.currParryType = ParryState.ParryType.NormalParry;
+            c.EnterState(c.parryState);
+        }
+        else if (c.playerInput.actions.FindAction("Light Special").ReadValue<float>() > 0)
+        {
+            c.parryState.currParryType = ParryState.ParryType.SpecialParry;
+            c.EnterState(c.parryState);
+        }
+        else if (c.playerInput.actions.FindAction("Grab Parry").ReadValue<float>() > 0)
+        {
+            c.parryState.currParryType = ParryState.ParryType.GrabParry;
+            c.EnterState(c.parryState);
+        }
+
         if (guardInput <= 0)
         {
             c.EnterState(c.idleState);
@@ -83,6 +117,6 @@ public class GuardState : IState<CharController>
 
     public override void Exit(CharController c)
     {
-        
+        c.GuardHeight = -1;
     }
 }

@@ -73,6 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterCollider: {fileID: 8697186640298902123}
   guardCollider: {fileID: 4050638256346826283}
+  characterBlockerCollider: {fileID: 456922015824841626}
 --- !u!1 &3437624863171195968
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,9 +133,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0.65}
+      - {x: -0.01, y: -0.25}
+      - {x: 0, y: -1.04}
       - {x: 0.01, y: -0.25}
-      - {x: 0.01, y: -1.04}
-      - {x: 0, y: -0.25}
 --- !u!50 &1436850672757659956
 Rigidbody2D:
   serializedVersion: 4
@@ -154,7 +155,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 7
 --- !u!1 &3766359224451573726
 GameObject:

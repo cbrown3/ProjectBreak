@@ -6,11 +6,12 @@ public class SpecialAttackState : IState<CharController>
 {
     public SpecialAttackState()
     {
-        stateType = StateType.SpecialAttack;
+        
     }
     public override void Enter(CharController c)
     {
         c.canAttack = false;
+        c.canDash = true;
     }
 
     public override void Continue(CharController c)

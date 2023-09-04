@@ -7,7 +7,7 @@ public class DashState : IState<CharController>
 {
     public DashState()
     {
-        stateType = StateType.Dash;
+        
     }
 
     InputAction dashAction;
@@ -15,6 +15,10 @@ public class DashState : IState<CharController>
     Vector2 dashDir;
 
     int frameCount;
+
+    int framesHeldCount;
+
+    int additionalDashFrames;
 
     public override void Enter(CharController c)
     {
@@ -25,6 +29,8 @@ public class DashState : IState<CharController>
 
         //c.dashFrames = 12;
         frameCount = 0;
+        framesHeldCount = 0;
+        additionalDashFrames = 0;
 
         c.rigid.velocity = Vector2.zero;
 
@@ -39,62 +45,68 @@ public class DashState : IState<CharController>
 
         dashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
 
-        if(c.isGrounded && dashDir.x == 0 && dashDir.y < 0)
+        if(dashDir.x == 0)
         {
+            c.RevertToPreviousState();
+
+            return;
+        }
+        else
+        {
+            c.Stamina -= 2;
             dashDir.x = c.GetComponent<SpriteRenderer>().flipX ? -1 : 1;
-            dashDir.y = 0;
         }
     }
 
     public override void Continue(CharController c)
     {
+        //Startup frames
         if(frameCount < c.dashStartup)
         {
             c.rigid.velocity = Vector2.zero;
-        }
-        else if(frameCount > (c.dashFrameLength + c.dashStartup - 1))
-        {
-            c.rigid.velocity = new Vector2(Mathf.Clamp(c.rigid.velocity.x, -c.maxAerialSpeed, c.maxAerialSpeed), 0);
-            
-            if (c.isGrounded)
+            Physics2D.IgnoreLayerCollision(7, 8, true);
+
+            //If dash is pressed again, cancel startup frames
+            if(c.playerInput.actions.FindAction("Dash").phase == InputActionPhase.Started)
             {
-                c.EnterState(c.idleState);
-            }
-            else
-            {
-                c.EnterState(c.fallState);
-            }
-        }
-        else
-        {
-            if(dashDir.x == 0 && c.isGrounded && dashDir.y < 0)
-            {
-                if (c.GetComponent<SpriteRenderer>().flipX)
-                {
-                    c.rigid.velocity = new Vector2(-c.dashSpeed, c.dashSpeed * dashDir.y);
-                }
-                else
-                {
-                    c.rigid.velocity = new Vector2(c.dashSpeed, c.dashSpeed * dashDir.y);
-                }
-            }
-            else
-            {
-                c.rigid.velocity = new Vector2(c.dashSpeed * dashDir.x, c.dashSpeed * dashDir.y);
+                c.Stamina--;
+                frameCount = c.dashStartup - 1;
             }
 
-            if (c.isGrounded && c.rigid.velocity.y < 0)
+            //if the same direction is being held, increase distance of dash
+            if(dashDir.x == c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().x)
             {
-                if(c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().x != 0)
-                {
-                    c.EnterState(c.runState);
-                }
-                else
-                {
-                    c.rigid.velocity = Vector2.zero;
-                    c.EnterState(c.idleState);
-                }
+                framesHeldCount++;
             }
+        }
+        //End of dash
+        else if(frameCount > (c.dashFrameLength + c.dashStartup - 1 + additionalDashFrames))
+        {
+            c.rigid.velocity = new Vector2(Mathf.Clamp(c.rigid.velocity.x, -c.groundSpeed, c.groundSpeed), 0);
+            
+            c.EnterState(c.idleState);
+        }
+        //Begin dashing
+        else if(frameCount == c.dashStartup)
+        {
+            //Modify dash distance based on number of frames a direction was held
+            if (framesHeldCount < c.dashStartup * 0.3334)
+            {
+                additionalDashFrames = 0;
+            }
+            else if(framesHeldCount < c.dashStartup * 0.6667)
+            {
+                additionalDashFrames = c.dashFrameLength / 4;
+            }
+            else
+            {
+                additionalDashFrames = c.dashFrameLength / 2;
+            }
+        }
+        //Dashing
+        else
+        {
+            c.rigid.velocity = new Vector2(c.dashSpeed * dashDir.x, c.dashSpeed * dashDir.y);
         }
 
         frameCount++;
@@ -102,6 +114,6 @@ public class DashState : IState<CharController>
 
     public override void Exit(CharController c)
     {
-
+        Physics2D.IgnoreLayerCollision(7, 8, false);
     }
 }

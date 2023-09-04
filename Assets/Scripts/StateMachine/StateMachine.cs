@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
 public enum StateType
 {
     None,
@@ -14,12 +15,17 @@ public enum StateType
     Jump,
     Fall,
     Dash,
-    HitStun
+    HitStun,
+    RegularParry,
+    NormalParry,
+    SpecialParry,
+    GrabParry
 }
+*/
 
 abstract public class IState<T>
 {
-    public StateType stateType;
+    //public StateType stateType;
     abstract public void Enter(T entity);
     abstract public void Continue(T entity);
     //abstract public void Continue(T entity, InputAction.CallbackContext context);

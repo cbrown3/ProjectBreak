@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
@@ -22,6 +21,12 @@ public class CharController : MonoBehaviour
 
     public PlayerInput playerInput;
 
+    public delegate void OnHealthChangedDelegate();
+    public event OnHealthChangedDelegate OnHealthChanged;
+
+    public delegate void OnStaminaChangedDelegate();
+    public event OnStaminaChangedDelegate OnStaminaChanged;
+
     //public InputActionTrace inputActionTrace;
 
     [NonSerialized]
@@ -31,38 +36,39 @@ public class CharController : MonoBehaviour
     public Rigidbody2D rigid;
 
     public bool interuptible,
-    isGrounded,
     canDash,
     canAttack,
-    isPlayer1;
+    isPlayer1,
+    isDashing;
 
     [NonSerialized]
     public LayerMask ground;
 
     public float groundSpeed,
-     dashSpeed,
-     lowJumpMultiplier,
-     jumpVelocity,
-     jumpHeight,
-     fallGravityMultiplier,
-     aerialDrift,
-     maxAerialSpeed;
+     dashSpeed;
 
     public int dashFrameLength,
     dashStartup,
-    jumpSquatFrames,
     nNeutralGFrames,
     nSideGFrames,
     nUpGFrames,
-    nDownGFrames,
-    nNeutralAFrames,
-    nSideAFrames,
-    nUpAFrames,
-    nDownAFrames;
+    nDownGFrames;
 
     public static int HIT_STUN_FRAME_LENGTH = 15;
 
-    public float jumpInput, moveInput = 0;
+    public float moveInput = 0;
+
+    private int health = 10;
+
+    private int stamina = 10;
+
+    //Low, Mid, High: 0,1,2
+    private int attackHeight = -1;
+
+    private int currAttackValue = 0;
+
+    //Low, Mid, High: 0,1,2
+    private int guardHeight = -1;
 
     public UnityEngine.Rendering.Universal.Light2D glowLight;
 
@@ -82,12 +88,41 @@ public class CharController : MonoBehaviour
     public IdleState idleState;
     public DashState dashState;
     public RunState runState;
-    public JumpState jumpState;
-    public FallState fallState;
     public HitStunState hitStunState;
+    public BlockStunState blockStunState;
     public NormalAttackState normalAttackState;
     public SpecialAttackState specialAttackState;
     public GuardState guardState;
+    public ParryState parryState;
+
+    public int Health
+    { 
+        get => health;
+        set {
+            health = value;
+            if(OnHealthChanged != null)
+            {
+                OnHealthChanged();
+            }
+        }
+    }
+
+    public int Stamina
+    {
+        get => stamina;
+        set
+        {
+            stamina = value;
+            if (OnStaminaChanged != null)
+            {
+                OnStaminaChanged();
+            }
+        }
+    }
+
+    public int CurrAttackValue { get => currAttackValue; set => currAttackValue = value; }
+    public int AttackHeight { get => attackHeight; set => attackHeight = value; }
+    public int GuardHeight { get => guardHeight; set => guardHeight = value; }
 
     #region Animation Names
 
@@ -96,8 +131,6 @@ public class CharController : MonoBehaviour
     public string aIdleAnim = "Base Layer.Advntr-Idle",
     aDashAnim = "Base Layer.Advntr-Dash",
     aRunAnim = "Base Layer.Advntr-Run",
-    aJumpAnim = "Base Layer.Advntr-Jump",
-    aFallAnim = "Base Layer.Advntr-Fall",
     aHitStunAnim = "Base Layer.Advntr-HitStun",
     aGroundGuardAnim = "Base Layer.Advntr-GroundGuard",
     aAirGuardAnim = "Base Layer.Advntr-AirGuard",
@@ -105,18 +138,10 @@ public class CharController : MonoBehaviour
     aNSideGroundAnim = "Base Layer.Advntr-NormalSideGround",
     aNUpGroundAnim = "Base Layer.Advntr-NormalUpGround",
     aNDownGroundAnim = "Base Layer.Advntr-NormalDownGround",
-    aNNeutralAerialAnim = "Base Layer.Advntr-NormalNeutralAerial",
-    aNSideAerialAnim = "Base Layer.Advntr-NormalSideAerial",
-    aNUpAerialAnim = "Base Layer.Advntr-NormalUpAerial",
-    aNDownAerialAnim = "Base Layer.Advntr-NormalDownAerial",
     aSNeutralGroundAnim = "Base Layer.Advntr-SpecialNeutralGround",
     aSSideGroundAnim = "Base Layer.Advntr-SpecialSideGround",
     aSUpGroundAnim = "Base Layer.Advntr-SpecialUpGround",
-    aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround",
-    aSNeutralAerialAnim = "Base Layer.Advntr-SpecialNeutralAerial",
-    aSSideAerialAnim = "Base Layer.Advntr-SpecialSideAerial",
-    aSUpAerialAnim = "Base Layer.Advntr-SpecialUpAerial",
-    aSDownAerialAnim = "Base Layer.Advntr-SpecialDownAerial";
+    aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround";
 
     #endregion
 
@@ -136,14 +161,14 @@ public class CharController : MonoBehaviour
         buffer = new Queue(60);
 
         idleState = new IdleState();
-        fallState = new FallState();
         hitStunState = new HitStunState();
+        blockStunState = new BlockStunState();
         runState = new RunState();
-        jumpState = new JumpState();
         dashState = new DashState();
         normalAttackState = new NormalAttackState();
         specialAttackState = new SpecialAttackState();
         guardState = new GuardState();
+        parryState = new ParryState();
 
         playerInput = GetComponent<PlayerInput>();
         //inputActionTrace = new InputActionTrace();
@@ -155,8 +180,6 @@ public class CharController : MonoBehaviour
 
         stateMachine = new StateMachine<CharController>();
         stateMachine.Configure(this, idleState);
-
-        maxAerialSpeed = aerialDrift + groundSpeed;
 
         //inputActionTrace.SubscribeTo(playerInput.currentActionMap);
     }
@@ -178,17 +201,6 @@ public class CharController : MonoBehaviour
         playerInput.currentActionMap.actionTriggered += PlayerInput_onActionTriggered;
 
         stateSerializationHelper = stateMachine.GetCurrentState().ToString();
-
-        //playerInput.SendMessage("Jump");
-        //playerInput.SendMessage("Dash");
-        //playerInput.SendMessage("Movement");
-        //playerInput.SendMessage("Attack", NormalAttackState.Instance);
-        //playerInput.SendMessage("Guard");
-        //charControls.Character.Jump.performed += _ => Jump();
-        //charControls.Character.Dash.performed += _ => Dash();
-        //charControls.Character.Move.performed += _ => Movement();
-        //charControls.Character.HeavyNormal.started += _ => Attack(NormalAttackState.Instance);
-        //charControls.Character.Guard.performed += _ => Guard();
     }
 
     // Update is called once per frame
@@ -315,16 +327,10 @@ public class CharController : MonoBehaviour
             return;
         }
 
-        if(currState == fallState)
-        {
-            rigid.gravityScale = 1;
-        }
-
         switch(inputActionName)
         {
             case "Move":
-                if (currState != runState &&
-                    isGrounded)
+                if (currState != runState)
                 {
                     EnterState(runState);
                     buffer.Dequeue();
@@ -332,16 +338,9 @@ public class CharController : MonoBehaviour
                 break;
             case "Dash":
                 if (currState != dashState &&
-                    canDash)
+                    canDash && stamina >= 1/*&& currState != blockStunState*/)
                 {
                     EnterState(dashState);
-                    buffer.Dequeue();
-                }
-                break;
-            case "Jump":
-                if (currState != jumpState)
-                {
-                    EnterState(jumpState);
                     buffer.Dequeue();
                 }
                 break;
@@ -364,6 +363,15 @@ public class CharController : MonoBehaviour
                 {
                     EnterState(hitStunState);
                 }
+                break;
+            case "Regular Parry":
+                EnterState(parryState);
+                break;
+            case "Normal Parry":
+                EnterState(parryState);
+                break;
+            case "Heavy Parry":
+                EnterState(parryState);
                 break;
         }
     }
@@ -550,6 +558,18 @@ public class CharController : MonoBehaviour
         renderer.sharedMaterial.shader = normalShader;
     }
 
+    public void ToggleMatrixCollision()
+    {
+        if (Physics2D.GetIgnoreLayerCollision(7, 8))
+        {
+            Physics2D.IgnoreLayerCollision(7, 8, false);
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(7, 8, true);
+        }
+    }
+
     private void OnDisable()
     {
         /*inputActionTrace.Clear();
@@ -583,11 +603,6 @@ public class CharController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 3)
-        {
-            isGrounded = true;
-        }
-
         if(collision.gameObject.tag == "Character")
         {
             //collision.rigidbody.velocity = Vector2.zero;
