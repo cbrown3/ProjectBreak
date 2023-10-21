@@ -10,7 +10,9 @@ public class ParryState : IState<CharController>
         
     }
 
-    const int PARRY_LENGTH = 3;
+    const int PARRY_LENGTH = 18;
+
+    int frameCount;
 
     InputAction parryAction;
 
@@ -18,6 +20,7 @@ public class ParryState : IState<CharController>
 
     public enum ParryType
     {
+        None,
         RegularParry,
         NormalParry,
         SpecialParry,
@@ -26,6 +29,8 @@ public class ParryState : IState<CharController>
 
     public override void Enter(CharController c)
     {
+        currParryType = ParryType.None;
+
         if (c.playerInput.actions.FindAction("Regular Parry").ReadValue<float>() > 0)
         {
             parryAction = c.playerInput.actions.FindAction("Regular Parry");
@@ -60,19 +65,26 @@ public class ParryState : IState<CharController>
         }
 
 
-        c.canDash = true;
+        c.canDash = false;
 
-        c.canAttack = true;
+        c.canAttack = false;
 
         //TODO: Update Animation
         c.animator.Play(c.aIdleAnim);
 
-        c.interuptible = true;
+        c.interuptible = false;
+
+        frameCount = 0;
     }
 
     public override void Continue(CharController c)
     {
-        
+        if(frameCount >= PARRY_LENGTH)
+        {
+            c.EnterState(c.idleState);
+        }
+
+        frameCount++;
     }
 
     public override void Exit(CharController c)

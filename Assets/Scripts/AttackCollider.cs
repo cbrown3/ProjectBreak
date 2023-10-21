@@ -7,6 +7,8 @@ public class AttackCollider : MonoBehaviour
 {
     public bool isPlayer1;
 
+    private bool attackSuccess;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(gameObject.name + " attack collided with " + collision.name);
@@ -14,89 +16,113 @@ public class AttackCollider : MonoBehaviour
         //If this is colliding with a Character...
         if (collision.gameObject.layer == 7)
         {
-            IState<CharController> p1State = CharManager.player1.stateMachine.GetCurrentState();
-            IState<CharController> p2State = CharManager.player2.stateMachine.GetCurrentState();
+            CharController attacker = null;
+            CharController defender = null;
+            IState<CharController> attackerState = null;
+            IState<CharController> defenderState = null;
 
-            //...and it is P1's attack colliding with P2
+            //set the attacker and defender correctly
             if (isPlayer1 && collision == CharManager.player2.playerCollider)
             {
-                Type currStateType = p2State.GetType();
+                attacker = CharManager.player1;
+                defender = CharManager.player2;
+            }
+            else if(!isPlayer1 && collision == CharManager.player1.playerCollider)
+            {
+                attacker = CharManager.player2;
+                defender = CharManager.player1;
+            }
+
+            attackerState = attacker.stateMachine.GetCurrentState();
+            defenderState = defender.stateMachine.GetCurrentState();
+
+            if (attackerState != null && defenderState != null)
+            {
+                Type defCurrStateType = defenderState.GetType();
 
                 //Dash is invincible to attacks, nothing happens
-                if (currStateType == typeof(DashState))
+                if (defCurrStateType == typeof(DashState))
                 {
+                    attackSuccess = false;
                     return;
                 }
-
-                //P2 enters block stun if guarding
-                if (currStateType == typeof(GuardState))
+                //If defender is in parry state...
+                else if (defCurrStateType == typeof(ParryState))
                 {
-                    bool isNormalAttack = p1State.GetType() == typeof(NormalAttackState);
-                    CharManager.player2.blockStunState.CurrentBlockStunFrame = isNormalAttack ? 30 : 5;
+                    //check the type of parry and type of attack
+                    ParryState.ParryType defParryType = ((ParryState)defenderState).currParryType;
+                    Type attCurrStateType = attackerState.GetType();
 
-                    if(CharManager.player1.AttackHeight != CharManager.player2.GuardHeight)
+                    //respond accordingly depending on parry type
+                    if (defParryType == ParryState.ParryType.RegularParry)
                     {
-                        CharManager.player2.Stamina--;
+                        Debug.Log("Regular Parry Successful!");
+
+                        Debug.Log("TODO: SMALL PUSHBACK");
+                        attacker.EnterState(attacker.idleState);
+                        defender.EnterState(defender.idleState);
+
+                        attackSuccess = false;
+                    }
+                    else if (defParryType == ParryState.ParryType.NormalParry &&
+                        attCurrStateType.Name == "NormalAttackState")
+                    {
+                        Debug.Log("Normal Parry Successful!");
+                        Debug.Log("TODO: DEFENDER PLUS FRAMES");
+
+                        attackSuccess = false;
+                    }
+                    else if (defParryType == ParryState.ParryType.SpecialParry &&
+                        attCurrStateType.Name == "SpecialAttackState")
+                    {
+                        Debug.Log("Special Parry Successful!");
+                        Debug.Log("TODO: DEFENDER PLUS FRAMES");
+
+                        attackSuccess = false;
+                    }
+                    else
+                    {
+                        Debug.Log("Parry Unsuccessful!");
+                        attackSuccess = true;
+                    }
+                }
+                //P2 enters block stun if guarding
+                else if (defCurrStateType == typeof(GuardState))
+                {
+                    bool isNormalAttack = attackerState.GetType() == typeof(NormalAttackState);
+
+                    defender.blockStunState.CurrentBlockStunFrame = isNormalAttack ? 30 : 5;
+
+                    if (attacker.AttackHeight != defender.GuardHeight)
+                    {
+                        defender.Stamina--;
                     }
 
-                    CharManager.player2.Stamina -= CharManager.player1.CurrAttackValue;
-                    
-                    CharManager.player2.EnterState("BlockStun");
+                    defender.Stamina -= attacker.CurrAttackValue;
+
+                    defender.EnterState(defender.blockStunState);
+
+                    attackSuccess = false;
                 }
                 //P2 enters hit stun otherwise
                 else
                 {
-                    CharManager.player2.hitStunState.CurrentHitStunFrame = 12;
+                    attackSuccess = true;
+                }
 
-                    if(currStateType == typeof(NormalAttackState) ||
-                        currStateType == typeof(SpecialAttackState))
+                if (attackSuccess)
+                {
+                    //TODO: DETERMINE HITSTUN AMOUNT
+                    defender.hitStunState.CurrentHitStunFrame = 12;
+
+                    if (defCurrStateType == typeof(NormalAttackState) ||
+                        defCurrStateType == typeof(SpecialAttackState))
                     {
-                        CharManager.player2.Health -= 2;
+                        defender.Health -= 2;
                         Debug.Log("COUNTER!");
                     }
-                    CharManager.player2.Health -= CharManager.player1.CurrAttackValue;
-                    CharManager.player2.EnterState("HitStun");
-                }
-            }
-            //...and it is Player 2's attack colliding with Player 1
-            else if (!isPlayer1 && collision == CharManager.player1.playerCollider)
-            {
-                Type currStateType = p1State.GetType();
-
-                //Dash is invincible to attacks, nothing happens
-                if (currStateType == typeof(DashState))
-                {
-                    return;
-                }
-
-                //P1 enters block stun if guarding
-                if (currStateType == typeof(GuardState))
-                {
-                    bool isNormalAttack = p2State.GetType() == typeof(NormalAttackState);
-                    CharManager.player1.blockStunState.CurrentBlockStunFrame = isNormalAttack ? 30 : 5;
-
-                    if (CharManager.player2.AttackHeight != CharManager.player1.GuardHeight)
-                    {
-                        CharManager.player1.Stamina--;
-                    }
-
-
-                    CharManager.player1.Stamina -= CharManager.player2.CurrAttackValue;
-                    CharManager.player1.EnterState("BlockStun");
-                }
-                //P1 enters hit stun otherwise
-                else
-                {
-                    CharManager.player1.hitStunState.CurrentHitStunFrame = 12;
-
-                    if (currStateType == typeof(NormalAttackState) ||
-                        currStateType == typeof(SpecialAttackState))
-                    {
-                        CharManager.player1.Health -= 2;
-                        Debug.Log("COUNTER!");
-                    }
-                    CharManager.player1.Health -= CharManager.player2.CurrAttackValue;
-                    CharManager.player1.EnterState("HitStun");
+                    defender.Health -= attacker.CurrAttackValue;
+                    defender.EnterState(defender.hitStunState);
                 }
             }
         }

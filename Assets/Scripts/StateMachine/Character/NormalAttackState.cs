@@ -112,37 +112,23 @@ public class NormalAttackState : IState<CharController>
     {
         c.rigid.velocity = Vector2.zero;
 
-        if (!inputComplete)
+        //check if the move has been held long enough, if so complete the heavy attack, set heavy damage
+        if (!inputComplete && heavyNormal.phase == InputActionPhase.Performed)
         {
-            dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+            c.animator.speed = 1;
+            inputComplete = true;
 
-            if (dirInput.y == 0)
-            {
-                c.AttackHeight = 1;
-            }
-            else
-            {
-                c.AttackHeight = dirInput.y > 0 ? 2 : 0;
-            }
+            Debug.Log("Heavy Attack!");
+            c.CurrAttackValue = 2;
+        }
+        //if not begin a light attack
+        else if (!inputComplete && !heavyNormal.triggered && heavyNormal.phase == InputActionPhase.Waiting)
+        {
+            c.animator.speed = 1;
+            inputComplete = true;
 
-            //check if the move has been held long enough, if so complete the heavy attack, set heavy damage
-            if (!inputComplete && heavyNormal.phase == InputActionPhase.Performed)
-            {
-                c.animator.speed = 1;
-                inputComplete = true;
-
-                Debug.Log("Heavy Attack!");
-                c.CurrAttackValue = 2;
-            }
-            //if not begin a light attack
-            else if (!inputComplete && !heavyNormal.triggered && heavyNormal.phase == InputActionPhase.Waiting)
-            {
-                c.animator.speed = 1;
-                inputComplete = true;
-
-                Debug.Log("Light Attack!");
-                c.CurrAttackValue = 1;
-            }
+            Debug.Log("Light Attack!");
+            c.CurrAttackValue = 1;
         }
 
         if (inputComplete && c.colliders.GetComponentsInChildren<Transform>().GetLength(0) == 2)

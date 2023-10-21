@@ -70,6 +70,8 @@ public class CharController : MonoBehaviour
     //Low, Mid, High: 0,1,2
     private int guardHeight = -1;
 
+    private int currGrabValue = 0;
+
     public UnityEngine.Rendering.Universal.Light2D glowLight;
 
     public GameObject colliders;
@@ -78,7 +80,9 @@ public class CharController : MonoBehaviour
 
     public BoxCollider2D charBlockerCollider;
 
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     private Renderer renderer;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     private Shader normalShader, outlineShader;
 
@@ -94,6 +98,8 @@ public class CharController : MonoBehaviour
     public SpecialAttackState specialAttackState;
     public GuardState guardState;
     public ParryState parryState;
+    public ThrownState thrownState;
+    public GrabState grabState;
 
     public int Health
     { 
@@ -121,6 +127,7 @@ public class CharController : MonoBehaviour
     }
 
     public int CurrAttackValue { get => currAttackValue; set => currAttackValue = value; }
+    public int CurrGrabValue { get => currGrabValue; set => currGrabValue = value; }
     public int AttackHeight { get => attackHeight; set => attackHeight = value; }
     public int GuardHeight { get => guardHeight; set => guardHeight = value; }
 
@@ -141,7 +148,8 @@ public class CharController : MonoBehaviour
     aSNeutralGroundAnim = "Base Layer.Advntr-SpecialNeutralGround",
     aSSideGroundAnim = "Base Layer.Advntr-SpecialSideGround",
     aSUpGroundAnim = "Base Layer.Advntr-SpecialUpGround",
-    aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround";
+    aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround",
+    aGrabAnim = "Base Layer.Advntr-Grab";
 
     #endregion
 
@@ -169,6 +177,8 @@ public class CharController : MonoBehaviour
         specialAttackState = new SpecialAttackState();
         guardState = new GuardState();
         parryState = new ParryState();
+        thrownState = new ThrownState();
+        grabState = new GrabState();
 
         playerInput = GetComponent<PlayerInput>();
         //inputActionTrace = new InputActionTrace();
@@ -217,18 +227,11 @@ public class CharController : MonoBehaviour
         {
             InputAction currentInputAction = (InputAction)buffer.Peek();
 
-            if(currentInputAction.name == "Move")
-            {
-                EnterState(currentInputAction.name);
-            }
-            else
-            {
-                EnterState(currentInputAction.name);
-            }
+            EnterState(currentInputAction.name);
 
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime > 0.05 && buffer.Count > 0)
+            if(elapsedTime > 0.05)
             {
                 elapsedTime = 0;
                 buffer.Dequeue();
@@ -358,20 +361,25 @@ public class CharController : MonoBehaviour
                     buffer.Dequeue();
                 }
                 break;
-            case "HitStun":
-                if (currState != hitStunState)
-                {
-                    EnterState(hitStunState);
-                }
+            case "Grab":
+                EnterState(grabState);
+                buffer.Dequeue();
                 break;
             case "Regular Parry":
                 EnterState(parryState);
+                buffer.Dequeue();
                 break;
             case "Normal Parry":
                 EnterState(parryState);
+                buffer.Dequeue();
                 break;
             case "Heavy Parry":
                 EnterState(parryState);
+                buffer.Dequeue();
+                break;
+            case "Grab Parry":
+                EnterState(parryState);
+                buffer.Dequeue();
                 break;
         }
     }
@@ -598,33 +606,6 @@ public class CharController : MonoBehaviour
         {
             Debug.Log("leaving cam");
             collision.transform.Translate(0, 0, 0);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Character")
-        {
-            //collision.rigidbody.velocity = Vector2.zero;
-            //rigid.velocity = Vector2.zero;
-            //Physics2D.IgnoreCollision(playerCollider, collision.collider, true);
-            //rigid.velocity = Vector3.ProjectOnPlane(rigid.velocity, collision.contacts[0].normal);
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Character")
-        {
-            //collision.rigidbody.;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Character")
-        {
-           //rigid.isKinematic = false;
         }
     }
 }
