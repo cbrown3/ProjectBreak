@@ -27,10 +27,14 @@ public class FallState : IState<CharController>
             if (Mathf.Round(c.rigid.velocity.x) != 0)
             {
                 c.EnterState(c.runState);
+
+                return;
             }
             else
             {
                 c.EnterState(c.idleState);
+
+                return;
             }
         }
 

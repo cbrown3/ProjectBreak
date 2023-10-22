@@ -8,21 +8,20 @@ public class NormalAttackState : IState<CharController>
     public NormalAttackState()
     {
         stopAttack = false;
+        attackString = new List<Vector2>();
     }
 
     InputAction heavyNormal;
 
     Vector2 dirInput;
 
-    static Vector2 pastDirInput;
+    List<Vector2> attackString;
 
-    static bool isAttackCancel; 
-
-    int currentFrame;
+    int currentActiveFrame;
 
     int attackFrames;
 
-    public float isHeavy;
+    float isHeavy;
 
     bool inputComplete;
 
@@ -30,6 +29,20 @@ public class NormalAttackState : IState<CharController>
 
     public override void Enter(CharController c)
     {
+        //determine directional input
+        dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+
+        if (!c.canAttackCancel || attackString.Contains(dirInput))
+        {
+            Debug.Log("Cannot attack cancel");
+            Exit(c);
+        }
+        else
+        {
+            attackString.Add(dirInput);
+            Debug.Log(attackString.Count + " HIT COMBO!");
+        }
+
         heavyNormal = c.playerInput.actions.FindAction("Heavy Normal");
 
         //determine attack type
@@ -40,21 +53,13 @@ public class NormalAttackState : IState<CharController>
             return;
         }
 
-        currentFrame = 0;
+        currentActiveFrame = 0;
 
         c.canAttack = false;
 
+        c.canAttackCancel = false;
+
         c.canDash = true;
-
-        //determine directional input
-        dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
-
-        if (isAttackCancel && pastDirInput == dirInput)
-        {
-            isAttackCancel = false;
-            c.canAttack = true;
-            c.EnterState(c.idleState);
-        }
 
         c.interuptible = false;
 
@@ -73,35 +78,35 @@ public class NormalAttackState : IState<CharController>
         //determine which attack animation to play, length of attack, and attack height
         if (dirInput == Vector2.zero)
         {
-            c.AttackHeight = 1;
+            c.AttackHeight = CharController.Height.Mid;
             c.animator.Play(c.aNNeutralGroundAnim);
             attackFrames = c.nNeutralGFrames;
             c.NormalAttackGlow();
         }
         else if (dirInput.x > 0)
         {
-            c.AttackHeight = 1;
+            c.AttackHeight = CharController.Height.Mid;
             c.animator.Play(c.aNSideGroundAnim);
             attackFrames = c.nSideGFrames;
             c.NormalAttackGlow();
         }
         else if (dirInput.x < 0)
         {
-            c.AttackHeight = 1;
+            c.AttackHeight = CharController.Height.Mid;
             c.animator.Play(c.aNSideGroundAnim);
             attackFrames = c.nSideGFrames;
             c.NormalAttackGlow();
         }
         else if (dirInput.y > 0)
         {
-            c.AttackHeight = 2;
+            c.AttackHeight = CharController.Height.High;
             c.animator.Play(c.aNUpGroundAnim);
             attackFrames = c.nUpGFrames;
             c.NormalAttackGlow();
         }
         else if (dirInput.y < 0)
         {
-            c.AttackHeight = 0;
+            c.AttackHeight = CharController.Height.Low;
             c.animator.Play(c.aNDownGroundAnim);
             attackFrames = c.nDownGFrames;
             c.NormalAttackGlow();
@@ -131,40 +136,38 @@ public class NormalAttackState : IState<CharController>
             c.CurrAttackValue = 1;
         }
 
-        if (inputComplete && c.colliders.GetComponentsInChildren<Transform>().GetLength(0) == 2)
+        if (inputComplete && c.canAttack)
         {
-            c.canAttack = true;
-            
-            pastDirInput = dirInput;
+            attackString.Add(dirInput);
 
-            isAttackCancel = true;
+            c.canAttackCancel = true;
         }
-        else
+        else if (inputComplete)
         {
-            c.canAttack = false;
-
-            pastDirInput = Vector2.zero;
-
-            isAttackCancel = false;
+            attackString.Clear();
         }
         
-        if (currentFrame > attackFrames)
+        if (currentActiveFrame > attackFrames)
         {
             c.ResetGlow();
             c.interuptible = true;
+            c.canAttackCancel = false;
 
+            Debug.Log("End of attack.");
             c.EnterState(c.idleState);
+
+            return;
         }
 
         if (inputComplete)
         {
-            currentFrame++;
+            currentActiveFrame++;
         }
     }
 
     public override void Exit(CharController c)
     {
         c.CurrAttackValue = 0;
-        c.AttackHeight = -1;
+        c.AttackHeight = CharController.Height.None;
     }
 }

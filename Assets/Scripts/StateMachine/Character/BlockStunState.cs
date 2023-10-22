@@ -32,6 +32,8 @@ public class BlockStunState : IState<CharController>
         if (currentBlockStunFrame == 0)
         {
             c.EnterState(c.idleState);
+
+            return;
         }
 
         //Get opponent's current state, using type
@@ -44,6 +46,8 @@ public class BlockStunState : IState<CharController>
         {
             currentBlockStunFrame = 0;
             c.EnterState(c.idleState);
+            
+            return;
         }
     }
 

@@ -26,6 +26,23 @@ public class UpdateStamina : MonoBehaviour
 
     public void UpdateStaminaBar()
     {
-        staminaSlider.value = isPlayer1 ? CharManager.player1.Stamina : CharManager.player2.Stamina;
+        if(isPlayer1)
+        {
+            if(CharManager.player1.Stamina > staminaSlider.maxValue)
+            {
+                CharManager.player1.Stamina = (int)staminaSlider.maxValue;
+            }
+
+            staminaSlider.value = CharManager.player1.Stamina;
+        }
+        else
+        {
+            if (CharManager.player2.Stamina > staminaSlider.maxValue)
+            {
+                CharManager.player2.Stamina = (int)staminaSlider.maxValue;
+            }
+
+            staminaSlider.value = CharManager.player2.Stamina;
+        }
     }
 }

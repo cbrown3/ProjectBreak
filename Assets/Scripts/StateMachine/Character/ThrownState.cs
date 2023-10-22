@@ -32,6 +32,8 @@ public class ThrownState : IState<CharController>
         if (currentHitStunFrame == 0)
         {
             c.EnterState(c.idleState);
+
+            return;
         }
 
         //Get opponent's current state, using type
@@ -44,6 +46,8 @@ public class ThrownState : IState<CharController>
         {
             currentHitStunFrame = 0;
             c.EnterState(c.idleState);
+
+            return;
         }
     }
 

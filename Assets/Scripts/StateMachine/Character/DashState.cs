@@ -20,6 +20,8 @@ public class DashState : IState<CharController>
 
     int additionalDashFrames;
 
+    bool isP1RightSide;
+
     public override void Enter(CharController c)
     {
         if(c.playerInput.actions.FindAction("Dash").phase == InputActionPhase.Waiting)
@@ -47,15 +49,17 @@ public class DashState : IState<CharController>
 
         if(dashDir.x == 0)
         {
-            c.RevertToPreviousState();
+            c.EnterState(c.idleState);
 
             return;
         }
         else
         {
-            c.Stamina -= 2;
+            c.Stamina --;
             dashDir.x = c.GetComponent<SpriteRenderer>().flipX ? -1 : 1;
         }
+
+        isP1RightSide = CharManager.player1.transform.position.x - CharManager.player2.transform.position.x > 0 ? true : false;
     }
 
     public override void Continue(CharController c)
@@ -67,9 +71,9 @@ public class DashState : IState<CharController>
             Physics2D.IgnoreLayerCollision(7, 8, true);
 
             //If dash is pressed again, cancel startup frames
-            if(c.playerInput.actions.FindAction("Dash").phase == InputActionPhase.Started)
+            if(frameCount > 1 && c.Stamina >= 2 && c.playerInput.actions.FindAction("Dash").ReadValue<float>() > 0)
             {
-                c.Stamina--;
+                c.Stamina -= 2;
                 frameCount = c.dashStartup - 1;
             }
 
@@ -80,11 +84,21 @@ public class DashState : IState<CharController>
             }
         }
         //End of dash
+        else if (frameCount > (c.dashFrameLength + c.dashStartup - 1 + additionalDashFrames + 5))
+        {
+            c.EnterState(c.idleState);
+
+            return;
+        }
+        //Recovery frame test
         else if(frameCount > (c.dashFrameLength + c.dashStartup - 1 + additionalDashFrames))
         {
-            c.rigid.velocity = new Vector2(Mathf.Clamp(c.rigid.velocity.x, -c.groundSpeed, c.groundSpeed), 0);
-            
-            c.EnterState(c.idleState);
+            c.rigid.velocity = Vector2.zero;
+
+            if(CharManager.player1.transform.position.x - CharManager.player2.transform.position.x > 0 != isP1RightSide)
+            {
+                c.GetComponent<SpriteRenderer>().flipX = !c.GetComponent<SpriteRenderer>().flipX;
+            }
         }
         //Begin dashing
         else if(frameCount == c.dashStartup)

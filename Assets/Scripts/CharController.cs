@@ -39,7 +39,8 @@ public class CharController : MonoBehaviour
     canDash,
     canAttack,
     isPlayer1,
-    isDashing;
+    isDashing,
+    canAttackCancel;
 
     [NonSerialized]
     public LayerMask ground;
@@ -56,6 +57,10 @@ public class CharController : MonoBehaviour
 
     public static int HIT_STUN_FRAME_LENGTH = 15;
 
+    public static double FRAME_LENGTH_SECONDS = 0.1666666666666666666666666667;
+
+    public static int INPUT_BUFFER_FRAME_LENGTH = 3;
+
     public float moveInput = 0;
 
     private int health = 10;
@@ -63,12 +68,12 @@ public class CharController : MonoBehaviour
     private int stamina = 10;
 
     //Low, Mid, High: 0,1,2
-    private int attackHeight = -1;
+    private Height attackHeight = 0;
 
     private int currAttackValue = 0;
 
     //Low, Mid, High: 0,1,2
-    private int guardHeight = -1;
+    private Height guardHeight = 0;
 
     private int currGrabValue = 0;
 
@@ -128,8 +133,16 @@ public class CharController : MonoBehaviour
 
     public int CurrAttackValue { get => currAttackValue; set => currAttackValue = value; }
     public int CurrGrabValue { get => currGrabValue; set => currGrabValue = value; }
-    public int AttackHeight { get => attackHeight; set => attackHeight = value; }
-    public int GuardHeight { get => guardHeight; set => guardHeight = value; }
+    public Height AttackHeight { get => attackHeight; set => attackHeight = value; }
+    public Height GuardHeight { get => guardHeight; set => guardHeight = value; }
+
+    public enum Height
+    {
+       None,
+       Low,
+       Mid,
+       High
+    }
 
     #region Animation Names
 
@@ -231,7 +244,11 @@ public class CharController : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime > 0.05)
+            //3 Frame Input Buffer: at 60FPS (0.16667 seconds per frame)
+            //Inputs are entered for 3 frames until it is removed from the queue of inputs
+
+            //Check for buffer size again since buffer can be empty after entering a state with certain actions, i.e. movement
+            if (elapsedTime > 0.05 && buffer.Count > 0)
             {
                 elapsedTime = 0;
                 buffer.Dequeue();
@@ -325,6 +342,13 @@ public class CharController : MonoBehaviour
     {
         IState<CharController> currState = stateMachine.GetCurrentState();
 
+        if(canAttackCancel)
+        {
+            Debug.Log("Begin Attack Cancel!");
+            EnterState(normalAttackState);
+            return;
+        }
+
         if(!interuptible)
         {
             return;
@@ -341,45 +365,45 @@ public class CharController : MonoBehaviour
                 break;
             case "Dash":
                 if (currState != dashState &&
-                    canDash && stamina >= 1/*&& currState != blockStunState*/)
+                    canDash && stamina >= 1)
                 {
                     EnterState(dashState);
-                    buffer.Dequeue();
+                    //buffer.Dequeue();
                 }
                 break;
             case "Heavy Normal":
-                if (currState != normalAttackState)
+                if (canAttack)
                 {
                     EnterState(normalAttackState);
-                    buffer.Dequeue();
+                    //buffer.Dequeue();
                 }
                 break;
             case "Guard":
                 if (currState != guardState)
                 {
                     EnterState(guardState);
-                    buffer.Dequeue();
+                    //buffer.Dequeue();
                 }
                 break;
             case "Grab":
                 EnterState(grabState);
-                buffer.Dequeue();
+                //buffer.Dequeue();
                 break;
             case "Regular Parry":
                 EnterState(parryState);
-                buffer.Dequeue();
+                //buffer.Dequeue();
                 break;
             case "Normal Parry":
                 EnterState(parryState);
-                buffer.Dequeue();
+                //buffer.Dequeue();
                 break;
             case "Heavy Parry":
                 EnterState(parryState);
-                buffer.Dequeue();
+                //buffer.Dequeue();
                 break;
             case "Grab Parry":
                 EnterState(parryState);
-                buffer.Dequeue();
+                //buffer.Dequeue();
                 break;
         }
     }
@@ -434,7 +458,9 @@ public class CharController : MonoBehaviour
 
     private void PlayerInput_onActionTriggered(InputAction.CallbackContext obj)
     {
-        if(buffer.Count >= 60)
+        //Size of Input Buffer is 5:
+        //Each input takes 3 frames to deque, 5 * 3 = 60fps/4 = 0.25 seconds of input queue delay
+        if(buffer.Count >= 5)
         {
             buffer.Dequeue();
         }

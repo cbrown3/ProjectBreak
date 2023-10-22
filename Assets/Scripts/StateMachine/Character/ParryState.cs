@@ -82,6 +82,8 @@ public class ParryState : IState<CharController>
         if(frameCount >= PARRY_LENGTH)
         {
             c.EnterState(c.idleState);
+
+            return;
         }
 
         frameCount++;

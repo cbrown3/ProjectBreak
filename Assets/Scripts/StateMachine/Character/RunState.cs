@@ -44,6 +44,8 @@ public class RunState : IState<CharController>
         else if(c.moveInput == 0)
         {
             c.EnterState(c.idleState);
+
+            return;
         }
     }
 

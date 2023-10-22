@@ -20,6 +20,7 @@ public class AttackCollider : MonoBehaviour
             CharController defender = null;
             IState<CharController> attackerState = null;
             IState<CharController> defenderState = null;
+            attackSuccess = false;
 
             //set the attacker and defender correctly
             if (isPlayer1 && collision == CharManager.player2.playerCollider)
@@ -27,10 +28,15 @@ public class AttackCollider : MonoBehaviour
                 attacker = CharManager.player1;
                 defender = CharManager.player2;
             }
-            else if(!isPlayer1 && collision == CharManager.player1.playerCollider)
+            else if (!isPlayer1 && collision == CharManager.player1.playerCollider)
             {
                 attacker = CharManager.player2;
                 defender = CharManager.player1;
+            }
+            else
+            {
+                Debug.Log(gameObject.name + " missed!");
+                return;
             }
 
             attackerState = attacker.stateMachine.GetCurrentState();
@@ -39,6 +45,7 @@ public class AttackCollider : MonoBehaviour
             if (attackerState != null && defenderState != null)
             {
                 Type defCurrStateType = defenderState.GetType();
+                Type attCurrStateType = attackerState.GetType();
 
                 //Dash is invincible to attacks, nothing happens
                 if (defCurrStateType == typeof(DashState))
@@ -51,7 +58,6 @@ public class AttackCollider : MonoBehaviour
                 {
                     //check the type of parry and type of attack
                     ParryState.ParryType defParryType = ((ParryState)defenderState).currParryType;
-                    Type attCurrStateType = attackerState.GetType();
 
                     //respond accordingly depending on parry type
                     if (defParryType == ParryState.ParryType.RegularParry)
@@ -65,7 +71,7 @@ public class AttackCollider : MonoBehaviour
                         attackSuccess = false;
                     }
                     else if (defParryType == ParryState.ParryType.NormalParry &&
-                        attCurrStateType.Name == "NormalAttackState")
+                        attCurrStateType == typeof(NormalAttackState))
                     {
                         Debug.Log("Normal Parry Successful!");
                         Debug.Log("TODO: DEFENDER PLUS FRAMES");
@@ -73,7 +79,7 @@ public class AttackCollider : MonoBehaviour
                         attackSuccess = false;
                     }
                     else if (defParryType == ParryState.ParryType.SpecialParry &&
-                        attCurrStateType.Name == "SpecialAttackState")
+                        attCurrStateType == typeof(SpecialAttackState))
                     {
                         Debug.Log("Special Parry Successful!");
                         Debug.Log("TODO: DEFENDER PLUS FRAMES");
@@ -93,16 +99,40 @@ public class AttackCollider : MonoBehaviour
 
                     defender.blockStunState.CurrentBlockStunFrame = isNormalAttack ? 30 : 5;
 
+                    int staminaVal = attacker.CurrAttackValue;
+
+                    //add additional stamina penalty if incorrect guard height
                     if (attacker.AttackHeight != defender.GuardHeight)
                     {
-                        defender.Stamina--;
+                        if(defender.Stamina > 0)
+                        {
+                            staminaVal++;
+                        }
                     }
 
-                    defender.Stamina -= attacker.CurrAttackValue;
+                    //if defender has enough stamina, pass it to attacker
+                    if (defender.Stamina >= staminaVal)
+                    {
+                        defender.Stamina -= staminaVal;
+                        attacker.Stamina += staminaVal;
+                    }
+                    //if not enough, pass what is left to attacker and guard break defender
+                    else
+                    {
+                        //TODO: GUARD BREAK
+                        attacker.Stamina += defender.Stamina;
+                        defender.Stamina = 0;
+                    }
 
                     defender.EnterState(defender.blockStunState);
 
                     attackSuccess = false;
+
+                    //allow for the player to attack cancel
+                    if (isNormalAttack)
+                    {
+                        attacker.canAttack = true;
+                    }
                 }
                 //P2 enters hit stun otherwise
                 else
@@ -115,6 +145,8 @@ public class AttackCollider : MonoBehaviour
                     //TODO: DETERMINE HITSTUN AMOUNT
                     defender.hitStunState.CurrentHitStunFrame = 12;
 
+                    Debug.Log("Attack landed!");
+
                     if (defCurrStateType == typeof(NormalAttackState) ||
                         defCurrStateType == typeof(SpecialAttackState))
                     {
@@ -123,6 +155,12 @@ public class AttackCollider : MonoBehaviour
                     }
                     defender.Health -= attacker.CurrAttackValue;
                     defender.EnterState(defender.hitStunState);
+
+                    //allow for the player to attack cancel
+                    if (attCurrStateType == typeof(NormalAttackState))
+                    {
+                        attacker.canAttack = true;
+                    }
                 }
             }
         }
