@@ -8,7 +8,6 @@ public class CameraControl : MonoBehaviour
     private Collider2D[] cameraTargets;
 
     private Camera cam;
-    private EdgeCollider2D edgeCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -62,11 +61,11 @@ public class CameraControl : MonoBehaviour
         {
             if (cam.WorldToScreenPoint(collision.transform.position).x > Screen.width / 2)
             {
-                transform.Translate(collision.GetComponent<CharController>().groundSpeed * Time.deltaTime, 0, 0);
+                transform.Translate(collision.GetComponent<FightLogic.CharController>().groundSpeed * Time.deltaTime, 0, 0);
             }
             else if (cam.WorldToScreenPoint(collision.transform.position).x < Screen.width / 2)
             {
-                transform.Translate(-collision.GetComponent<CharController>().groundSpeed * Time.deltaTime, 0, 0);
+                transform.Translate(-collision.GetComponent<FightLogic.CharController>().groundSpeed * Time.deltaTime, 0, 0);
             }
         }
     }

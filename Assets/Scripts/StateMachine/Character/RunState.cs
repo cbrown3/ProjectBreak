@@ -2,55 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunState : IState<CharController>
+namespace FightLogic
 {
-    public RunState()
+    public class RunState : IState<CharController>
     {
-        
-    }
-
-    public override void Enter(CharController c)
-    {
-        c.ResetGlow();
-
-        c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
-
-        c.canDash = true;
-
-        c.canAttack = true;
-
-        c.interuptible = true;
-
-        c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
-
-        c.animator.Play(c.aRunAnim);
-    }
-
-    public override void Continue(CharController c)
-    {
-        c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
-
-
-        c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
-
-        if (c.rigid.velocity.x > c.groundSpeed)
+        public RunState()
         {
-            c.rigid.velocity = new Vector2(c.groundSpeed, c.rigid.velocity.y);
+
         }
-        else if (c.rigid.velocity.x < -c.groundSpeed)
+
+        public override void Enter(CharController c)
         {
-            c.rigid.velocity = new Vector2(-c.groundSpeed, c.rigid.velocity.y);
+            c.ResetGlow();
+
+            c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
+
+            c.canDash = true;
+
+            c.canAttack = true;
+
+            c.interuptible = true;
+
+            c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
+
+            c.animator.Play(c.aRunAnim);
         }
-        else if(c.moveInput == 0)
+
+        public override void Continue(CharController c)
         {
-            c.EnterState(c.idleState);
+            c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
 
-            return;
+
+            c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
+
+            if (c.rigid.velocity.x > c.groundSpeed)
+            {
+                c.rigid.velocity = new Vector2(c.groundSpeed, c.rigid.velocity.y);
+            }
+            else if (c.rigid.velocity.x < -c.groundSpeed)
+            {
+                c.rigid.velocity = new Vector2(-c.groundSpeed, c.rigid.velocity.y);
+            }
+            else if (c.moveInput == 0)
+            {
+                c.EnterState(c.idleState);
+
+                return;
+            }
         }
-    }
 
-    public override void Exit(CharController c)
-    {
+        public override void Exit(CharController c)
+        {
 
+        }
     }
 }

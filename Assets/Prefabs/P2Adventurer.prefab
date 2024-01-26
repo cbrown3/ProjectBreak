@@ -212,6 +212,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: d4aa272f7929bb64db3eeb72928489ee, type: 2}
+    - target: {fileID: 8020646329724515935, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: charBlockerCollider
       value: 
       objectReference: {fileID: 0}

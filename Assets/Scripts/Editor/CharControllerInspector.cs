@@ -1,10 +1,11 @@
 using UnityEditor;
 
-[CustomEditor(typeof(CharController))]
+[CustomEditor(typeof(FightLogic.CharController))]
 public class CharControllerInspector : Editor
 {
     SerializedProperty currentState;
     SerializedProperty currentVelocity;
+    SerializedProperty playerData;
     SerializedProperty interuptible,
     canDash,
     canAttack,
@@ -13,6 +14,7 @@ public class CharControllerInspector : Editor
     dashSpeed;
     SerializedProperty dashFrameLength,
     dashStartup,
+    pushbackFrameLength,
     nNeutralGFrames,
     nSideGFrames,
     nUpGFrames,
@@ -29,6 +31,7 @@ public class CharControllerInspector : Editor
     {
         currentState = serializedObject.FindProperty("stateSerializationHelper");
         currentVelocity = serializedObject.FindProperty("velocitySerializationHelper");
+        playerData = serializedObject.FindProperty("playerData");
         interuptible = serializedObject.FindProperty("interuptible");
         canDash = serializedObject.FindProperty("canDash");
         canAttack = serializedObject.FindProperty("canAttack");
@@ -38,6 +41,7 @@ public class CharControllerInspector : Editor
         dashSpeed = serializedObject.FindProperty("dashSpeed");
         dashFrameLength = serializedObject.FindProperty("dashFrameLength");
         dashStartup = serializedObject.FindProperty("dashStartup");
+        pushbackFrameLength = serializedObject.FindProperty("pushbackFrameLength");
         nNeutralGFrames = serializedObject.FindProperty("nNeutralGFrames");
         nSideGFrames = serializedObject.FindProperty("nSideGFrames");
         nUpGFrames = serializedObject.FindProperty("nUpGFrames");
@@ -57,6 +61,7 @@ public class CharControllerInspector : Editor
         {
             EditorGUILayout.PropertyField(currentState);
             EditorGUILayout.PropertyField(currentVelocity);
+            EditorGUILayout.PropertyField(playerData);
             EditorGUILayout.PropertyField(moveInput);
             EditorGUILayout.PropertyField(canAttack);
             EditorGUILayout.PropertyField(isDashing);
@@ -71,6 +76,7 @@ public class CharControllerInspector : Editor
         {
             EditorGUILayout.PropertyField(dashSpeed);
             EditorGUILayout.PropertyField(dashFrameLength);
+            EditorGUILayout.PropertyField(pushbackFrameLength);
             EditorGUILayout.PropertyField(dashStartup);
             EditorGUILayout.PropertyField(groundSpeed);
         }

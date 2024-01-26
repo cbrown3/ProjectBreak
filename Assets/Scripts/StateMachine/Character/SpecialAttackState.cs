@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialAttackState : IState<CharController>
+namespace FightLogic
 {
-    public SpecialAttackState()
+    public class SpecialAttackState : IState<CharController>
     {
-        
-    }
-    public override void Enter(CharController c)
-    {
-        c.canAttack = false;
-        c.canDash = true;
-    }
+        public SpecialAttackState()
+        {
 
-    public override void Continue(CharController c)
-    {
-        
-    }
+        }
+        public override void Enter(CharController c)
+        {
+            c.canAttack = false;
+            c.canDash = true;
+        }
 
-    public override void Exit(CharController c)
-    {
+        public override void Continue(CharController c)
+        {
 
+        }
+
+        public override void Exit(CharController c)
+        {
+
+        }
     }
 }

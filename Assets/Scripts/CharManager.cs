@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CharManager
+namespace FightLogic
 {
-    public static CharController player1;
+    public static class CharManager
+    {
+        public static CharController player1;
 
-    public static CharController player2;
+        public static CharController player2;
+    }
 }
