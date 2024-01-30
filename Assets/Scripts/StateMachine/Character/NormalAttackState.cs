@@ -31,6 +31,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.NormalAttack;
+
             //determine directional input
             dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
 
@@ -156,7 +158,7 @@ namespace FightLogic
                 c.canAttackCancel = false;
 
                 Debug.Log("End of attack.");
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }

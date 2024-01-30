@@ -36,39 +36,27 @@ namespace FightLogic
                     return;
                 }
 
-                IState<CharController> attackerState = attacker.stateMachine.GetCurrentState();
-                IState<CharController> defenderState = defender.stateMachine.GetCurrentState();
-
-                if (attackerState != null && defenderState != null)
+                if (attacker.StateType != StateType.None && defender.StateType != StateType.None)
                 {
-                    Type defCurrStateType = defenderState.GetType();
-
-                    //If defender is in parry state...
-                    if (defCurrStateType == typeof(ParryState))
+                    //respond accordingly depending on state
+                    if (defender.StateType == StateType.GrabParry)
                     {
-                        //check the type of parry and type of attack
-                        ParryState.ParryType defParryType = ((ParryState)defenderState).currParryType;
-                        Type attCurrStateType = attackerState.GetType();
+                        Debug.Log("Grab Parry Successful!");
 
-                        //respond accordingly depending on parry type
-                        if (defParryType == ParryState.ParryType.GrabParry)
-                        {
-                            Debug.Log("Grab Parry Successful!");
-
-                            Debug.Log("TODO: SMALL PUSHBACK");
-                            attacker.EnterState(attacker.idleState);
-                            defender.EnterState(defender.idleState);
-                        }
-                        else
+                        Debug.Log("TODO: SMALL PUSHBACK");
+                        attacker.EnterState(StateType.Idle);
+                        defender.EnterState(StateType.Idle);
+                    }
+                    else
+                    {
+                        if (defender.StateType == StateType.NormalParry || defender.StateType == StateType.RegularParry ||
+                        defender.StateType == StateType.SpecialParry)
                         {
                             Debug.Log("Parry Unsuccessful!");
                         }
-                    }
-                    //defender enters thrown state otherwise
-                    else
-                    {
+
                         defender.playerData.Health -= attacker.CurrGrabValue;
-                        defender.EnterState(defender.thrownState);
+                        defender.EnterState(StateType.Thrown);
                     }
                 }
             }

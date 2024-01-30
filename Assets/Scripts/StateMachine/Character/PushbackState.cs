@@ -18,6 +18,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.Pushback;
+
             frameCount = 0;
 
             c.rigid.velocity = Vector2.zero;
@@ -38,7 +40,7 @@ namespace FightLogic
             if (frameCount > c.pushbackFrameLength)
             {
                 forceAmount = 0;
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
                 return;
             }
             //Pushback

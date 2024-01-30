@@ -18,6 +18,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.BlockStun;
+
             c.animator.Play(c.aHitStunAnim);
 
             c.canAttack = false;
@@ -33,7 +35,7 @@ namespace FightLogic
 
             if (currentBlockStunFrame == 0)
             {
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }
@@ -47,7 +49,7 @@ namespace FightLogic
                 oppCurrState != typeof(IdleState)))
             {
                 currentBlockStunFrame = 0;
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }

@@ -22,6 +22,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.Grab;
+
             grabAction = c.playerInput.actions.FindAction("Grab");
 
             currentFrame = 0;
@@ -42,7 +44,7 @@ namespace FightLogic
         {
             if (currentFrame >= GRAB_LENGTH)
             {
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
                 return;
             }
 

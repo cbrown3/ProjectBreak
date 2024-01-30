@@ -26,6 +26,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.Dash;
+
             if (c.playerInput.actions.FindAction("Dash").phase == InputActionPhase.Waiting)
             {
                 //return;
@@ -51,7 +53,7 @@ namespace FightLogic
 
             if (dashDir.x == 0)
             {
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }
@@ -88,7 +90,7 @@ namespace FightLogic
             //End of dash
             else if (frameCount > (c.dashFrameLength + c.dashStartup - 1 + additionalDashFrames + 5))
             {
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }

@@ -40,53 +40,32 @@ namespace FightLogic
                     return;
                 }
 
-                IState<CharController> attackerState = attacker.stateMachine.GetCurrentState();
-                IState<CharController> defenderState = defender.stateMachine.GetCurrentState();
-
-                if (attackerState != null && defenderState != null)
+                if (attacker.StateType != StateType.None && defender.StateType != StateType.None)
                 {
-                    Type defCurrStateType = defenderState.GetType();
-                    Type attCurrStateType = attackerState.GetType();
-
                     //Dash is invincible to attacks, nothing happens
-                    if (defCurrStateType == typeof(DashState))
+                    if (defender.StateType == StateType.Dash)
                     {
                         attackSuccess = false;
                         return;
                     }
-                    //If defender is in parry state...
-                    else if (defCurrStateType == typeof(ParryState))
+                    else if (defender.StateType == StateType.RegularParry)
                     {
-                        //check the type of parry and type of attack
-                        ParryState.ParryType defParryType = ((ParryState)defenderState).currParryType;
-
-                        //respond accordingly depending on parry type
-                        if (defParryType == ParryState.ParryType.RegularParry)
-                        {
-                            attackSuccess = false;
-                        }
-                        else if (defParryType == ParryState.ParryType.NormalParry &&
-                            attCurrStateType == typeof(NormalAttackState))
-                        {
-                            attackSuccess = false;
-                        }
-                        else if (defParryType == ParryState.ParryType.SpecialParry &&
-                            attCurrStateType == typeof(SpecialAttackState))
-                        {
-                            attackSuccess = false;
-                        }
-                        else
-                        {
-                            Debug.Log("Parry Unsuccessful!");
-                            attackSuccess = true;
-                        }
+                        attackSuccess = false;
+                    }
+                    else if (defender.StateType == StateType.NormalParry 
+                        && attacker.StateType == StateType.NormalAttack)
+                    {
+                        attackSuccess = false;
+                    }
+                    else if (defender.StateType == StateType.SpecialParry
+                        && attacker.StateType == StateType.SpecialAttack)
+                    {
+                        attackSuccess = false;
                     }
                     //P2 enters block stun if guarding
-                    else if (defCurrStateType == typeof(GuardState))
+                    else if (defender.StateType == StateType.Guard)
                     {
-                        bool isNormalAttack = attackerState.GetType() == typeof(NormalAttackState);
-
-                        defender.blockStunState.CurrentBlockStunFrame = isNormalAttack ? 30 : 5;
+                        defender.blockStunState.CurrentBlockStunFrame = attacker.StateType == StateType.NormalAttack ? 30 : 5;
 
                         int staminaVal = attacker.CurrAttackValue;
 
@@ -113,12 +92,12 @@ namespace FightLogic
                             defender.playerData.Stamina = 0;
                         }
 
-                        defender.EnterState(defender.blockStunState);
+                        defender.EnterState(StateType.BlockStun);
 
                         attackSuccess = false;
 
                         //allow for the player to attack cancel
-                        if (isNormalAttack)
+                        if (attacker.StateType == StateType.NormalAttack)
                         {
                             attacker.canAttack = true;
                         }
@@ -136,17 +115,17 @@ namespace FightLogic
 
                         Debug.Log("Attack landed!");
 
-                        if (defCurrStateType == typeof(NormalAttackState) ||
-                            defCurrStateType == typeof(SpecialAttackState))
+                        if (defender.StateType == StateType.NormalAttack ||
+                            defender.StateType == StateType.SpecialAttack)
                         {
                             defender.playerData.Health -= 2;
                             Debug.Log("COUNTER!");
                         }
                         defender.playerData.Health -= attacker.CurrAttackValue;
-                        defender.EnterState(defender.hitStunState);
+                        defender.EnterState(StateType.HitStun);
 
                         //allow for the player to attack cancel
-                        if (attCurrStateType == typeof(NormalAttackState))
+                        if (attacker.StateType == StateType.NormalAttack)
                         {
                             attacker.canAttack = true;
                         }

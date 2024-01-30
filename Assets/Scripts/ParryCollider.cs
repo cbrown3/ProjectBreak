@@ -36,37 +36,33 @@ namespace FightLogic
                     return;
                 }
 
-                IState<CharController> attackerState = attacker.stateMachine.GetCurrentState();
-                IState<CharController> defenderState = defender.stateMachine.GetCurrentState();
-
-                if (attackerState != null && defenderState != null)
+                if (attacker.StateType != StateType.None && defender.StateType != StateType.None)
                 {
-                    Type attCurrStateType = attackerState.GetType();
-
-                    //check the type of parry and type of attack
-                    ParryState.ParryType defParryType = ((ParryState)defenderState).currParryType;
-
-                    //respond accordingly depending on parry type
-                    if (defParryType == ParryState.ParryType.RegularParry)
+                    //respond accordingly depending on state
+                    if (defender.StateType == StateType.RegularParry)
                     {
                         Debug.Log("Regular Parry Successful!");
 
                         attacker.pushbackState.forceAmount = 2;
-                        attacker.EnterState(attacker.pushbackState);
+                        attacker.EnterState(StateType.Pushback);
                         defender.pushbackState.forceAmount = 2;
-                        defender.EnterState(defender.pushbackState);
+                        defender.EnterState(StateType.Pushback);
                     }
-                    else if (defParryType == ParryState.ParryType.NormalParry &&
-                        attCurrStateType == typeof(NormalAttackState))
+                    else if (defender.StateType == StateType.NormalParry &&
+                        attacker.StateType == StateType.NormalAttack)
                     {
                         Debug.Log("Normal Parry Successful!");
-                        Debug.Log("TODO: DEFENDER PLUS FRAMES");
+                        attacker.hitStunState.CurrentHitStunFrame = 10;
+                        attacker.EnterState(StateType.HitStun);
+                        defender.EnterState(StateType.Idle);
                     }
-                    else if (defParryType == ParryState.ParryType.SpecialParry &&
-                        attCurrStateType == typeof(SpecialAttackState))
+                    else if (defender.StateType == StateType.SpecialParry &&
+                        attacker.StateType == StateType.SpecialAttack)
                     {
                         Debug.Log("Special Parry Successful!");
-                        Debug.Log("TODO: DEFENDER PLUS FRAMES");
+                        attacker.hitStunState.CurrentHitStunFrame = 10;
+                        attacker.EnterState(StateType.HitStun);
+                        defender.EnterState(StateType.Idle);
                     }
                     else
                     {

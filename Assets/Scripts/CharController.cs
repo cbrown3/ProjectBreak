@@ -106,6 +106,8 @@ namespace FightLogic
         public GrabState grabState;
         public PushbackState pushbackState;
 
+        public StateType StateType = StateType.None;
+
         public int CurrAttackValue { get => currAttackValue; set => currAttackValue = value; }
         public int CurrGrabValue { get => currGrabValue; set => currGrabValue = value; }
         public Height AttackHeight { get => attackHeight; set => attackHeight = value; }
@@ -390,6 +392,55 @@ namespace FightLogic
         public void EnterState(IState<CharController> stateEntered)
         {
             stateMachine.EnterState(stateEntered);
+            stateSerializationHelper = stateMachine.GetCurrentState().ToString();
+        }
+
+        public void EnterState(StateType stateType)
+        {
+            switch (stateType)
+            {
+                case StateType.NormalAttack:
+                    stateMachine.EnterState(normalAttackState);
+                    break;
+                case StateType.SpecialAttack:
+                    stateMachine.EnterState(specialAttackState);
+                    break;
+                case StateType.Run:
+                    stateMachine.EnterState(runState);
+                    break;
+                case StateType.Guard:
+                    stateMachine.EnterState(guardState);
+                    break;
+                case StateType.Grab:
+                    stateMachine.EnterState(grabState);
+                    break;
+                case StateType.Thrown:
+                    stateMachine.EnterState(thrownState);
+                    break;
+                case StateType.Pushback:
+                    stateMachine.EnterState(pushbackState);
+                    break;
+                case StateType.Dash:
+                    stateMachine.EnterState(dashState);
+                    break;
+                case StateType.HitStun:
+                    stateMachine.EnterState(hitStunState);
+                    break;
+                case StateType.BlockStun:
+                    stateMachine.EnterState(blockStunState);
+                    break;
+                case StateType.RegularParry:
+                case StateType.NormalParry:
+                case StateType.SpecialParry:
+                case StateType.GrabParry:
+                    stateMachine.EnterState(parryState);
+                    break;
+                case StateType.None:
+                case StateType.Idle:
+                default:
+                    stateMachine.EnterState(idleState);
+                    break;
+            }
             stateSerializationHelper = stateMachine.GetCurrentState().ToString();
         }
 

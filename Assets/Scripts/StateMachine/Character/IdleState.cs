@@ -13,6 +13,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.Idle;
+
             c.rigid.velocity = new Vector2(0, c.rigid.velocity.y);
 
             c.canDash = true;

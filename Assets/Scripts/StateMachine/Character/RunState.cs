@@ -13,6 +13,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.Run;
+
             c.ResetGlow();
 
             c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
@@ -45,7 +47,7 @@ namespace FightLogic
             }
             else if (c.moveInput == 0)
             {
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }

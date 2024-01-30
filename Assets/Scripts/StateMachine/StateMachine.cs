@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/*
+
 public enum StateType
 {
     None,
@@ -12,16 +12,17 @@ public enum StateType
     Idle,
     Run,
     Guard,
-    Jump,
-    Fall,
+    Grab,
+    Thrown,
+    Pushback,
     Dash,
     HitStun,
+    BlockStun,
     RegularParry,
     NormalParry,
     SpecialParry,
     GrabParry
 }
-*/
 
 abstract public class IState<T>
 {

@@ -18,52 +18,32 @@ namespace FightLogic
 
         InputAction parryAction;
 
-        public ParryType currParryType;
-
-        public enum ParryType
-        {
-            None,
-            RegularParry,
-            NormalParry,
-            SpecialParry,
-            GrabParry
-        }
-
         public override void Enter(CharController c)
         {
-            currParryType = ParryType.None;
 
             if (c.playerInput.actions.FindAction("Regular Parry").ReadValue<float>() > 0)
             {
                 parryAction = c.playerInput.actions.FindAction("Regular Parry");
 
-                currParryType = ParryType.RegularParry;
+                c.StateType = StateType.RegularParry;
             }
             else if (c.playerInput.actions.FindAction("Normal Parry").ReadValue<float>() > 0)
             {
                 parryAction = c.playerInput.actions.FindAction("Normal Parry");
 
-                currParryType = ParryType.NormalParry;
+                c.StateType = StateType.NormalParry;
             }
             else if (c.playerInput.actions.FindAction("Special Parry").ReadValue<float>() > 0)
             {
                 parryAction = c.playerInput.actions.FindAction("Special Parry");
 
-                currParryType = ParryType.SpecialParry;
+                c.StateType = StateType.SpecialParry;
             }
             else if (c.playerInput.actions.FindAction("Grab Parry").ReadValue<float>() > 0)
             {
                 parryAction = c.playerInput.actions.FindAction("Grab Parry");
 
-                currParryType = ParryType.GrabParry;
-            }
-            else
-            {
-                Debug.Log("No parry detected, leaving parry state");
-
-                c.RevertToPreviousState();
-
-                return;
+                c.StateType = StateType.GrabParry;
             }
 
             c.canDash = false;
@@ -82,7 +62,7 @@ namespace FightLogic
         {
             if (frameCount >= PARRY_LENGTH)
             {
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }

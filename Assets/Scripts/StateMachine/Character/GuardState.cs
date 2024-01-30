@@ -21,6 +21,8 @@ namespace FightLogic
 
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.Guard;
+
             guardAction = c.playerInput.actions.FindAction("Guard");
 
             if (guardAction.phase == InputActionPhase.Waiting)
@@ -90,30 +92,11 @@ namespace FightLogic
                 c.colliders.transform.rotation = Quaternion.Euler(0, 180, 0);
             }
 
-            if (c.playerInput.actions.FindAction("Regular Parry").ReadValue<float>() > 0)
+            if (c.playerInput.actions.FindAction("Regular Parry").ReadValue<float>() > 0 ||
+                c.playerInput.actions.FindAction("Light Normal").ReadValue<float>() > 0  ||
+                c.playerInput.actions.FindAction("Light Special").ReadValue<float>() > 0 ||
+                c.playerInput.actions.FindAction("Grab Parry").ReadValue<float>() > 0)
             {
-                c.parryState.currParryType = ParryState.ParryType.RegularParry;
-                c.EnterState(c.parryState);
-
-                return;
-            }
-            else if (c.playerInput.actions.FindAction("Light Normal").ReadValue<float>() > 0)
-            {
-                c.parryState.currParryType = ParryState.ParryType.NormalParry;
-                c.EnterState(c.parryState);
-
-                return;
-            }
-            else if (c.playerInput.actions.FindAction("Light Special").ReadValue<float>() > 0)
-            {
-                c.parryState.currParryType = ParryState.ParryType.SpecialParry;
-                c.EnterState(c.parryState);
-
-                return;
-            }
-            else if (c.playerInput.actions.FindAction("Grab Parry").ReadValue<float>() > 0)
-            {
-                c.parryState.currParryType = ParryState.ParryType.GrabParry;
                 c.EnterState(c.parryState);
 
                 return;
@@ -121,7 +104,7 @@ namespace FightLogic
 
             if (guardInput <= 0)
             {
-                c.EnterState(c.idleState);
+                c.EnterState(StateType.Idle);
 
                 return;
             }

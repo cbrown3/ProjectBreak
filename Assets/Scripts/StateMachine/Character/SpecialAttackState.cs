@@ -12,6 +12,7 @@ namespace FightLogic
         }
         public override void Enter(CharController c)
         {
+            c.StateType = StateType.SpecialAttack;
             c.canAttack = false;
             c.canDash = true;
         }
