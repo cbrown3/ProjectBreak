@@ -69,11 +69,6 @@ namespace FightLogic
 
             c.rigid.velocity = Vector2.zero;
 
-            if (c.animator.GetCurrentAnimatorStateInfo(0).IsName(c.aAirGuardAnim))
-            {
-                c.animator.Play(c.aGroundGuardAnim);
-            }
-
             if (c.moveInput > 0)
             {
                 c.GetComponent<SpriteRenderer>().flipX = false;

@@ -130,7 +130,6 @@ namespace FightLogic
         aRunAnim = "Base Layer.Advntr-Run",
         aHitStunAnim = "Base Layer.Advntr-HitStun",
         aGroundGuardAnim = "Base Layer.Advntr-GroundGuard",
-        aAirGuardAnim = "Base Layer.Advntr-AirGuard",
         aNNeutralGroundAnim = "Base Layer.Advntr-NormalNeutralGround",
         aNSideGroundAnim = "Base Layer.Advntr-NormalSideGround",
         aNUpGroundAnim = "Base Layer.Advntr-NormalUpGround",
@@ -139,7 +138,11 @@ namespace FightLogic
         aSSideGroundAnim = "Base Layer.Advntr-SpecialSideGround",
         aSUpGroundAnim = "Base Layer.Advntr-SpecialUpGround",
         aSDownGroundAnim = "Base Layer.Advntr-SpecialDownGround",
-        aGrabAnim = "Base Layer.Advntr-Grab";
+        aParryAnim = "Base Layer.Advntr-Parry",
+        aGrabAnim = "Base Layer.Advntr-Grab",
+        aThrowAnim = "Base Layer.Advntr-Throw",
+        aSoftKnockdownAnim = "Base Layer.Advntr-SoftKnockdown",
+        aHardKnockdownAnim = "Base Layer.Advntr-HardKnockdown";
 
         #endregion
 

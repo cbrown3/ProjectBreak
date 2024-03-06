@@ -12,7 +12,7 @@ namespace FightLogic
 
         }
 
-        const int PARRY_LENGTH = 18;
+        const int PARRY_LENGTH = 20;
 
         int frameCount;
 
@@ -50,8 +50,7 @@ namespace FightLogic
 
             c.canAttack = false;
 
-            //TODO: Update Animation
-            c.animator.Play(c.aIdleAnim);
+            c.animator.Play(c.aParryAnim);
 
             c.interuptible = false;
 
