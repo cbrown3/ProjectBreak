@@ -63,7 +63,7 @@ namespace FightLogic
                 dashDir.x = c.GetComponent<SpriteRenderer>().flipX ? -1 : 1;
             }
 
-            isP1RightSide = CharManager.player1.transform.position.x - CharManager.player2.transform.position.x > 0 ? true : false;
+            isP1RightSide = FightLogicUtility.IsPlayerOnRightSide(true);
         }
 
         public override void Continue(CharController c)
@@ -99,7 +99,8 @@ namespace FightLogic
             {
                 c.rigid.velocity = Vector2.zero;
 
-                if (CharManager.player1.transform.position.x - CharManager.player2.transform.position.x > 0 != isP1RightSide)
+                //if the character is not on the same side, switch the way the character is facing
+                if (FightLogicUtility.IsPlayerOnRightSide(true) != isP1RightSide)
                 {
                     c.GetComponent<SpriteRenderer>().flipX = !c.GetComponent<SpriteRenderer>().flipX;
                 }

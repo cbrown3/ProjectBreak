@@ -13,6 +13,7 @@ public enum StateType
     Run,
     Guard,
     Grab,
+    Throw,
     Thrown,
     Pushback,
     Dash,

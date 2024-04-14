@@ -56,6 +56,13 @@ namespace FightLogic
                         }
 
                         defender.playerData.Health -= attacker.CurrGrabValue;
+                        attacker.EnterState(StateType.Throw);
+
+                        //put the defender exactly in front of the attacker
+                        float offsetX = FightLogicUtility.IsPlayerOnRightSide(attacker.isPlayer1) ? -0.65f : 0.65f;
+
+                        defender.transform.position = FightLogicUtility.PlayerPositionOffset(attacker.transform.position, offsetX, 0);
+
                         defender.EnterState(StateType.Thrown);
                     }
                 }

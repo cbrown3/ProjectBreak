@@ -12,8 +12,11 @@ namespace FightLogic
     [RequireComponent(typeof(Rigidbody2D))]
     public class CharController : MonoBehaviour
     {
-        [NonSerialized]
-        public StateMachine<CharController> stateMachine;
+        public static int HIT_STUN_FRAME_LENGTH = 15;
+
+        public static double FRAME_LENGTH_SECONDS = 0.1666666666666666666666666667;
+
+        public static int INPUT_BUFFER_FRAME_LENGTH = 3;
 
         [SerializeField]
         private string stateSerializationHelper = "";
@@ -22,6 +25,29 @@ namespace FightLogic
         private Vector2 velocitySerializationHelper = Vector2.zero;
 
         private CharacterControls charControls;
+
+        //Low, Mid, High: 0,1,2
+        private Height attackHeight = 0;
+
+        private int currAttackValue = 0;
+
+        //Low, Mid, High: 0,1,2
+        private Height guardHeight = 0;
+
+        private int currGrabValue = 0;
+
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+        private Renderer renderer;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
+
+        private Shader normalShader, outlineShader;
+
+        private double elapsedBufferTime;
+
+        public UnityEngine.Rendering.Universal.Light2D glowLight;
+
+        [NonSerialized]
+        public StateMachine<CharController> stateMachine;
 
         [SerializeField]
         public PlayerInput playerInput;
@@ -56,27 +82,10 @@ namespace FightLogic
         nSideGFrames,
         nUpGFrames,
         nDownGFrames,
-        pushbackFrameLength;
-
-        public static int HIT_STUN_FRAME_LENGTH = 15;
-
-        public static double FRAME_LENGTH_SECONDS = 0.1666666666666666666666666667;
-
-        public static int INPUT_BUFFER_FRAME_LENGTH = 3;
+        pushbackFrameLength,
+        throwFrameLength;
 
         public float moveInput = 0;
-
-        //Low, Mid, High: 0,1,2
-        private Height attackHeight = 0;
-
-        private int currAttackValue = 0;
-
-        //Low, Mid, High: 0,1,2
-        private Height guardHeight = 0;
-
-        private int currGrabValue = 0;
-
-        public UnityEngine.Rendering.Universal.Light2D glowLight;
 
         public GameObject colliders;
 
@@ -84,14 +93,7 @@ namespace FightLogic
 
         public BoxCollider2D charBlockerCollider;
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
-        private Renderer renderer;
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
-
-        private Shader normalShader, outlineShader;
-
         public Queue buffer;
-        private double elapsedTime;
 
         public IdleState idleState;
         public DashState dashState;
@@ -226,21 +228,21 @@ namespace FightLogic
 
                 EnterState(currentInputAction.name);
 
-                elapsedTime += Time.deltaTime;
+                elapsedBufferTime += Time.deltaTime;
 
                 //3 Frame Input Buffer: at 60FPS (0.16667 seconds per frame)
                 //Inputs are entered for 3 frames until it is removed from the queue of inputs
 
                 //Check for buffer size again since buffer can be empty after entering a state with certain actions, i.e. movement
-                if (elapsedTime > 0.05 && buffer.Count > 0)
+                if (elapsedBufferTime > 0.05 && buffer.Count > 0)
                 {
-                    elapsedTime = 0;
+                    elapsedBufferTime = 0;
                     buffer.Dequeue();
                 }
             }
             else
             {
-                elapsedTime = 0;
+                elapsedBufferTime = 0;
             }
         }
 

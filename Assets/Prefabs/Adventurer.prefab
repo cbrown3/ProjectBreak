@@ -1618,7 +1618,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8020646329724515924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.2706025, y: -2.7563848, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1736,6 +1736,7 @@ MonoBehaviour:
   stateSerializationHelper: 0
   velocitySerializationHelper: {x: 0, y: 0}
   playerInput: {fileID: 0}
+  playerData: {fileID: 0}
   interuptible: 0
   canDash: 0
   canAttack: 0
@@ -1756,6 +1757,7 @@ MonoBehaviour:
   colliders: {fileID: 6160294510448794632}
   playerCollider: {fileID: 8697186640298902123}
   charBlockerCollider: {fileID: 0}
+  StateType: 0
 --- !u!114 &4778562293765497852
 MonoBehaviour:
   m_ObjectHideFlags: 0
