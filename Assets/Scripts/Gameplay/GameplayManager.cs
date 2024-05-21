@@ -23,9 +23,4 @@ public class GameplayManager : MonoBehaviour
     {
         
     }
-
-    public void CameraShake()
-    {
-        CameraManager.GetComponent<Animator>().Play("CameraShake");
-    }
 }

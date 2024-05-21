@@ -117,8 +117,6 @@ namespace FightLogic
 
                     if (attackSuccess)
                     {
-                        GameplayManager.Instance.CameraShake();
-
                         //TODO: DETERMINE HITSTUN AMOUNT
                         defender.hitStunState.CurrentHitStunFrame = 12;
 
@@ -131,6 +129,9 @@ namespace FightLogic
                             Debug.Log("COUNTER!");
                         }
                         defender.playerData.Health -= attacker.CurrAttackValue;
+
+                        CinemachineShake.Instance.ShakeCamera(5, 0.1f);
+
                         defender.EnterState(StateType.HitStun);
 
                         //allow for the player to attack cancel
