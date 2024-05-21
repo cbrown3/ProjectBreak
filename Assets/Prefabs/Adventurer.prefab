@@ -1735,6 +1735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateSerializationHelper: 0
   velocitySerializationHelper: {x: 0, y: 0}
+  glowLight: {fileID: 8526658979949007138}
   playerInput: {fileID: 0}
   playerData: {fileID: 0}
   interuptible: 0
@@ -1752,8 +1753,8 @@ MonoBehaviour:
   nUpGFrames: 16
   nDownGFrames: 13
   pushbackFrameLength: 5
+  throwFrameLength: 15
   moveInput: 0
-  glowLight: {fileID: 8526658979949007138}
   colliders: {fileID: 6160294510448794632}
   playerCollider: {fileID: 8697186640298902123}
   charBlockerCollider: {fileID: 0}

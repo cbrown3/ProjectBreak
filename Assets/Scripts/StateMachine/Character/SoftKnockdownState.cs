@@ -5,22 +5,18 @@ using UnityEngine;
 
 namespace FightLogic
 {
-    public class ThrowState : IState<CharController>
+    public class SoftKnockdownState : IState<CharController>
     {
-        public ThrowState()
+        public SoftKnockdownState()
         {
 
         }
 
-        int frameCount;
-
         public override void Enter(CharController c)
         {
-            c.StateType = StateType.Throw;
+            c.StateType = StateType.SoftKnockdown;
 
-            frameCount = 0;
-
-            c.animator.Play(c.aThrowAnim);
+            c.animator.Play(c.aSoftKnockdownAnim);
 
             c.canAttack = false;
 
@@ -31,14 +27,12 @@ namespace FightLogic
 
         public override void Continue(CharController c)
         {
-            //End of throw animation
-            if (frameCount > c.throwFrameLength)
+            if (c.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
                 c.EnterState(StateType.Idle);
+
                 return;
             }
-
-            frameCount++;
         }
 
         public override void Exit(CharController c)

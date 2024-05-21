@@ -90,6 +90,14 @@ namespace FightLogic
                             //TODO: GUARD BREAK
                             attacker.playerData.Stamina += defender.playerData.Stamina;
                             defender.playerData.Stamina = 0;
+
+                            defender.hitStunState.CurrentHitStunFrame = 30;
+                            defender.EnterState(StateType.HitStun);
+                            defender.playerData.Stamina = 10;
+
+                            attackSuccess = false;
+
+                            return;
                         }
 
                         defender.EnterState(StateType.BlockStun);

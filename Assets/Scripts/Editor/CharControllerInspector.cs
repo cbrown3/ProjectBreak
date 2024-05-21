@@ -15,6 +15,7 @@ public class CharControllerInspector : Editor
     SerializedProperty dashFrameLength,
     dashStartup,
     pushbackFrameLength,
+    throwFrameLength,
     nNeutralGFrames,
     nSideGFrames,
     nUpGFrames,
@@ -42,6 +43,7 @@ public class CharControllerInspector : Editor
         dashFrameLength = serializedObject.FindProperty("dashFrameLength");
         dashStartup = serializedObject.FindProperty("dashStartup");
         pushbackFrameLength = serializedObject.FindProperty("pushbackFrameLength");
+        throwFrameLength = serializedObject.FindProperty("throwFrameLength");
         nNeutralGFrames = serializedObject.FindProperty("nNeutralGFrames");
         nSideGFrames = serializedObject.FindProperty("nSideGFrames");
         nUpGFrames = serializedObject.FindProperty("nUpGFrames");
@@ -77,6 +79,7 @@ public class CharControllerInspector : Editor
             EditorGUILayout.PropertyField(dashSpeed);
             EditorGUILayout.PropertyField(dashFrameLength);
             EditorGUILayout.PropertyField(pushbackFrameLength);
+            EditorGUILayout.PropertyField(throwFrameLength);
             EditorGUILayout.PropertyField(dashStartup);
             EditorGUILayout.PropertyField(groundSpeed);
         }

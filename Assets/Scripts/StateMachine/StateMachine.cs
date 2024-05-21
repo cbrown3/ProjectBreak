@@ -22,7 +22,9 @@ public enum StateType
     RegularParry,
     NormalParry,
     SpecialParry,
-    GrabParry
+    GrabParry,
+    SoftKnockdown,
+    HardKnockdown
 }
 
 abstract public class IState<T>

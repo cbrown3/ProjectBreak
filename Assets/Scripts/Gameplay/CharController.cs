@@ -104,9 +104,12 @@ namespace FightLogic
         public SpecialAttackState specialAttackState;
         public GuardState guardState;
         public ParryState parryState;
+        public ThrowState throwState;
         public ThrownState thrownState;
         public GrabState grabState;
         public PushbackState pushbackState;
+        public HardKnockdownState hardKnockdownState;
+        public SoftKnockdownState softKnockdownState;
 
         public StateType StateType = StateType.None;
 
@@ -143,6 +146,7 @@ namespace FightLogic
         aParryAnim = "Base Layer.Advntr-Parry",
         aGrabAnim = "Base Layer.Advntr-Grab",
         aThrowAnim = "Base Layer.Advntr-Throw",
+        aThrownAnim = "Base Layer.Advntr-Thrown",
         aSoftKnockdownAnim = "Base Layer.Advntr-SoftKnockdown",
         aHardKnockdownAnim = "Base Layer.Advntr-HardKnockdown";
 
@@ -172,9 +176,12 @@ namespace FightLogic
             specialAttackState = new SpecialAttackState();
             guardState = new GuardState();
             parryState = new ParryState();
+            throwState = new ThrowState();
             thrownState = new ThrownState();
             grabState = new GrabState();
             pushbackState = new PushbackState();
+            softKnockdownState = new SoftKnockdownState();
+            hardKnockdownState = new HardKnockdownState();
 
             playerInput = GetComponent<PlayerInput>();
             //inputActionTrace = new InputActionTrace();
@@ -419,6 +426,9 @@ namespace FightLogic
                 case StateType.Grab:
                     stateMachine.EnterState(grabState);
                     break;
+                case StateType.Throw:
+                    stateMachine.EnterState(throwState);
+                    break;
                 case StateType.Thrown:
                     stateMachine.EnterState(thrownState);
                     break;
@@ -439,6 +449,12 @@ namespace FightLogic
                 case StateType.SpecialParry:
                 case StateType.GrabParry:
                     stateMachine.EnterState(parryState);
+                    break;
+                case StateType.SoftKnockdown:
+                    stateMachine.EnterState(softKnockdownState);
+                    break;
+                case StateType.HardKnockdown: 
+                    stateMachine.EnterState(hardKnockdownState);
                     break;
                 case StateType.None:
                 case StateType.Idle:

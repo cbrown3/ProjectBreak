@@ -12,15 +12,11 @@ namespace FightLogic
 
         }
 
-        public int CurrentHitStunFrame { get => currentHitStunFrame; set => currentHitStunFrame = value; }
-
-        int currentHitStunFrame;
-
         public override void Enter(CharController c)
         {
             c.StateType = StateType.Thrown;
 
-            c.animator.Play(c.aHitStunAnim);
+            c.animator.Play(c.aThrownAnim);
 
             c.canAttack = false;
 
@@ -31,24 +27,9 @@ namespace FightLogic
 
         public override void Continue(CharController c)
         {
-            currentHitStunFrame--;
-
-            if (currentHitStunFrame == 0)
+            if (c.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                c.EnterState(StateType.Idle);
-
-                return;
-            }
-
-            //Get opponent's current state, using type
-            StateType oppCurrState = c.isPlayer1 ? CharManager.player2.StateType : CharManager.player1.StateType;
-
-            //if the opponent's state is not attacking or idle, end hitstun and return to idle
-            if (oppCurrState != StateType.SpecialAttack && oppCurrState != StateType.NormalAttack &&
-                oppCurrState != StateType.Idle)
-            {
-                currentHitStunFrame = 0;
-                c.EnterState(StateType.Idle);
+                c.EnterState(StateType.HardKnockdown);
 
                 return;
             }
