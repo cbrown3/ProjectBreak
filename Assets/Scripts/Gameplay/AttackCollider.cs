@@ -87,7 +87,6 @@ namespace FightLogic
                         //if not enough, pass what is left to attacker and guard break defender
                         else
                         {
-                            //TODO: GUARD BREAK
                             attacker.playerData.Stamina += defender.playerData.Stamina;
                             defender.playerData.Stamina = 0;
 
@@ -118,6 +117,8 @@ namespace FightLogic
 
                     if (attackSuccess)
                     {
+                        GameplayManager.Instance.CameraShake();
+
                         //TODO: DETERMINE HITSTUN AMOUNT
                         defender.hitStunState.CurrentHitStunFrame = 12;
 
