@@ -43,10 +43,13 @@ public class StateMachine<T>
     IState<T> CurrentState;
     IState<T> PreviousState;
 
+    private bool isPaused;
+
     public void Awake()
     {
         CurrentState = null;
         PreviousState = null;
+        isPaused = false;
     }
 
     public void Configure(T owner, IState<T> initialState)
@@ -82,10 +85,20 @@ public class StateMachine<T>
 
     public void Update()
     {
-        if(CurrentState != null)
+        if(CurrentState != null && !isPaused)
         {
             CurrentState.Continue(Owner);
         }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Play()
+    {
+        isPaused = false;
     }
 
     public IState<T> GetCurrentState()

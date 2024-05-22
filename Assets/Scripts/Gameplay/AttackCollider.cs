@@ -130,7 +130,8 @@ namespace FightLogic
                         }
                         defender.playerData.Health -= attacker.CurrAttackValue;
 
-                        CinemachineShake.Instance.ShakeCamera(5, 0.1f);
+                        CinemachineShake.Instance.ShakeCamera(5, 0.2f);
+                        StartCoroutine(GameplayManager.Instance.HitStop(0.2f));
 
                         defender.EnterState(StateType.HitStun);
 
