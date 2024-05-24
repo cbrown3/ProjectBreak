@@ -122,6 +122,8 @@ namespace FightLogic
 
                         Debug.Log("Attack landed!");
 
+                        AttackFXSpawner.Instance.SpawnHitFX(collision.ClosestPoint(attacker.transform.position));
+
                         if (defender.StateType == StateType.NormalAttack ||
                             defender.StateType == StateType.SpecialAttack)
                         {
