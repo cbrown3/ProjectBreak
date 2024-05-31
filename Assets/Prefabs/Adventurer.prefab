@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 1456180683661754685}
   - component: {fileID: 4293254160396655029}
   - component: {fileID: 2107091924483998195}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NGNeutralCollider
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -1748,10 +1748,10 @@ MonoBehaviour:
   dashSpeed: 15
   dashFrameLength: 6
   dashStartup: 10
-  nNeutralGFrames: 12
-  nSideGFrames: 20
+  nNeutralGFrames: 10
+  nSideGFrames: 25
   nUpGFrames: 16
-  nDownGFrames: 13
+  nDownGFrames: 10
   pushbackFrameLength: 5
   throwFrameLength: 15
   moveInput: 0

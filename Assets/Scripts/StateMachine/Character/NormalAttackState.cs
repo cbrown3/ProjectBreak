@@ -23,6 +23,8 @@ namespace FightLogic
 
         int attackFrames;
 
+        float animSpeed;
+
         float isHeavy;
 
         bool inputComplete;
@@ -59,6 +61,8 @@ namespace FightLogic
 
             currentActiveFrame = 0;
 
+            animSpeed = 0;
+
             c.canAttack = false;
 
             c.canAttackCancel = false;
@@ -84,36 +88,46 @@ namespace FightLogic
             {
                 c.AttackHeight = CharController.Height.Mid;
                 c.animator.Play(c.aNNeutralGroundAnim);
-                attackFrames = c.nNeutralGFrames;
+                attackFrames = (int)c.nNeutralGFrames;
                 c.NormalAttackGlow();
+
+                animSpeed = c.animator.GetCurrentAnimatorStateInfo(0).length / (attackFrames / 60f);
             }
             else if (dirInput.x > 0)
             {
                 c.AttackHeight = CharController.Height.Mid;
                 c.animator.Play(c.aNSideGroundAnim);
-                attackFrames = c.nSideGFrames;
+                attackFrames = (int)c.nSideGFrames;
                 c.NormalAttackGlow();
+
+                animSpeed = c.animator.GetCurrentAnimatorStateInfo(0).length / (attackFrames / 60f);
             }
             else if (dirInput.x < 0)
             {
                 c.AttackHeight = CharController.Height.Mid;
                 c.animator.Play(c.aNSideGroundAnim);
-                attackFrames = c.nSideGFrames;
+                attackFrames = (int)c.nSideGFrames;
                 c.NormalAttackGlow();
+
+                animSpeed = c.animator.GetCurrentAnimatorStateInfo(0).length / (attackFrames / 60f);
             }
             else if (dirInput.y > 0)
             {
                 c.AttackHeight = CharController.Height.High;
                 c.animator.Play(c.aNUpGroundAnim);
-                attackFrames = c.nUpGFrames;
+                attackFrames = (int)c.nUpGFrames;
                 c.NormalAttackGlow();
+
+                animSpeed = c.animator.GetCurrentAnimatorStateInfo(0).length / (attackFrames / 60f);
             }
             else if (dirInput.y < 0)
             {
                 c.AttackHeight = CharController.Height.Low;
+                attackFrames =  (int)c.nDownGFrames;
                 c.animator.Play(c.aNDownGroundAnim);
-                attackFrames = c.nDownGFrames;
                 c.NormalAttackGlow();
+
+                animSpeed = c.animator.GetCurrentAnimatorStateInfo(0).length / (attackFrames / 60f);
             }
         }
 
@@ -125,6 +139,7 @@ namespace FightLogic
             if (!inputComplete && heavyNormal.phase == InputActionPhase.Performed)
             {
                 c.animator.speed = 1;
+                c.animator.SetFloat("Speed", animSpeed);
                 inputComplete = true;
 
                 Debug.Log("Heavy Attack!");
@@ -156,7 +171,8 @@ namespace FightLogic
                 c.ResetGlow();
                 c.interuptible = true;
                 c.canAttackCancel = false;
-
+                c.animator.speed = 1;
+                c.animator.SetFloat("Speed", 1);
                 Debug.Log("End of attack.");
                 c.EnterState(StateType.Idle);
 

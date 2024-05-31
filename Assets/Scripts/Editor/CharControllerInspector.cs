@@ -1,15 +1,21 @@
+using FightLogic;
 using UnityEditor;
+using UnityEditor.Rendering;
+using UnityEngine;
 
 [CustomEditor(typeof(FightLogic.CharController))]
 public class CharControllerInspector : Editor
 {
     SerializedProperty currentState;
     SerializedProperty currentVelocity;
+    SerializedProperty guardHeight;
+    SerializedProperty attackHeight;
     SerializedProperty playerData;
     SerializedProperty interuptible,
     canDash,
     canAttack,
-    isDashing;
+    isDashing,
+    canAttackCancel;
     SerializedProperty groundSpeed,
     dashSpeed;
     SerializedProperty dashFrameLength,
@@ -24,19 +30,22 @@ public class CharControllerInspector : Editor
 
     SerializedProperty glowLight;
 
-    SerializedProperty colliders, playerCollider, charBlockerCollider;
+    SerializedProperty colliders, playerCollider;
 
-    static bool showCharInfo, showMovementInfo, showNormals, showSpecials, showLighting, showColliders = false;
+    static bool showCharInfo, showCharSettings, showMovement, showNormals, showSpecials, showSerialized = false;
 
     private void OnEnable()
     {
-        currentState = serializedObject.FindProperty("stateSerializationHelper");
+        currentState = serializedObject.FindProperty("StateType");
         currentVelocity = serializedObject.FindProperty("velocitySerializationHelper");
+        guardHeight = serializedObject.FindProperty("guardHeight");
+        attackHeight = serializedObject.FindProperty("attackHeight");
         playerData = serializedObject.FindProperty("playerData");
         interuptible = serializedObject.FindProperty("interuptible");
         canDash = serializedObject.FindProperty("canDash");
         canAttack = serializedObject.FindProperty("canAttack");
         isDashing = serializedObject.FindProperty("isDashing");
+        canAttackCancel = serializedObject.FindProperty("canAttackCancel");
         moveInput = serializedObject.FindProperty("moveInput");
         groundSpeed = serializedObject.FindProperty("groundSpeed");
         dashSpeed = serializedObject.FindProperty("dashSpeed");
@@ -51,7 +60,6 @@ public class CharControllerInspector : Editor
         glowLight = serializedObject.FindProperty("glowLight");
         colliders = serializedObject.FindProperty("colliders");
         playerCollider = serializedObject.FindProperty("playerCollider");
-        charBlockerCollider = serializedObject.FindProperty("charBlockerCollider");
     }
 
     public override void OnInspectorGUI()
@@ -61,20 +69,30 @@ public class CharControllerInspector : Editor
         showCharInfo = EditorGUILayout.BeginFoldoutHeaderGroup(showCharInfo, "Character Info");
         if (showCharInfo)
         {
-            EditorGUILayout.PropertyField(currentState);
-            EditorGUILayout.PropertyField(currentVelocity);
-            EditorGUILayout.PropertyField(playerData);
-            EditorGUILayout.PropertyField(moveInput);
-            EditorGUILayout.PropertyField(canAttack);
-            EditorGUILayout.PropertyField(isDashing);
-            EditorGUILayout.PropertyField(canDash);
-            EditorGUILayout.PropertyField(interuptible);
+            EditorGUILayout.LabelField("Current State:", currentState.GetEnumName<StateType>());
+            EditorGUILayout.LabelField("Current Velocity:", currentVelocity.vector2Value.ToString());
+            EditorGUILayout.LabelField("Move Input:", moveInput.floatValue.ToString());
+            EditorGUILayout.LabelField("Can Attack:", canAttack.boolValue.ToString());
+            EditorGUILayout.LabelField("Is Dashing:", isDashing.boolValue.ToString());
+            EditorGUILayout.LabelField("Can Dash:", canDash.boolValue.ToString());
+            EditorGUILayout.LabelField("Interuptible:", interuptible.boolValue.ToString());
+            EditorGUILayout.LabelField("Can Attack Cancel:", canAttackCancel.boolValue.ToString());
+            EditorGUILayout.LabelField("Current Guard Height:", guardHeight.GetEnumName<CharController.Height>());
+            EditorGUILayout.LabelField("Current Attack Height:", attackHeight.GetEnumName<CharController.Height>());
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();
 
-        showMovementInfo = EditorGUILayout.BeginFoldoutHeaderGroup(showMovementInfo, "Movement Info/Frames");
-        if (showMovementInfo)
+        showCharSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showCharSettings, "Character Settings");
+        if (showCharSettings)
+        {
+            
+        }
+
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        showMovement = EditorGUILayout.BeginFoldoutHeaderGroup(showMovement, "Movement Frames");
+        if (showMovement)
         {
             EditorGUILayout.PropertyField(dashSpeed);
             EditorGUILayout.PropertyField(dashFrameLength);
@@ -105,20 +123,22 @@ public class CharControllerInspector : Editor
 
         EditorGUILayout.EndFoldoutHeaderGroup();
 
+        /*
         showLighting = EditorGUILayout.BeginFoldoutHeaderGroup(showLighting, "Lighting Effects");
         if (showLighting)
         {
-            EditorGUILayout.PropertyField(glowLight);
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();
+        */
 
-        showColliders = EditorGUILayout.BeginFoldoutHeaderGroup(showColliders, "Colliders");
-        if (showColliders)
+        showSerialized = EditorGUILayout.BeginFoldoutHeaderGroup(showSerialized, "Serialized Fields");
+        if (showSerialized)
         {
+            EditorGUILayout.PropertyField(playerData);
+            EditorGUILayout.PropertyField(glowLight);
             EditorGUILayout.PropertyField(colliders);
             EditorGUILayout.PropertyField(playerCollider);
-            EditorGUILayout.PropertyField(charBlockerCollider);
         }
 
         EditorGUILayout.EndFoldoutHeaderGroup();

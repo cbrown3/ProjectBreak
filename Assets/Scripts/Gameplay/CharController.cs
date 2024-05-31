@@ -19,22 +19,21 @@ namespace FightLogic
         public static int INPUT_BUFFER_FRAME_LENGTH = 3;
 
         [SerializeField]
-        private string stateSerializationHelper = "";
-
-        [SerializeField]
         private Vector2 velocitySerializationHelper = Vector2.zero;
 
         private CharacterControls charControls;
 
         //Low, Mid, High: 0,1,2
+        [SerializeField]
         private Height attackHeight = 0;
 
         private int currAttackValue = 0;
 
         //Low, Mid, High: 0,1,2
+        [SerializeField]
         private Height guardHeight = 0;
 
-        private int currGrabValue = 0;
+        private int currGrabValue = 1;
 
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         private Renderer renderer;
@@ -46,7 +45,6 @@ namespace FightLogic
 
         public UnityEngine.Rendering.Universal.Light2D glowLight;
 
-        [NonSerialized]
         public StateMachine<CharController> stateMachine;
 
         [SerializeField]
@@ -55,12 +53,8 @@ namespace FightLogic
         [SerializeField]
         public PlayerData playerData;
 
-        //public InputActionTrace inputActionTrace;
-
-        [NonSerialized]
         public Animator animator;
 
-        [NonSerialized]
         public Rigidbody2D rigid;
 
         public bool interuptible,
@@ -70,28 +64,24 @@ namespace FightLogic
         isDashing,
         canAttackCancel;
 
-        [NonSerialized]
-        public LayerMask ground;
-
         public float groundSpeed,
          dashSpeed;
 
         public int dashFrameLength,
         dashStartup,
-        nNeutralGFrames,
-        nSideGFrames,
-        nUpGFrames,
-        nDownGFrames,
         pushbackFrameLength,
         throwFrameLength;
+
+        public AttackSpeed nNeutralGFrames,
+        nSideGFrames,
+        nUpGFrames,
+        nDownGFrames;
 
         public float moveInput = 0;
 
         public GameObject colliders;
 
         public BoxCollider2D playerCollider;
-
-        public BoxCollider2D charBlockerCollider;
 
         public Queue buffer;
 
@@ -124,6 +114,14 @@ namespace FightLogic
             Low,
             Mid,
             High
+        }
+
+        public enum AttackSpeed
+        {
+            None = 0,
+            Fast = 10,
+            Medium = 16,
+            Slow = 25
         }
 
         #region Animation Names
@@ -212,8 +210,6 @@ namespace FightLogic
             interuptible = true;
 
             playerInput.currentActionMap.actionTriggered += PlayerInput_onActionTriggered;
-
-            stateSerializationHelper = stateMachine.GetCurrentState().ToString();
 
             playerData.Stamina = 10;
             playerData.Health = 10;
@@ -404,7 +400,6 @@ namespace FightLogic
         public void EnterState(IState<CharController> stateEntered)
         {
             stateMachine.EnterState(stateEntered);
-            stateSerializationHelper = stateMachine.GetCurrentState().ToString();
         }
 
         public void EnterState(StateType stateType)
@@ -462,7 +457,6 @@ namespace FightLogic
                     stateMachine.EnterState(idleState);
                     break;
             }
-            stateSerializationHelper = stateMachine.GetCurrentState().ToString();
         }
 
         /*
