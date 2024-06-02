@@ -3228,10 +3228,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7596284663655653572, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
-      propertyPath: dashStartup
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7596284663655653572, guid: d826a5e527e7a004ea5b508e716041c2, type: 3}
       propertyPath: jumpGravityMultiplier
       value: 1
       objectReference: {fileID: 0}
