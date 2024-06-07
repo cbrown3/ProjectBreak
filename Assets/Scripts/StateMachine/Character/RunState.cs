@@ -1,6 +1,8 @@
+using FixMath.NET;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Volatile;
 
 namespace FightLogic
 {
@@ -25,7 +27,7 @@ namespace FightLogic
 
             c.interuptible = true;
 
-            c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
+            c.body.AddForce(new VoltVector2(c.groundSpeed * c.moveInput.ToFixed(), Fix64.Zero));
 
             c.animator.Play(c.aRunAnim);
         }
@@ -35,15 +37,15 @@ namespace FightLogic
             c.moveInput = Mathf.Round(c.playerInput.actions.FindAction("Move").ReadValue<float>());
 
 
-            c.rigid.AddForce(new Vector2(c.groundSpeed * c.moveInput, 0), ForceMode2D.Impulse);
+            c.body.AddForce(new VoltVector2(c.groundSpeed * c.moveInput.ToFixed(), Fix64.Zero));
 
-            if (c.rigid.velocity.x > c.groundSpeed)
+            if (c.body.LinearVelocity.x > c.groundSpeed)
             {
-                c.rigid.velocity = new Vector2(c.groundSpeed, c.rigid.velocity.y);
+                c.body.LinearVelocity = new VoltVector2(c.groundSpeed, c.body.LinearVelocity.y);
             }
-            else if (c.rigid.velocity.x < -c.groundSpeed)
+            else if (c.body.LinearVelocity.x < -c.groundSpeed)
             {
-                c.rigid.velocity = new Vector2(-c.groundSpeed, c.rigid.velocity.y);
+                c.body.LinearVelocity = new VoltVector2(-c.groundSpeed, c.body.LinearVelocity.y);
             }
             else if (c.moveInput == 0)
             {

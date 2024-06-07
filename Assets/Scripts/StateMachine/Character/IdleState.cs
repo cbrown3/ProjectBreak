@@ -1,6 +1,8 @@
+using FixMath.NET;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Volatile;
 
 namespace FightLogic
 {
@@ -15,7 +17,7 @@ namespace FightLogic
         {
             c.StateType = StateType.Idle;
 
-            c.rigid.velocity = new Vector2(0, c.rigid.velocity.y);
+            c.body.LinearVelocity = new VoltVector2(Fix64.Zero, c.body.LinearVelocity.y);
 
             c.canDash = true;
 

@@ -1,20 +1,23 @@
 using System;
 using System.Collections;
+using FixMath.NET;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Windows;
+using System.Threading;
+using Volatile;
 
 namespace FightLogic
 {
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(VolatileBody))]
     public class CharController : MonoBehaviour
     {
         public static int HIT_STUN_FRAME_LENGTH = 15;
 
-        public static double FRAME_LENGTH_SECONDS = 0.1666666666666666666666666667;
+        public static Fix64 FRAME_LENGTH_SECONDS = Fix64.FromRaw((long)0.1666666666666666666666666667);
 
         public static int INPUT_BUFFER_FRAME_LENGTH = 3;
 
@@ -41,7 +44,7 @@ namespace FightLogic
 
         private Shader normalShader, outlineShader;
 
-        private double elapsedBufferTime;
+        private float elapsedBufferTime;
 
         public UnityEngine.Rendering.Universal.Light2D glowLight;
 
@@ -55,7 +58,7 @@ namespace FightLogic
 
         public Animator animator;
 
-        public Rigidbody2D rigid;
+        public VoltBody body;
 
         public bool interuptible,
         canDash,
@@ -64,8 +67,8 @@ namespace FightLogic
         isDashing,
         canAttackCancel;
 
-        public float groundSpeed,
-         dashSpeed;
+        public Fix64 groundSpeed,
+         dashSpeed = Fix64.Zero;
 
         public int dashFrameLength,
         dashStartup,
@@ -186,7 +189,7 @@ namespace FightLogic
 
             //charControls = new CharacterControls();
             animator = GetComponent<Animator>();
-            rigid = GetComponent<Rigidbody2D>();
+            body = GetComponent<VolatileBody>().Body;
             renderer = GetComponent<Renderer>();
 
             stateMachine = new StateMachine<CharController>();
@@ -253,7 +256,7 @@ namespace FightLogic
         {
             stateMachine.Update();
 
-            velocitySerializationHelper = rigid.velocity;
+            velocitySerializationHelper = body.LinearVelocity.ToVector();
         }
 
         /*

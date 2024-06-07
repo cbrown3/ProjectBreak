@@ -1,7 +1,9 @@
+using FixMath.NET;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Volatile;
 
 namespace FightLogic
 {
@@ -14,7 +16,7 @@ namespace FightLogic
 
         InputAction dashAction;
 
-        Vector2 dashDir;
+        VoltVector2 dashDir;
 
         int frameCount;
 
@@ -38,7 +40,7 @@ namespace FightLogic
             framesHeldCount = 0;
             additionalDashFrames = 0;
 
-            c.rigid.velocity = Vector2.zero;
+            c.body.LinearVelocity = VoltVector2.zero;
 
             c.canDash = false;
 
@@ -49,9 +51,9 @@ namespace FightLogic
 
             c.animator.Play(c.aDashAnim);
 
-            dashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+            dashDir = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().ToFixed();
 
-            if (dashDir.x == 0)
+            if (dashDir.x == Fix64.Zero)
             {
                 c.EnterState(StateType.Idle);
 
@@ -60,7 +62,15 @@ namespace FightLogic
             else
             {
                 c.playerData.Stamina--;
-                dashDir.x = c.GetComponent<SpriteRenderer>().flipX ? -1 : 1;
+
+                if(c.GetComponent<SpriteRenderer>().flipX)
+                {
+                    dashDir = new VoltVector2(new Fix64(-1), dashDir.y);
+                }
+                else
+                {
+                    dashDir = new VoltVector2(Fix64.One, dashDir.y);
+                }
             }
 
             isP1RightSide = FightLogicUtility.IsPlayerOnRightSide(true);
@@ -71,7 +81,7 @@ namespace FightLogic
             //Startup frames
             if (frameCount < c.dashStartup)
             {
-                c.rigid.velocity = Vector2.zero;
+                c.body.LinearVelocity = VoltVector2.zero;
                 Physics2D.IgnoreLayerCollision(7, 8, true);
 
                 //If dash is pressed again, cancel startup frames
@@ -82,7 +92,7 @@ namespace FightLogic
                 }
 
                 //if the same direction is being held, increase distance of dash
-                if (dashDir.x == c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().x)
+                if (dashDir.x == c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().ToFixed().x)
                 {
                     framesHeldCount++;
                 }
@@ -97,7 +107,7 @@ namespace FightLogic
             //Recovery frame test
             else if (frameCount > (c.dashFrameLength + c.dashStartup - 1 + additionalDashFrames))
             {
-                c.rigid.velocity = Vector2.zero;
+                c.body.LinearVelocity = VoltVector2.zero;
 
                 //if the character is not on the same side, switch the way the character is facing
                 if (FightLogicUtility.IsPlayerOnRightSide(true) != isP1RightSide)
@@ -125,7 +135,7 @@ namespace FightLogic
             //Dashing
             else
             {
-                c.rigid.velocity = new Vector2(c.dashSpeed * dashDir.x, c.dashSpeed * dashDir.y);
+                c.body.LinearVelocity = new VoltVector2(c.dashSpeed * dashDir.x, c.dashSpeed * dashDir.y);
             }
 
             frameCount++;

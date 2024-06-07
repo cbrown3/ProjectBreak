@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Volatile;
 
 namespace FightLogic
 {
@@ -67,7 +68,7 @@ namespace FightLogic
                 c.GuardHeight = guardDir > 0 ? CharController.Height.High : CharController.Height.Low;
             }
 
-            c.rigid.velocity = Vector2.zero;
+            c.body.LinearVelocity = VoltVector2.zero;
 
             if (c.moveInput > 0)
             {

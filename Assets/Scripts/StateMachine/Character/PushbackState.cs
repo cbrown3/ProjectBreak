@@ -1,7 +1,9 @@
+using FixMath.NET;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Volatile;
 
 namespace FightLogic
 {
@@ -22,7 +24,7 @@ namespace FightLogic
 
             frameCount = 0;
 
-            c.rigid.velocity = Vector2.zero;
+            c.body.LinearVelocity = VoltVector2.zero;
 
             c.canDash = false;
 
@@ -46,8 +48,8 @@ namespace FightLogic
             //Pushback
             else
             {
-                int direction = c.GetComponent<SpriteRenderer>().flipX ? 1 : -1;
-                c.rigid.AddForce(Vector2.right * direction * forceAmount, ForceMode2D.Impulse);
+                Fix64 direction = c.GetComponent<SpriteRenderer>().flipX ? Fix64.One : new Fix64(-1);
+                c.body.AddForce(new VoltVector2(direction * new Fix64(forceAmount), Fix64.Zero));
             }
 
             frameCount++;

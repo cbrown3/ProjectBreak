@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Volatile;
 
 namespace FightLogic
 {
@@ -133,7 +134,7 @@ namespace FightLogic
 
         public override void Continue(CharController c)
         {
-            c.rigid.velocity = Vector2.zero;
+            c.body.LinearVelocity = VoltVector2.zero;
 
             //check if the move has been held long enough, if so complete the heavy attack, set heavy damage
             if (!inputComplete && heavyNormal.phase == InputActionPhase.Performed)

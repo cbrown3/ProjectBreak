@@ -18,11 +18,12 @@ public class FallState : IState<CharController>
 
         c.interuptible = true;
 
-        c.rigid.gravityScale = 1;
+        //c.rigid.gravityScale = 1;
     }
 
     public override void Continue(CharController c)
     {
+        /*
         if (Mathf.Round(c.rigid.velocity.y) == 0)
         {
             if (Mathf.Round(c.rigid.velocity.x) != 0)

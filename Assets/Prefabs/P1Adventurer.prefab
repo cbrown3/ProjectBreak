@@ -89,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 24
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
@@ -97,99 +97,99 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_ActionId
-      value: 5f964765-e3bf-4eba-b98d-9ae5e658d9f8
+      value: 085e72da-77e8-4e14-a931-315af809d410
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_ActionId
-      value: 90d20006-5db9-450d-8b8c-5469234d4178
+      value: 3eac7e06-2f83-4349-be77-7449395540b5
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_ActionId
-      value: 8e62a75a-3656-40da-8750-6d8e278f0000
+      value: f16ae7f3-c7e8-453e-9637-5256ede2aa09
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionId
-      value: 7d92cbc2-16f4-483b-96db-e3cb494fea37
+      value: 2bd7cb35-e11a-4157-bf22-0c8f0cd1bf70
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_ActionId
-      value: 71a7f703-d13a-46f0-b75d-5fbbd2c82ef1
+      value: 8973a47f-761e-47f7-bec0-68ba01eb8d64
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_ActionId
-      value: 2333e793-a9fb-46ef-a3f7-9579a3d37b04
+      value: e1a525c9-e1c0-4063-a835-b57ade2b34a6
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[18].m_ActionId
-      value: a3ad8131-aa1e-4c2a-8e94-66a9eee10a7d
+      value: 25bc7f60-fbc1-4c75-81b1-d8277d169de3
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_ActionId
-      value: b4923dda-19fd-43af-b1c4-dfdab8b5956e
+      value: 27a346b7-ff81-4936-a8df-5e809f8eef61
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[20].m_ActionId
-      value: 1b1d43dd-ce7d-4e98-8f5d-30ef67164f5c
+      value: dbc91f3c-87e9-46e5-ab4f-42b68c48d67b
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_ActionId
-      value: 1cc4acd1-43db-4f16-9985-9e4803cf0051
+      value: 3fbc0ade-fc05-440a-9ea9-4fba07c3d970
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_ActionId
-      value: 85919a31-03e0-4f90-a32b-58eaa2564214
+      value: 35759bce-9bfd-4e08-bf51-3fce35308e66
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_ActionId
-      value: be319d53-81dd-469f-96dd-a921ee1e7019
+      value: c816b1e5-5d64-4d50-ad87-6ae6c1246cc4
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_ActionName
-      value: Player 2/Move[/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+      value: Player 1/Regular Parry[/Keyboard/semicolon]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_ActionName
-      value: Player 2/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]
+      value: Player 1/Grab Parry[/Keyboard/h,/Keyboard/l]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_ActionName
-      value: Player 2/AirDash[/Keyboard/semicolon,/XInputControllerWindows/buttonEast]
+      value: Player 2/Move[/Keyboard/a,/Keyboard/d]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionName
-      value: Player 2/DirectionalInput[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+      value: Player 2/Jump
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_ActionName
-      value: Player 2/Light Normal[/Keyboard/j,/XInputControllerWindows/buttonWest]
+      value: Player 2/Dash[/Keyboard/space]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[17].m_ActionName
-      value: Player 2/Heavy Normal[/Keyboard/j,/XInputControllerWindows/buttonWest]
+      value: Player 2/DirectionalInput[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[18].m_ActionName
-      value: Player 2/Light Special[/Keyboard/k,/XInputControllerWindows/buttonNorth]
+      value: Player 2/Light Normal[/Keyboard/j]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_ActionName
-      value: Player 2/Heavy Special[/Keyboard/k,/XInputControllerWindows/buttonNorth]
+      value: Player 2/Heavy Normal[/Keyboard/j]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[20].m_ActionName
-      value: Player 2/Guard[/Keyboard/l,/XInputControllerWindows/rightTrigger]
+      value: Player 2/Light Special[/Keyboard/k]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[21].m_ActionName
-      value: Player 2/Grab[/Keyboard/h,/XInputControllerWindows/rightShoulder]
+      value: Player 2/Heavy Special[/Keyboard/k]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[22].m_ActionName
-      value: Player 2/Normal Parry[/Keyboard/j,/Keyboard/l,/XInputControllerWindows/buttonWest,/XInputControllerWindows/leftShoulder]
+      value: Player 2/Guard[/Keyboard/l]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_ActionName
-      value: Player 2/Special Parry[/Keyboard/k,/Keyboard/l,/XInputControllerWindows/buttonNorth,/XInputControllerWindows/leftShoulder]
+      value: Player 2/Grab[/Keyboard/h]
       objectReference: {fileID: 0}
     - target: {fileID: 4778562293765497852, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -239,6 +239,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6189362215881705579, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: glowLight
+      value: 
+      objectReference: {fileID: 1653790098686977786}
+    - target: {fileID: 6189362215881705579, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 239555e742d727947a361e50a2e13c1f, type: 2}
     - target: {fileID: 6908607800986946348, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
       propertyPath: isPlayer1
       value: 1
@@ -313,3 +321,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+--- !u!114 &1653790098686977786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8526658979949007138, guid: 9253770dfa9a24441868721b033b87e7, type: 3}
+  m_PrefabInstance: {fileID: 6964736008039102424}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Volatile;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,7 @@ namespace FightLogic
 
         InputAction grabAction;
 
-        Vector2 dirInput;
+        VoltVector2 dirInput;
 
         int currentFrame;
 
@@ -33,7 +34,7 @@ namespace FightLogic
             c.canDash = false;
 
             //determine directional input
-            dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>();
+            dirInput = c.playerInput.actions.FindAction("DirectionalInput").ReadValue<Vector2>().ToFixed();
 
             c.interuptible = false;
 
@@ -48,7 +49,7 @@ namespace FightLogic
                 return;
             }
 
-            c.rigid.velocity = Vector2.zero;
+            c.body.LinearVelocity = VoltVector2.zero;
 
             currentFrame++;
         }
